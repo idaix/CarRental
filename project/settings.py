@@ -37,6 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # Our Apps
+    'agencyAdminstration.apps.AgencyadminstrationConfig',
 ]
 
 MIDDLEWARE = [
