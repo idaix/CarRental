@@ -67,6 +67,6 @@ class Vehicle(models.Model):
 class VehicleImages(models.Model):
     # relation with Vehicle [a vehicle can have many images but image belong to one vehicle]
     vehicle = models.ForeignKey(Vehicle, on_delete=models.CASCADE)
-    image = models.ImageField(upload_to='media/vehicle_images/%y/%m/%d', blank=True)
+    image = models.ImageField(upload_to='vehicle_images/%y/%m/%d', blank=True)
     def __str__(self) -> str:
-        return self.vehicle.color
+        return self.vehicle.model.getModel()

@@ -1,0 +1,15 @@
+{% extends 'base/base.html' %}
+
+<!-- title -->
+{% block 'title' %}Dashboard{% endblock %}
+<!-- title -->
+
+<!-- content -->
+{% block 'content' %}
+    Hello Dashboard <br>
+    Test images
+    {% for image in images %}
+        <img src="{{ image.image.url }}" alt="{{ image.vehicle.model.getModel }}">
+    {% endfor %}
+{% endblock %}
+<!-- content -->
