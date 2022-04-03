@@ -6,10 +6,81 @@
 
 <!-- content -->
 {% block 'content' %}
-    Hello Dashboard <br>
-    Test images
-    {% for image in images %}
-        <img src="{{ image.image.url }}" alt="{{ image.vehicle.model.getModel }}">
-    {% endfor %}
+<div class="container-fluid">
+    <div class="row">
+      <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+        <div class="position-sticky pt-3">
+          <ul class="nav flex-column">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#">
+                <span data-feather="home"></span>
+                {{ request.user.username|title }}
+              </a>
+            </li>
+        </div>
+      </nav>
+  
+      <div class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+          <h1 class="h2">Dashboard</h1>
+        </div>
+        <h3>Stats</h3>
+        <div class="container mt-3 mb-3">
+          <div class="row">
+            <div class="col pt-3 rounded-3 pb-3 bg-light border border-3 border-white">
+              Vehicles: {{ vehicles_count }}
+            </div>
+            <div class="col pt-3 rounded-3 pb-3 bg-light border border-3 border-white">
+              Reserved: {{ vehicles_count }}
+            </div>
+            <div class="col pt-3 rounded-3 pb-3 bg-light border border-3 border-white">
+              Orders: 5
+            </div>
+          </div>
+        </div>
+        <h3>Vehicles</h3>
+        <div class="table-responsive">
+        {% if vehicles %}
+          <table class="table table-sm">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Image</th>
+                <th scope="col">Name</th>
+                <th scope="col">Price</th>
+                <th scope="col">Status</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+                {% for vehicle in vehicles %}
+                <tr>
+                    
+                      <td>1</td>
+                      <td>
+                        <img src="{{ vehicle.thumbnail.image.url }}" alt="{{ vehicle.thumbnail }}" style="width: 100px;">
+                      </td>
+                      <td>{{ vehicle.model.getModel }} {{ vehicle.year }}</td>
+                      <td>{{ vehicle.price }}</td>
+                      <td>
+                        {% if vehicle.is_available %}
+                          <span class="badge bg-success">Available</span>
+                        {% else %}
+                          <span class="badge bg-danger">Not Available</span>
+                        {% endif %}
+                      </td>
+                      <td><a href="{% url 'vehicle_details' vehicle.id %}">See</a></td>
+                  </tr>
+                {% endfor %}
+              
+            </tbody>
+          </table>
+          {% else %}
+                <p>No vehicles yet...</p>
+            {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
 {% endblock %}
 <!-- content -->

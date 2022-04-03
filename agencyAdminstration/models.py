@@ -1,5 +1,7 @@
-from distutils.command.upload import upload
 from django.db import models
+
+# Import user model to use_it as Agency Model
+from django.contrib.auth.models import User
 
 # Create your models here.
 
@@ -15,13 +17,18 @@ class VehicleModel(models.Model):
 # ------------------ Vehicle Model ----------------------
 class Vehicle(models.Model):
     # cumments - Dai Shek
+    # A vehicle owned by one & unique Agency(user)
     # price per day example -> (4000.00 DZD, 20000.00 DZD)
     # year example -> (2022) -PositiveSmallIntegerField from 0 to 32767-
-     
+    owned_by = models.ForeignKey(User, on_delete=models.CASCADE)
     price = models.DecimalField(max_digits=8, decimal_places=2, help_text='Vehicle price')
     year = models.PositiveSmallIntegerField(help_text="Vehicle year")
     model = models.ForeignKey(VehicleModel, on_delete=models.SET_NULL, null=True)
     
+    # Thumbnail
+    thumbnail = models.OneToOneField('VehicleImages', on_delete=models.SET_NULL, null=True, blank=True)
+
+
     # Type Choices
     VEHICLES_TYPES = (
         ('c', 'Cars'),
@@ -55,7 +62,7 @@ class Vehicle(models.Model):
     
     # Ordering
     class Meta:
-        ordering = ['created_at']
+        ordering = ['-created_at']
 
     # Methods
     def __str__(self) -> str:
@@ -66,7 +73,7 @@ class Vehicle(models.Model):
 # ------------------ VehicleImages Model ------------------
 class VehicleImages(models.Model):
     # relation with Vehicle [a vehicle can have many images but image belong to one vehicle]
-    vehicle = models.ForeignKey(Vehicle, on_delete=models.CASCADE)
+    belong_to = models.ForeignKey(Vehicle, on_delete=models.CASCADE)
     image = models.ImageField(upload_to='vehicle_images/%y/%m/%d', blank=True)
     def __str__(self) -> str:
-        return self.vehicle.model.getModel()
+        return self.belong_to.model.getModel()
