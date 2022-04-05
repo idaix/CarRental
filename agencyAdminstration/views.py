@@ -1,5 +1,10 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Vehicle, VehicleImages
+
+from .forms import VehicleForm
+from django.views.generic.edit import DeleteView
+from django.urls import reverse_lazy
+
 # Create your views here.
 
 # DASHBOARD PAGE
@@ -12,7 +17,7 @@ def dashboard(request):
         'vehicles':vehicles,
         'vehicles_count':vehicles_count,
     }
-    return render(request, 'agency/dashboard.html', context=context)
+    return render(request, 'agencyAdminstration/dashboard.html', context=context)
 
 
 
@@ -27,4 +32,70 @@ def vehicle_details(request, pk):
         'vehicle': vehicle,
         'images': images,
     }
-    return render(request, 'agency/vehicle.html', context=context)
+    return render(request, 'agencyAdminstration/vehicle.html', context=context)
+
+
+
+# ADD VEHICLE
+def add_vehicle(request):
+    if request.method == 'POST':
+        form = VehicleForm(request.POST)
+        if form.is_valid():
+            # create the vehicle
+            vehicle = form.save(commit=False)
+            vehicle.owned_by = request.user
+            vehicle.save()
+            # Add images that belong to this vehicle
+            # collect multiple images
+            images = request.FILES.getlist('images')
+            for image in images:
+                new_image = VehicleImages(
+                    belong_to = vehicle,
+                    image = image
+                )
+                if new_image.save():
+                    print('Done')
+            # update thumbnail
+            random_image = VehicleImages.objects.filter(belong_to=vehicle)[0]
+            vehicle.thumbnail = random_image
+            vehicle.save()
+            return redirect('dashboard')
+        
+    else:
+        form = VehicleForm()
+
+    context = {
+        'form':form
+    }
+    return render(request, 'agencyAdminstration/add_vehicle.html', context=context)
+
+
+
+# UPDATE VEHICLE
+def update_vehicle(request, pk):
+    vehicle = Vehicle.objects.get(pk=pk)
+    if request.method == 'POST':
+        form = VehicleForm(request.POST, instance=vehicle)
+        if form.is_valid():
+            form.save()
+            images = request.FILES.getlist('images')
+            for image in images:
+                new_image = VehicleImages(
+                    belong_to = vehicle,
+                    image = image
+                )
+                if new_image.save():
+                    print('Done')
+            return redirect('dashboard')
+    else:
+        form = VehicleForm(instance=vehicle)
+    
+    context = {
+        'form':form
+    }
+    return render(request, 'agencyAdminstration/update_vehicle.html', context=context)
+
+
+class VehicleDelete(DeleteView):
+    model = Vehicle
+    success_url = reverse_lazy('dashboard')

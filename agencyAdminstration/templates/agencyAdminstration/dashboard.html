@@ -38,17 +38,20 @@
             </div>
           </div>
         </div>
-        <h3>Vehicles</h3>
+        <h3>Vehicles</h3><a href="{% url 'add_vehicle' %}">Add vehicle</a>
+
         <div class="table-responsive">
         {% if vehicles %}
           <table class="table table-sm">
             <thead>
               <tr>
-                <th scope="col">#</th>
                 <th scope="col">Image</th>
                 <th scope="col">Name</th>
+                <th scope="col">Type</th>
                 <th scope="col">Price</th>
                 <th scope="col">Status</th>
+                <th></th>
+                <th></th>
                 <th></th>
               </tr>
             </thead>
@@ -56,11 +59,11 @@
                 {% for vehicle in vehicles %}
                 <tr>
                     
-                      <td>1</td>
                       <td>
                         <img src="{{ vehicle.thumbnail.image.url }}" alt="{{ vehicle.thumbnail }}" style="width: 100px;">
                       </td>
                       <td>{{ vehicle.model.getModel }} {{ vehicle.year }}</td>
+                      <td>{{ vehicle.type }}</td>
                       <td>{{ vehicle.price }}</td>
                       <td>
                         {% if vehicle.is_available %}
@@ -70,6 +73,8 @@
                         {% endif %}
                       </td>
                       <td><a href="{% url 'vehicle_details' vehicle.id %}">See</a></td>
+                      <td><a href="{% url 'vehicle_update' vehicle.id %}">Update</a></td>
+                      <td><a href="{% url 'vehicle_delete' vehicle.id %}">Delete</a></td>
                   </tr>
                 {% endfor %}
               

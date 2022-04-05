@@ -35,7 +35,11 @@
                     </div>
                     <div class="col-md-4 col-6 ps-30 my-4">
                         <p class="text-muted">Transmission</p>
-                        <p class="h5 m-0">Manual</p>
+                        <p class="h5 m-0">{{ vehicle.transmission }}</p>
+                    </div>
+                    <div class="col-md-4 col-6 ps-30 my-4">
+                        <p class="text-muted">Engine</p>
+                        <p class="h5 m-0">{{ vehicle.engine }}</p>
                     </div>
                     <div class="col-md-4 col-6 ps-30 my-4">
                         <p class="text-muted">Color</p>
@@ -58,7 +62,6 @@
                 <div class="col-12 px-4">
                     <div class="d-flex align-items-end mt-4 mb-2">
                         <p class="h4 m-0">{{ vehicle.model.getModel }} {{ vehicle.year }}</p>
-                        <P class="ps-3 textmuted">1L</P>
                     </div>
                    
                     <div class="mb-2">
