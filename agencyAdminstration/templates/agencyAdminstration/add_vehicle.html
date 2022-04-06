@@ -7,8 +7,18 @@
 <!-- CONTENT -->
 {% block 'content' %}
 Add vehicle
-<form method="POST" enctype="multipart/form-data">
+<form method="POST" enctype="multipart/form-data" action="{% url 'add_vehicle'%}">
     {% csrf_token %}
+
+    <label>Make</label>
+    <select name="make" hx-get="{% url 'model_field'%}" hx-target="#model-select">
+        <option selected></option>
+        {% for make in makes %}
+            <option value="{{make.id}}">{{ make.name }}</option>
+        {% endfor %}.
+    </select>
+    <br>
+    {% include 'agencyAdminstration/partials/model_field.html'%}
     {{ form.as_p }}
     <input type="file" name="images" multiple>
     <input type="submit" value="Save" name="submit">

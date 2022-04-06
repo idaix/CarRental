@@ -5,14 +5,20 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 
+# ------------------ VehicleBrand  -----------------
+class VehicleMake(models.Model):
+    name = models.CharField(max_length=100)
+    def __str__(self) -> str:
+        return self.name
+
 # ------------------ VehicleModel  -----------------
 class VehicleModel(models.Model):
-    make = models.CharField(max_length=100, help_text='Make')
+    make = models.ForeignKey(VehicleMake, on_delete=models.CASCADE)
     model = models.CharField(max_length=100, help_text='Model')
     def __str__(self) -> str:
-        return f'{self.make} {self.model}'
-    def getModel(self):
-        return f'{self.make} {self.model}'
+        return f'{self.make.name} {self.model}'
+    def get_vehicle_name(self):
+        return f'{self.make.name} {self.model}'
 
 
 class VehicleType(models.Model):
@@ -43,6 +49,7 @@ class Vehicle(models.Model):
     price = models.DecimalField(max_digits=8, decimal_places=2, help_text='Vehicle price')
     year = models.PositiveSmallIntegerField(help_text="Vehicle year")
     type = models.ForeignKey(VehicleType, on_delete=models.SET_NULL, null=True)
+    make = models.ForeignKey(VehicleMake, on_delete=models.SET_NULL, null=True)
     model = models.ForeignKey(VehicleModel, on_delete=models.SET_NULL, null=True)
     engine = models.ForeignKey(VehicleEngine, on_delete=models.SET_NULL, null=True)
     transmission = models.ForeignKey(Transmission, on_delete=models.SET_NULL, null=True)
@@ -50,25 +57,6 @@ class Vehicle(models.Model):
     # Thumbnail
     thumbnail = models.OneToOneField('VehicleImages', on_delete=models.SET_NULL, null=True, blank=True)
 
-
-    # # Type Choices
-    # VEHICLES_TYPES = (
-    #     ('c', 'Cars'),
-    #     ('m', 'Motocycles - Scooters'),
-    #     ('tk', 'Truck'),
-    #     ('v', 'Van'),
-    #     ('b', 'Bus'),
-    #     ('bt', 'Boats'),
-    # )
-    # vehicle_type = models.CharField(
-    #     max_length=2,
-    #     choices=VEHICLES_TYPES,
-    #     blank=True,
-    #     null=True,
-    #     default='c',
-    #     help_text='Vehicle type',
-    # )
-    
     # Status
     is_available = models.BooleanField(default=True)
 
@@ -87,8 +75,12 @@ class Vehicle(models.Model):
         ordering = ['-created_at']
 
     # Methods
+    def get_title(self):
+        return f'{self.model.get_vehicle_name()} {self.year}'
+    
     def __str__(self) -> str:
-        return f'{self.model.getModel()} {self.year} by {self.owned_by}'
+        return self.get_title()
+    
 
 
 
@@ -98,4 +90,4 @@ class VehicleImages(models.Model):
     belong_to = models.ForeignKey(Vehicle, related_name='images',on_delete=models.CASCADE)
     image = models.ImageField(upload_to='vehicle_images/%y/%m/%d', blank=True)
     def __str__(self) -> str:
-        return self.belong_to.model.getModel()
+        return self.belong_to.get_title()

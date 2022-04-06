@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Vehicle, VehicleImages
+from .models import Vehicle, VehicleImages, VehicleModel, VehicleMake
 
 from .forms import VehicleForm
 from django.views.generic.edit import DeleteView
@@ -44,6 +44,8 @@ def add_vehicle(request):
             # create the vehicle
             vehicle = form.save(commit=False)
             vehicle.owned_by = request.user
+            vehicle.make=VehicleMake.objects.get(id=request.POST.get('make'))
+            vehicle.model=VehicleModel.objects.get(id=request.POST.get('model'))
             vehicle.save()
             # Add images that belong to this vehicle
             # collect multiple images
@@ -64,10 +66,19 @@ def add_vehicle(request):
     else:
         form = VehicleForm()
 
+    makes=VehicleMake.objects.all()
     context = {
-        'form':form
+        'form':form,
+        'makes':makes
     }
     return render(request, 'agencyAdminstration/add_vehicle.html', context=context)
+
+def model_field(request):
+    if request.method == 'GET':
+            
+            models=VehicleModel.objects.filter(make = request.GET.get('make'))
+            context={'models':models}
+            return render(request, 'agencyAdminstration/partials/model_field.html', context=context)
 
 
 
