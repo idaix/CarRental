@@ -6,14 +6,14 @@ from django.contrib.auth.models import User
 # Create your models here.
 
 # ------------------ VehicleBrand  -----------------
-class VehicleMake(models.Model):
+class Make(models.Model):
     name = models.CharField(max_length=100)
     def __str__(self) -> str:
         return self.name
 
 # ------------------ VehicleModel  -----------------
-class VehicleModel(models.Model):
-    make = models.ForeignKey(VehicleMake, on_delete=models.CASCADE)
+class Model(models.Model):
+    make = models.ForeignKey(Make, on_delete=models.CASCADE)
     model = models.CharField(max_length=100, help_text='Model')
     def __str__(self) -> str:
         return f'{self.make.name} {self.model}'
@@ -21,14 +21,14 @@ class VehicleModel(models.Model):
         return f'{self.make.name} {self.model}'
 
 
-class VehicleType(models.Model):
+class Type(models.Model):
     """Represent the type of vehicle"""
     name = models.CharField(max_length=100, help_text='Type of vehicle')
     def __str__(self) -> str:
         return self.name
 
 # ------------------ VehicleEngine ----------------------
-class VehicleEngine(models.Model):
+class Energy(models.Model):
     name = models.CharField(max_length=50, help_text="Engine name")
     def __str__(self) -> str:
         return self.name
@@ -48,14 +48,14 @@ class Vehicle(models.Model):
     owned_by = models.ForeignKey(User, on_delete=models.CASCADE)
     price = models.DecimalField(max_digits=8, decimal_places=2, help_text='Vehicle price')
     year = models.PositiveSmallIntegerField(help_text="Vehicle year")
-    type = models.ForeignKey(VehicleType, on_delete=models.SET_NULL, null=True)
-    make = models.ForeignKey(VehicleMake, on_delete=models.SET_NULL, null=True)
-    model = models.ForeignKey(VehicleModel, on_delete=models.SET_NULL, null=True)
-    engine = models.ForeignKey(VehicleEngine, on_delete=models.SET_NULL, null=True)
+    type = models.ForeignKey(Type, on_delete=models.SET_NULL, null=True)
+    make = models.ForeignKey(Make, on_delete=models.SET_NULL, null=True)
+    model = models.ForeignKey(Model, on_delete=models.SET_NULL, null=True)
+    engine = models.ForeignKey(Energy, on_delete=models.SET_NULL, null=True)
     transmission = models.ForeignKey(Transmission, on_delete=models.SET_NULL, null=True)
     
     # Thumbnail
-    thumbnail = models.OneToOneField('VehicleImages', on_delete=models.SET_NULL, null=True, blank=True)
+    thumbnail = models.OneToOneField('Images', on_delete=models.SET_NULL, null=True, blank=True)
 
     # Status
     is_available = models.BooleanField(default=True)
@@ -85,7 +85,7 @@ class Vehicle(models.Model):
 
 
 # ------------------ VehicleImages ------------------
-class VehicleImages(models.Model):
+class Images(models.Model):
     # relation with Vehicle [a vehicle can have many images but image belong to one vehicle]
     belong_to = models.ForeignKey(Vehicle, related_name='images',on_delete=models.CASCADE)
     image = models.ImageField(upload_to='vehicle_images/%y/%m/%d', blank=True)

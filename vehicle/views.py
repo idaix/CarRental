@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Vehicle, VehicleImages, VehicleModel, VehicleMake
+from .models import Vehicle, Images, Model, Make
 
 from .forms import VehicleForm
 from django.views.generic.edit import DeleteView
@@ -27,7 +27,7 @@ def vehicle_details(request, pk):
     vehicle = Vehicle.objects.get(pk=pk)
     print(vehicle.id)
     # get vehicle images 
-    images = VehicleImages.objects.filter(belong_to=vehicle)
+    images = Images.objects.filter(belong_to=vehicle)
     context = {
         'vehicle': vehicle,
         'images': images,
@@ -44,21 +44,21 @@ def add_vehicle(request):
             # create the vehicle
             vehicle = form.save(commit=False)
             vehicle.owned_by = request.user
-            vehicle.make=VehicleMake.objects.get(id=request.POST.get('make'))
-            vehicle.model=VehicleModel.objects.get(id=request.POST.get('model'))
+            vehicle.make=Make.objects.get(id=request.POST.get('make'))
+            vehicle.model=Model.objects.get(id=request.POST.get('model'))
             vehicle.save()
             # Add images that belong to this vehicle
             # collect multiple images
             images = request.FILES.getlist('images')
             for image in images:
-                new_image = VehicleImages(
+                new_image = Images(
                     belong_to = vehicle,
                     image = image
                 )
                 if new_image.save():
                     print('Done')
             # update thumbnail
-            random_image = VehicleImages.objects.filter(belong_to=vehicle)[0]
+            random_image = Images.objects.filter(belong_to=vehicle)[0]
             vehicle.thumbnail = random_image
             vehicle.save()
             return redirect('dashboard')
@@ -66,7 +66,7 @@ def add_vehicle(request):
     else:
         form = VehicleForm()
 
-    makes=VehicleMake.objects.all()
+    makes=Make.objects.all()
     context = {
         'form':form,
         'makes':makes
@@ -76,7 +76,7 @@ def add_vehicle(request):
 def model_field(request):
     if request.method == 'GET':
             
-            models=VehicleModel.objects.filter(make = request.GET.get('make'))
+            models=Model.objects.filter(make = request.GET.get('make'))
             context={'models':models}
             return render(request, 'agencyAdminstration/partials/model_field.html', context=context)
 
@@ -91,7 +91,7 @@ def update_vehicle(request, pk):
             form.save()
             images = request.FILES.getlist('images')
             for image in images:
-                new_image = VehicleImages(
+                new_image = Images(
                     belong_to = vehicle,
                     image = image
                 )
