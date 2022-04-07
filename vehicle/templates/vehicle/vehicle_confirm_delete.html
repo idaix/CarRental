@@ -6,9 +6,9 @@
 
 <!-- CONTENT -->
 {% block 'content' %}
-<h1>Delete Author</h1>
+<h1>Delete {{ vehicle.get_title }}</h1>
 
-<p>Are you sure you want to delete the vehciel: ?</p>
+<p>Are you sure you want to delete {{ vehicle.get_title }} ?</p>
 
 <form action="" method="POST">
   {% csrf_token %}

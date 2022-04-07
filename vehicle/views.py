@@ -17,7 +17,7 @@ def dashboard(request):
         'vehicles':vehicles,
         'vehicles_count':vehicles_count,
     }
-    return render(request, 'agencyAdminstration/dashboard.html', context=context)
+    return render(request, 'vehicle/dashboard.html', context=context)
 
 
 
@@ -32,7 +32,7 @@ def vehicle_details(request, pk):
         'vehicle': vehicle,
         'images': images,
     }
-    return render(request, 'agencyAdminstration/vehicle.html', context=context)
+    return render(request, 'vehicle/vehicle.html', context=context)
 
 
 
@@ -71,14 +71,14 @@ def add_vehicle(request):
         'form':form,
         'makes':makes
     }
-    return render(request, 'agencyAdminstration/add_vehicle.html', context=context)
+    return render(request, 'vehicle/add_vehicle.html', context=context)
 
 def model_field(request):
     if request.method == 'GET':
             
             models=Model.objects.filter(make = request.GET.get('make'))
             context={'models':models}
-            return render(request, 'agencyAdminstration/partials/model_field.html', context=context)
+            return render(request, 'vehicle/partials/model_field.html', context=context)
 
 
 
@@ -104,7 +104,7 @@ def update_vehicle(request, pk):
     context = {
         'form':form
     }
-    return render(request, 'agencyAdminstration/update_vehicle.html', context=context)
+    return render(request, 'vehicle/update_vehicle.html', context=context)
 
 
 class VehicleDelete(DeleteView):
