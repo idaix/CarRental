@@ -1,18 +1,25 @@
 {% extends 'base/base.html' %}
 
 <!-- TITLE -->
-{% block title %}Delete Vehicle{% endblock %}
+{% block title %}Delete {{ vehicle.get_title }}{% endblock %}
 <!-- TITLE -->
 
 <!-- CONTENT -->
 {% block content %}
-<h1>Delete {{ vehicle.get_title }}</h1>
-
-<p>Are you sure you want to delete {{ vehicle.get_title }} ?</p>
-
-<form action="" method="POST">
-  {% csrf_token %}
-  <input type="submit" value="Yes, delete.">
-</form>
+<div class="container col-9">
+  <div class="content-section">
+    <form method="POST">
+        {% csrf_token %}
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-4">Delete Car {{ vehicle.get_title }} </legend>
+            <h2>Are you sure you want to delete the car "{{ vehicle.get_title }}"</h2>
+        </fieldset>
+        <div class="form-group">
+            <button class="btn btn-outline-danger" type="submit">Yes, Delete</button>
+            <a class="btn btn-outline-secondary" href="{% url 'dashboard' %}">Cancel</a>
+        </div>
+    </form>
+  </div>
+</div>
 {% endblock %}
 <!-- CONTENT -->

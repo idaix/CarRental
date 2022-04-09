@@ -1,17 +1,18 @@
 {% extends 'base/base.html' %}
-
+{% load crispy_forms_tags %}
 <!-- TITLE -->
 {% block title %}Update Vehicle{% endblock %}
 <!-- TITLE -->
 
 <!-- CONTENT -->
 {% block content %}
-Update vehicle
-<form method="POST" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <input type="file" name="images" multiple>
-    <input type="submit" value="Save" name="submit">
-</form>
+<div class="container col-6">
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <input type="file" name="images" multiple>
+        <input type="submit" value="Save" name="submit">
+    </form>
+</div>
 {% endblock %}
 <!-- CONTENT -->

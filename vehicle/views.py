@@ -7,21 +7,6 @@ from django.urls import reverse_lazy
 
 # Create your views here.
 
-# DASHBOARD PAGE
-def dashboard(request):
-    vehicles = Vehicle.objects.filter(owned_by=request.user.id)
-    vehicles_count = vehicles.count()
-    for i in vehicles:
-        print(i.id)
-    context = {
-        'vehicles':vehicles,
-        'vehicles_count':vehicles_count,
-    }
-    return render(request, 'vehicle/dashboard.html', context=context)
-
-
-
-
 # VEHICLE DETAILS
 def vehicle_details(request, pk):
     vehicle = Vehicle.objects.get(pk=pk)
@@ -33,8 +18,6 @@ def vehicle_details(request, pk):
         'images': images,
     }
     return render(request, 'vehicle/vehicle.html', context=context)
-
-
 
 # ADD VEHICLE
 def add_vehicle(request):

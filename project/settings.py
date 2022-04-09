@@ -39,8 +39,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'crispy_forms',
     # Our Apps
     'vehicle.apps.VehicleConfig',
+    'agency.apps.AgencyConfig',
 ]
 
 MIDDLEWARE = [
@@ -137,3 +139,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # REDIRECT_URL
 LOGIN_REDIRECT_URL = '/agency/dashboard'
+
+
+
+
+# crispy
+CRISPY_TEMPLATE_PACK = 'bootstrap4'

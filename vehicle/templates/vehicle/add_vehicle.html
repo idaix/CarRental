@@ -1,27 +1,28 @@
 {% extends 'base/base.html' %}
-
+{% load crispy_forms_tags %}
 <!-- TITLE -->
 {% block title %}Add Vehicle{% endblock %}
 <!-- TITLE -->
 
 <!-- CONTENT -->
 {% block content %}
-Add vehicle
-<form method="POST" enctype="multipart/form-data" action="{% url 'add_vehicle'%}">
-    {% csrf_token %}
-
-    <label>Make</label>
-    <select name="make" hx-get="{% url 'model_field'%}" hx-target="#model-select">
-        <option selected></option>
-        {% for make in makes %}
-            <option value="{{make.id}}">{{ make.name }}</option>
-        {% endfor %}.
-    </select>
-    <br>
-    {% include 'vehicle/partials/model_field.html'%}
-    {{ form.as_p }}
-    <input type="file" name="images" multiple>
-    <input type="submit" value="Save" name="submit">
-</form>
+<div class="container col-6">
+    <form method="POST" enctype="multipart/form-data" action="{% url 'add_vehicle'%}">
+        {% csrf_token %}
+        
+        <label>Make *</label>
+        <select name="make" hx-get="{% url 'model_field'%}" hx-target="#model-select" class="form-select" aria-label="Default select example">
+            <option selected>Select Make</option>
+            {% for make in makes %}
+                <option value="{{make.id}}">{{ make.name }}</option>
+            {% endfor %}.
+        </select>
+        <br>
+        {% include 'vehicle/partials/model_field.html'%}
+        {{ form|crispy }}
+        <input type="file" name="images" multiple>
+        <input type="submit" class="btn btn-primary" value="Save" name="submit">
+    </form>
+</div>
 {% endblock %}
 <!-- CONTENT -->

@@ -1,7 +1,8 @@
 {% extends "base/base.html" %}
+{% load crispy_forms_tags %}
 {% block title %}Login{% endblock %}
 {% block content %}
-
+<div class="container col-md-6">
   {% if form.errors %}
     <p>Your username and password didn't match. Please try again.</p>
   {% endif %}
@@ -17,21 +18,23 @@
 
   <form method="post" action="{% url 'login' %}">
     {% csrf_token %}
-    <table>
-      <tr>
-        <td>{{ form.username.label_tag }}</td>
-        <td>{{ form.username }}</td>
-      </tr>
-      <tr>
-        <td>{{ form.password.label_tag }}</td>
-        <td>{{ form.password }}</td>
-      </tr>
-    </table>
-    <input type="submit" value="login" />
-    <input type="hidden" name="next" value="{{ next }}" />
+    <fieldset class="form-group">
+      <legend class="border-bottom mb-4 text-center">Log In</legend>
+      {{ form|crispy }}
+    </fieldset>
+    <br>
+    <div class="form-group">
+        <button class="btn btn-primary" type="submit">Login</button>
+        <input type="hidden" name="next" value="{{ next }}" />
+    </div>
+    <br>
   </form>
-
-  {# Assumes you setup the password_reset view in your URLconf #}
-  <p><a href="{% url 'password_reset' %}">Lost password?</a></p>
+  <div class="border-top pt-3">
+    <small class="text-muted d-flex align-items-center justify-content-between">
+        <p>Need An Account? <a class="ml-2" href="{% url 'dashboard' %}">Sign Up Now</a></p>
+        <p><a href="{% url 'password_reset' %}">Lost password?</a></p>
+      </small>
+  </div>
+</div>
 
 {% endblock %}
