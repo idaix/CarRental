@@ -33,17 +33,18 @@ def add_vehicle(request):
             # Add images that belong to this vehicle
             # collect multiple images
             images = request.FILES.getlist('images')
-            for image in images:
-                new_image = Images(
-                    belong_to = vehicle,
-                    image = image
-                )
-                if new_image.save():
-                    print('Done')
+            if images:
+                for image in images:
+                    new_image = Images(
+                        belong_to = vehicle,
+                        image = image
+                    )
+                    if new_image.save():
+                        print('Done')
             # update thumbnail
-            random_image = Images.objects.filter(belong_to=vehicle)[0]
-            vehicle.thumbnail = random_image
-            vehicle.save()
+                random_image = Images.objects.filter(belong_to=vehicle)[0]
+                vehicle.thumbnail = random_image
+                vehicle.save()
             return redirect('dashboard')
         
     else:
