@@ -4,7 +4,7 @@ from .models import Vehicle, Images, Model, Make
 from .forms import VehicleForm
 from django.views.generic.edit import DeleteView
 from django.urls import reverse_lazy
-
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 # VEHICLE DETAILS
@@ -20,6 +20,7 @@ def vehicle_details(request, pk):
     return render(request, 'vehicle/vehicle.html', context=context)
 
 # ADD VEHICLE
+@login_required
 def add_vehicle(request):
     if request.method == 'POST':
         form = VehicleForm(request.POST)
@@ -57,6 +58,7 @@ def add_vehicle(request):
     }
     return render(request, 'vehicle/add_vehicle.html', context=context)
 
+
 def model_field(request):
     if request.method == 'GET':
             
@@ -67,6 +69,7 @@ def model_field(request):
 
 
 # UPDATE VEHICLE
+@login_required
 def update_vehicle(request, pk):
     vehicle = Vehicle.objects.get(pk=pk)
     if request.method == 'POST':

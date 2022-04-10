@@ -4,7 +4,7 @@ from django.views.generic.edit import UpdateView
 from .forms import ProfileForm, RegisterForm, UserUpdateForm
 from vehicle.models import Vehicle
 from .models import Agency
-
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 # Agency Registration ...
 def register(request):
@@ -28,6 +28,7 @@ def register(request):
 
 
 # Agency Agency Show...
+@login_required
 def agency_profile(request):
     profile = Agency.objects.get(user=request.user)
     if request.method == "POST":
@@ -55,6 +56,7 @@ class AgencyUpdateView(UpdateView):
     fields = ['name', 'image', 'contact_phone', 'contact_website', 'location']
 
 # DASHBOARD PAGE
+@login_required
 def dashboard(request):
     vehicles = Vehicle.objects.filter(owned_by=request.user.id)
     vehicles_count = vehicles.count()
