@@ -8,3 +8,6 @@
 - Agency
     - Register
     - Agency Profile
+    - Update profile
+    - Delete profile
+    - Dashboard *See & manage vehicles*
