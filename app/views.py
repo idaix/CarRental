@@ -1,6 +1,10 @@
 from django.shortcuts import render
-
+from vehicle.models import Vehicle
 # Create your views here.
 
 def home(request):
-    return render(request, 'app/home.html')
+    vehicles = Vehicle.objects.all()
+    context = {
+        'vehicles': vehicles
+    }
+    return render(request, 'app/home.html', context)
