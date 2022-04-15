@@ -1,30 +1,56 @@
-<header class="site-header">
-  <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
-      <div class="container">
-          <a class="navbar-brand mr-4" href="{% url 'home' %}">CarRent</a>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle"
-              aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container">
+          <a class="navbar-brand" href="{% url 'home' %}">CARENT</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
           </button>
-          <div class="collapse navbar-collapse me-auto" id="navbarToggle">
-              <div class="navbar-nav me-auto">
-                  <a class="nav-item nav-link" href="{% url 'home' %}">Home</a>
-              </div>
-              <!-- Navbar Right Side -->
-              <div class="navbar-nav mb-2 mb-lg-0">
-                  {% if user.is_authenticated %}
-                  <div class="navbar-nav mr-auto">
-                      <a class="nav-item nav-link" href="{% url 'dashboard' %}">Dashboard</a>
-                  </div>
-                  <div class="navbar-nav mr-auto">
-                      <a class="nav-item nav-link" href="{% url 'agency_profile' %}">Profile</a>
-                  </div>
-                  <a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a>
-                  {% else %}
-                  <a class="nav-item nav-link" href="{% url 'login' %}">Login</a>
-                  <a class="nav-item nav-link" href="{% url 'agency_register' %}">Register</a>
-                  {% endif %}
-              </div>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-list navbar-nav me-auto">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">About</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Contact</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Help</a>
+              </li>
+            </ul>
+            <ul class="navbar-nav mb-2 mb-lg-0">
+              {% if request.user.is_authenticated %}
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'dashboard' %}">Dashboard</a>
+              </li>
+              <!-- Example single danger button -->
+              <li class="nav-item">
+                <div class="btn-group">
+                  <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                    Account
+                  </button>
+                  <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="{% url 'agency_profile' %}">Profile</a></li>
+                    <li><a class="dropdown-item" href="#">Settings</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item btn btn-danger" href="{% url 'logout' %}">Logout</a></li>
+                  </ul>
+                </div>
+              </li>
+              {% else %}
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'agency_register' %}">Start</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'register' %}">Register</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link btn btn-primary text-white" href="{% url 'login' %}">Login</a>
+                </li>
+              {% endif %}
+            </ul>
+            
           </div>
-      </div>
-  </nav>
+          </div>
+      </nav>

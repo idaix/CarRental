@@ -1,4 +1,4 @@
-{% extends 'base/base.html' %}
+{% extends 'agency/base.html' %}
 
 <!-- title -->
 {% block title %}Dashboard{% endblock %}
@@ -6,44 +6,98 @@
 
 <!-- content -->
 {% block content %}
-<div class="container-fluid">
-    <div class="row">
-      <!-- <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
-        <div class="position-sticky pt-3">
-          <ul class="nav flex-column">
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#">
-                <span data-feather="home"></span>
-                request.user.username|title 
-              </a>
-            </li>
-        </div>
-      </nav> -->
-  
-      <div class="col-md-12">
-        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-          <h1 class="h2">Dashboard</h1>
-        </div>
-        <h3>Stats</h3>
-        <div class="container mt-3 mb-3">
-          <div class="row">
-            <div class="col pt-3 rounded-3 pb-3 bg-light border border-3 border-white">
-              Vehicles: {{ vehicles_count }}
-            </div>
-            <div class="col pt-3 rounded-3 pb-3 bg-light border border-3 border-white">
-              Reserved: {{ vehicles_count }}
-            </div>
-            <div class="col pt-3 rounded-3 pb-3 bg-light border border-3 border-white">
-              Orders: 5
-            </div>
-          </div>
-        </div>
-        <div class="col-md-12 d-flex align-items-center justify-content-between">
-          <h3>Vehicles</h3>
-          <a class="btn btn-primary" href="{% url 'add_vehicle' %}">Add vehicle</a>
-        </div>
 
-        <div class="table-responsive">
+<section class="dashboard">
+  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Dashboard</h1>
+  </div>
+  <div class="row mb-3">
+    <div class="col-sm-4">
+      <div class="card card-styled shadow mb-3">
+        <span class="material-icons-two-tone icon">directions_car</span>
+        <div class="text">10 vehicles</div>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="card card-styled shadow mb-3">
+        <span class="material-icons-two-tone icon">content_paste</span>
+        <div class="text">6 Orders</div>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="card card-styled shadow">
+        <span class="material-icons-two-tone icon">people</span>
+        <div class="text">5 Clients</div>
+      </div>
+    </div>
+    
+  </div>
+</section>
+<!-- <canvas class="my-4 w-100" id="myChart" width="900" height="10"></canvas> -->
+
+<section class="p-2 mb-3" id="orders">
+  <header>
+    <h2 class="section_title d-flex align-items-center">
+      <span class="material-icons-two-tone">content_paste</span>
+      Orders
+    </h2>
+
+  </header>
+  <div class="table-responsive">
+        {% if orders %}
+          <table class="table table-sm">
+            <thead>
+              <tr>
+                <th scope="col">Image</th>
+                <th scope="col">Name</th>
+                <th scope="col">Type</th>
+                <th scope="col">Price</th>
+                <th scope="col">Status</th>
+                <th></th>
+                <th></th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+                {% for vehicle in vehicles %}
+                <tr>
+                    
+                      <td>
+                        <img src="{{ vehicle.thumbnail.image.url }}" alt="{{ vehicle.thumbnail }}" style="width: 100px;">
+                      </td>
+                      <td>{{ vehicle.get_title }}</td>
+                      <td>{{ vehicle.type }}</td>
+                      <td>{{ vehicle.price }}</td>
+                      <td>
+                        {% if vehicle.is_available %}
+                          <span class="badge bg-success">Available</span>
+                        {% else %}
+                          <span class="badge bg-danger">Not Available</span>
+                        {% endif %}
+                      </td>
+                      <td><a href="{% url 'vehicle_details' vehicle.id %}">See</a></td>
+                      <td><a href="{% url 'vehicle_update' vehicle.id %}">Update</a></td>
+                      <td><a href="{% url 'vehicle_delete' vehicle.id %}">Delete</a></td>
+                  </tr>
+                {% endfor %}
+              
+            </tbody>
+          </table>
+          {% else %}
+                <p>No orders yet...</p>
+            {% endif %}
+        </div>
+</section>
+<section class="p-2 mb-3 " id="garage">
+  <header class="d-flex align-items-center justify-content-between">
+    <h2 class="section_title d-flex align-items-center">
+      <span class="material-icons-two-tone">garage</span>
+      Garage
+    </h2>
+    <a href="{% url 'add_vehicle' %}" class="btn btn-primary">Add Vehicle</a>
+
+  </header>
+  <div class="table-responsive">
         {% if vehicles %}
           <table class="table table-sm">
             <thead>
@@ -87,8 +141,62 @@
                 <p>No vehicles yet...</p>
             {% endif %}
         </div>
-      </div>
-    </div>
-  </div>
+</section>
+<section class="p-2 mb-3" id="clients">
+  <header>
+    <h2 class="section_title d-flex align-items-center">
+      <span class="material-icons-two-tone">people</span>
+      Clients
+    </h2>
+
+  </header>
+  <div class="table-responsive">
+        {% if clients %}
+          <table class="table table-sm">
+            <thead>
+              <tr>
+                <th scope="col">Image</th>
+                <th scope="col">Name</th>
+                <th scope="col">Type</th>
+                <th scope="col">Price</th>
+                <th scope="col">Status</th>
+                <th></th>
+                <th></th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+                {% for vehicle in vehicles %}
+                <tr>
+                    
+                      <td>
+                        <img src="{{ vehicle.thumbnail.image.url }}" alt="{{ vehicle.thumbnail }}" style="width: 100px;">
+                      </td>
+                      <td>{{ vehicle.get_title }}</td>
+                      <td>{{ vehicle.type }}</td>
+                      <td>{{ vehicle.price }}</td>
+                      <td>
+                        {% if vehicle.is_available %}
+                          <span class="badge bg-success">Available</span>
+                        {% else %}
+                          <span class="badge bg-danger">Not Available</span>
+                        {% endif %}
+                      </td>
+                      <td><a href="{% url 'vehicle_details' vehicle.id %}">See</a></td>
+                      <td><a href="{% url 'vehicle_update' vehicle.id %}">Update</a></td>
+                      <td><a href="{% url 'vehicle_delete' vehicle.id %}">Delete</a></td>
+                  </tr>
+                {% endfor %}
+              
+            </tbody>
+          </table>
+          {% else %}
+                <p>No clients yet...</p>
+            {% endif %}
+        </div>
+</section>
+
 {% endblock %}
 <!-- content -->
+
+

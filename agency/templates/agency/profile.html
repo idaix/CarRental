@@ -1,9 +1,9 @@
-{% extends 'base/base.html' %}
+{% extends 'agency/base.html' %}
 {% load crispy_forms_tags %}
 {% block title %}{{request.user.username}}'s profile{% endblock %}
 
 {% block content %}
-<div class="content-section">
+<div id="agency_profile" class="container mt-3 mb-3">
     <div class="media">
         {% if profile.image %}
             <img class="rounded-circle account-img" style="width: 300px;" src="{{ profile.image.url }}">
@@ -21,8 +21,9 @@
             {{ p_form|crispy }}
         </fieldset>
 
-        <div class="form-group mt-3">
-            <button class="btn btn-primary" type="submit">Save</button>
+        <div class="form-group mt-3 d-flex justify-content-between">
+            <button class="btn btn-primary" type="submit">Save changes</button>
+            <a class="btn btn-outline-secondary" href="{% url 'dashboard' %}">Cancel</a>
         </div>
     </form>
 </div>

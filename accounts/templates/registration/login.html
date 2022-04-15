@@ -2,7 +2,8 @@
 {% load crispy_forms_tags %}
 {% block title %}Login{% endblock %}
 {% block content %}
-<div class="container col-md-6">
+<div class="login pt-5 card mt-5 p-3">
+  <h4 class="text-center">Log In</h4>
   {% if form.errors %}
     <p>Your username and password didn't match. Please try again.</p>
   {% endif %}
@@ -19,7 +20,6 @@
   <form method="post" action="{% url 'login' %}">
     {% csrf_token %}
     <fieldset class="form-group">
-      <legend class="border-bottom mb-4 text-center">Log In</legend>
       {{ form|crispy }}
     </fieldset>
     <br>
@@ -31,10 +31,11 @@
   </form>
   <div class="border-top pt-3">
     <small class="text-muted d-flex align-items-center justify-content-between">
-        <p>Need An Account? <a class="ml-2" href="{% url 'dashboard' %}">Sign Up Now</a></p>
+        <p>Need An Account? <a class="ml-2" href="{% url 'register' %}">Sign Up Now</a></p>
         <p><a href="{% url 'password_reset' %}">Lost password?</a></p>
       </small>
   </div>
+
 </div>
 
 {% endblock %}

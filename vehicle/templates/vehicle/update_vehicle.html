@@ -1,4 +1,4 @@
-{% extends 'base/base.html' %}
+{% extends 'agency/base.html' %}
 {% load crispy_forms_tags %}
 <!-- TITLE -->
 {% block title %}Update Vehicle{% endblock %}
@@ -6,12 +6,16 @@
 
 <!-- CONTENT -->
 {% block content %}
-<div class="container col-6">
+<div class="container mt-3 mb-3">
+    
     <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form|crispy }}
         <input type="file" name="images" multiple>
-        <input type="submit" value="Save" name="submit">
+        <div class="mt-3 d-flex align-items-center justify-content-between">
+            <input type="submit" class="btn btn-primary" value="Save" name="submit">
+            <a class="btn btn-outline-secondary" href="{% url 'dashboard' %}">Cancel</a>
+        </div>
     </form>
 </div>
 {% endblock %}

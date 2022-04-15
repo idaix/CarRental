@@ -1,56 +1,59 @@
 {% extends 'base/base.html' %}
-
+{% load static %}
 {% block title%}Car Rental{% endblock %}
 {% block content%}
-<main role="main" class="container p-5">
-    <div class="card">
-        <div class="card-body">
-            <h2 class="card-title mb-4"
-            style="font-weight: bold;">Search for rental cars</h2>
-            <form method="POST" action="">
-                {% csrf_token %}
-                <div class="row">
-                    <div class="form-group col-md-4">
-                        <label for="city">City*</label>
-                        <select id="city" class="form-control" name="city">
-                            <option selected>Choose...</option>
-                            <option value="BBA">BBA</option>
-                            <option value="Msila">Msila</option>
-                            <option value="Setif">Setif</option>
-                        </select>
-                    </div>
-                    <div class="form-group col-md-4">
-                        <label>Pick-up Date* </label>
-                        <input type="date" class="form-control">
-                    </div>
-                    <div class="form-group col-md-4 ">
-                        <label >Drop-off Date* </label>
-                        <input type="date" class="form-control">
-                    </div>
-                </div>
-                <button type="submit" class="btn btn-primary mt-2">Search</button>
-            </form>
-        </div>
+<div class="home pt-5">
+    <div class="row banner">
+      <div class="col-md-6 pt-5">
+        <h4 class="title text-black">Car Hire - Search, Compare & Save</h4>
+        <p class="description text-black-50">Compare companies at over Algeria. Price Match Guarantee</p>
+      </div>
+      <div class="col-md-6">
+        <img src="{% static 'img/vehicle_roud.svg' %}" alt="banner">
+      </div>
     </div>
-    <div class="row pt-4">
+    <div class="row">
+      <div class="col-md-12">
+        <form class="search row">
+            <div class="control col-md-3">
+              <label for="city">Pick-up Location</label>
+              <input type="text" id="city" name="city" placeholder="City, airposrt, destination...">
+            </div>
+            <div class="control col-md-3">
+              <label for="date-start">Pick-up Date</label>
+              <input type="date" id="date-start" name="date-start">
+            </div>
+            <div class="control col-md-3">
+              <label for="date-end">Pick-off Date</label>
+              <input type="date" id="date-end" name="date-end">
+            </div>
+            <button type="submit" class="btn btn-primary">Search</button>
+          
+        </form>
+      </div>
+    </div>
+    <section class="section mt-5" id="new">
+      <h1 class="text-center">New</h1>
+      <div class="row">
         {% for v in vehicles %}
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <a href="{% url 'vehicle_details' v.id %}">
-                    <div class="card" style="width: 18rem;">
-                        <img src="{{ v.thumbnail.image.url }}" class="card-img-top" alt="...">
+                    <div class="card card-styled mb-3" >
+                        <img src="{{ v.thumbnail.image.url }}" class="card-img-top" alt="{{ v.get_title }}">
                         <div class="card-body">
                         <h5 class="card-title">{{v.get_title}}</h5>
                         <p class="text-black-50">By {{ v.owned_by.username }}</p>
                         <span>{{ v.transmission }} | </span>
                         <span>{{ v.doors }} doors | </span>
-                        <span>{{ v.seats }} seats | </span>
+                        <span>{{ v.seats }} seats</span>
                         <br>
-                        <a href="#" class="btn btn-primary">Book</a>
+                        <a href="#{{ v.id }}" class="btn btn-primary">Book</a>
                         </div>
                     </div>
                 </a>
             </div>
         {% endfor %}
     </div>
-</main>
+    </section>
+</div>
 {% endblock %}

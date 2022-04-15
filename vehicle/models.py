@@ -65,7 +65,7 @@ class Vehicle(models.Model):
     seats = models.PositiveSmallIntegerField(null=True, blank=True)
     doors = models.PositiveSmallIntegerField(null=True, blank=True)
     mileage = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
-    description = models.TextField(max_length=1000, help_text='Small description (1000)')
+    description = models.TextField(max_length=1000, help_text='Small description (1000)', null=True, blank=True)
     
     # System -----------------------------------------
     created_at = models.DateTimeField(auto_now_add=True)
