@@ -33,12 +33,12 @@
       </div>
     </div>
     <section class="section mt-5" id="new">
-      <h1 class="text-center">New</h1>
+      <h1 class="text-center mb-3">New</h1>
       <div class="row">
         {% for v in vehicles %}
             <div class="col-md-3">
                 <a href="{% url 'vehicle_details' v.id %}">
-                    <div class="card card-styled mb-3" >
+                    <div class="shadow mb-3 rounded-3" >
                         <img src="{{ v.thumbnail.image.url }}" class="card-img-top" alt="{{ v.get_title }}">
                         <div class="card-body">
                         <h5 class="card-title">{{v.get_title}}</h5>

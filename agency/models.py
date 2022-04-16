@@ -6,7 +6,11 @@ from PIL import Image
 # from django.dispatch import receiver
 # [Location] model
 class Location(models.Model):
-    name = models.CharField(max_length=200)
+    user = models.ForeignKey('Agency', related_name='location', on_delete=models.CASCADE, null=True, blank=True)
+    name = models.CharField(max_length=200, blank=True)
+    city = models.CharField(max_length=200, blank=True)
+    lat = models.CharField(max_length=50, null=True, blank=True)
+    lon = models.CharField(max_length=50, null=True, blank=True)
     def __str__(self) -> str:
         return self.name
 
@@ -15,11 +19,10 @@ class Location(models.Model):
 class Agency(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=150)
-    image = models.ImageField(default="default_profile_image.jpg", upload_to='profile_images/%y/%m/%d', blank=True)
+    image = models.ImageField(default="default/default_profile_image.svg", upload_to='profile_images/%y/%m/%d', blank=True)
     contact_phone = models.CharField(max_length=12, blank=True)
     contact_email = models.CharField(max_length=150, blank=True)
     contact_website = models.CharField(max_length=150, null=True, blank=True)
-    location = models.ForeignKey(Location, on_delete=models.SET_NULL, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self) -> str:

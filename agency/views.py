@@ -15,7 +15,7 @@ def register(request):
             # login user
             login(request, user)
             agency = Agency.objects.create(user=user ,name=user.username)
-            return redirect('dashboard')
+            return redirect('agency_profile')
     else:
         form = RegisterForm()
     
@@ -30,6 +30,14 @@ def register(request):
 # Agency Agency Show...
 @login_required
 def agency_profile(request):
+    profile = Agency.objects.get(user=request.user)
+    context = {
+        'profile': profile,
+    }
+    return render(request, 'agency/profile.html', context=context)
+# Edit profile
+@login_required
+def agency_profile_edit(request):
     profile = Agency.objects.get(user=request.user)
     if request.method == "POST":
         u_form = UserUpdateForm(request.POST, instance=request.user)
@@ -46,8 +54,7 @@ def agency_profile(request):
         'u_form' : u_form,
         'p_form' : p_form,
     }
-
-    return render(request, 'agency/profile.html', context=context)
+    return render(request, 'agency/profile_edit.html', context=context)
 
 
 # Agency Edit ... (i used UpdateView)

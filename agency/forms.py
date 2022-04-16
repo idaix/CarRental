@@ -22,4 +22,4 @@ class UserUpdateForm(ModelForm):
 class ProfileForm(ModelForm):
     class Meta:
         model=Agency
-        fields = '__all__'
+        fields = ['image','name','contact_phone', 'contact_email', 'contact_website']
