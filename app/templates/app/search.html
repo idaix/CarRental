@@ -1,0 +1,60 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block title%}Car Rental{% endblock %}
+{% block content%}
+<div class="home pt-5">
+    <section class="section" id="new">
+    <div class="row">
+        <div class="col-md-3 mb-3">
+            <div class="card p-2">
+                <h5>Types</h5>
+                <ul class="text-secondary">
+                    {% for type in types %}
+                        <li><a href="#{{ type.id }}">{{type.name}}</a></li>
+                    {% endfor %}
+                </ul>
+                <h5>Energy</h5>
+                <ul class="text-secondary">
+                    {% for e in energy %}
+                        <li><a href="#{{ e.id }}">{{e.name}}</a></li>
+                    {% endfor %}
+                </ul>
+                <h5>Transmission</h5>
+                <ul class="text-secondary">
+                    {% for t in transmission %}
+                        <li><a href="#{{ t.id }}">{{t.name}}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-9 mb-3">
+            <div class="row">
+                <div class="col-md-12 card bg-light mb-3">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <small>Pick Up</small>
+                            <p>{{ city }} - {{date_start}}</p>
+                        </div>
+                        <div class="col-md-6">
+                            <small>Drop of</small>
+                            <p>{{ city }} - {{date_end}}</p>
+                        </div>
+                    </div>
+                    
+                </div>
+                {% for agency in agencies %}
+                    <div class="shadow rounded-3 d-flex align-items-center justify-content-between">
+                        <div class="left">
+                            <h4 class="text-primary">{{ agency.name }}</h4>
+                            <p class="text-secondary">{{agency.state}} - {{agency.city}}</p>
+                        </div>
+                        <a class="btn btn-primary" href="#{{ agency.id }}">Show all cars</a>
+                        
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    </section>
+</div>
+{% endblock %}

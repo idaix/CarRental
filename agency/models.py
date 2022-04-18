@@ -1,3 +1,4 @@
+from pickle import TRUE
 from django.db import models
 from django.contrib.auth.models import User
 from PIL import Image
@@ -19,10 +20,15 @@ class Location(models.Model):
 class Agency(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=150)
+    bio = models.TextField(max_length=500, blank=True, help_text='(500)')
     image = models.ImageField(default="default/default_profile_image.svg", upload_to='profile_images/%y/%m/%d', blank=True)
     contact_phone = models.CharField(max_length=12, blank=True)
     contact_email = models.CharField(max_length=150, blank=True)
     contact_website = models.CharField(max_length=150, null=True, blank=True)
+
+    state = models.CharField(max_length=100, blank=True)
+    city = models.CharField(max_length=100, blank=True)
+
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self) -> str:

@@ -9,6 +9,6 @@ urlpatterns = [
     path('accounts/register', views.register, name='register'),
     path('admin/', admin.site.urls),
     path('', include('app.urls')),
-    path('vehicle/', include('vehicle.urls')),
+    # path('vehicle/', include('vehicle.urls')),
     path('agency/', include('agency.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

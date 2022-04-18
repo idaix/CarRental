@@ -14,10 +14,10 @@
     </div>
     <div class="row">
       <div class="col-md-12">
-        <form class="search row">
+        <form class="search row" method="get" action="{% url 'search' %}">
             <div class="control col-md-3">
               <label for="city">Pick-up Location</label>
-              <input type="text" id="city" name="city" placeholder="City, airposrt, destination...">
+              <input type="text" id="city" name="city" placeholder="City, airport, destination...">
             </div>
             <div class="control col-md-3">
               <label for="date-start">Pick-up Date</label>
