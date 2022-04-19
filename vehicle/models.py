@@ -1,7 +1,6 @@
 from django.db import models
 
-# Import user model to use_it as Agency Model
-from django.contrib.auth.models import User
+from agency.models import Agency
 
 # Create your models here.
 
@@ -45,7 +44,7 @@ class Vehicle(models.Model):
     # A vehicle owned by one & unique Agency(user)
     # price per day example -> (4000.00 DZD, 20000.00 DZD)
     # year example -> (2022) -PositiveSmallIntegerField from 0 to 32767-
-    owned_by = models.ForeignKey(User, on_delete=models.CASCADE)
+    owned_by = models.ForeignKey(Agency, on_delete=models.CASCADE, related_name='my_cars')
     price = models.DecimalField(max_digits=8, decimal_places=2, help_text='Vehicle price')
     year = models.PositiveSmallIntegerField(help_text="Vehicle year")
     type = models.ForeignKey(Type, on_delete=models.SET_NULL, null=True)

@@ -1,6 +1,4 @@
-from multiprocessing import context
 from django.shortcuts import render
-from django.http import HttpResponse
 from vehicle.models import Images, Vehicle, Type, Energy, Transmission
 from agency.models import Agency
 from django.db.models import Q
@@ -14,11 +12,13 @@ def home(request):
     }
     return render(request, 'app/home.html', context)
 
+
+# SEARCH FORM
 def search(request):
     city = request.GET.get('city', '')
     date_start = request.GET.get('date-start', '')
     date_end = request.GET.get('date-end', '')
-    agencies = Agency.objects.filter(Q(city__icontains=city))
+    agencies = Agency.objects.filter(Q(state__icontains=city) | Q(city__icontains=city) | Q(address__icontains=city))
     # for sidebar...
     types = Type.objects.all()
     energy = Energy.objects.all()
@@ -33,8 +33,18 @@ def search(request):
         'transmission':transmission,
     }
     return render(request, 'app/search.html', context=context)
+# SHOW ALL CARS FOR SPESIFIC AGENCY
+def show_all_cars(request, pk):
+    agency = Agency.objects.get(pk=pk)
+    cars = Vehicle.objects.filter(owned_by=agency)
+    context = {
+        'agency':agency,
+        'cars':cars,
+    }
+    return render(request, 'app/show_all_cars.html', context=context)
 
 
+# VEHICLE DETAIL 
 def vehicle_details(request, pk):
     vehicle = Vehicle.objects.get(pk=pk)
     # get vehicle images 
@@ -44,3 +54,4 @@ def vehicle_details(request, pk):
         'images': images,
     }
     return render(request, 'app/vehicle.html', context=context)
+

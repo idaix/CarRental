@@ -1,4 +1,3 @@
-from pickle import TRUE
 from django.db import models
 from django.contrib.auth.models import User
 from PIL import Image
@@ -18,7 +17,7 @@ class Location(models.Model):
 
 # create [Profile] model
 class Agency(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='agency')
     name = models.CharField(max_length=150)
     bio = models.TextField(max_length=500, blank=True, help_text='(500)')
     image = models.ImageField(default="default/default_profile_image.svg", upload_to='profile_images/%y/%m/%d', blank=True)
@@ -28,6 +27,10 @@ class Agency(models.Model):
 
     state = models.CharField(max_length=100, blank=True)
     city = models.CharField(max_length=100, blank=True)
+    address = models.CharField(max_length=250, blank=True)
+
+    def get_full_address(self):
+        return f'{self.state}, {self.city} - {self.address}'
 
     created_at = models.DateTimeField(auto_now_add=True)
 

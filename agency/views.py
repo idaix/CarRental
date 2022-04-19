@@ -68,7 +68,7 @@ class AgencyUpdateView(UpdateView):
 # DASHBOARD PAGE
 @login_required
 def dashboard(request):
-    vehicles = Vehicle.objects.filter(owned_by=request.user.id)
+    vehicles = Vehicle.objects.filter(owned_by=request.user.agency)
     vehicles_count = vehicles.count()
     for i in vehicles:
         print(i.id)
@@ -100,7 +100,7 @@ def add_vehicle(request):
         if form.is_valid():
             # create the vehicle
             vehicle = form.save(commit=False)
-            vehicle.owned_by = request.user
+            vehicle.owned_by = request.user.agency
             vehicle.make=Make.objects.get(id=request.POST.get('make'))
             vehicle.model=Model.objects.get(id=request.POST.get('model'))
             vehicle.save()
