@@ -88,3 +88,28 @@ footer{
 }
 
 
+// Show all cars
+.show-all-cars{
+    .tab{
+        width: 100%;
+        tbody{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            tr{
+                display: flex;
+                flex-direction: column;
+            }
+        }
+        td{
+            border: 5px solid transparent;
+            display: flex;
+            align-items: center;
+            span{
+                width: 35px;
+            }
+        }
+    }
+}
+
+

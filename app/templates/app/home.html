@@ -42,7 +42,7 @@
                         <img src="{{ v.thumbnail.image.url }}" class="card-img-top" alt="{{ v.get_title }}">
                         <div class="card-body">
                         <h5 class="card-title">{{v.get_title}}</h5>
-                        <p class="text-black-50">By {{ v.owned_by.username }}</p>
+                        <a href="">By {{ v.owned_by.name }}</a><br>
                         <span>{{ v.transmission }} | </span>
                         <span>{{ v.doors }} doors | </span>
                         <span>{{ v.seats }} seats</span>

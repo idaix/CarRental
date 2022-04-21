@@ -1,0 +1,66 @@
+{% extends 'app/search/base.html' %}
+{% block title %}{{agency.name}}{% endblock %}
+{% block search_content %}
+<section class="show-all-cars">
+    <div class="card mb-3">
+        <div class="card-body">
+            <div class="col-md-4">{{ agency.name }}</div>
+        </div>
+    </div>
+        {% for car in cars %}
+        <div class="card mb-3">
+            <div class="row align-items-center">
+                <div class="col-md-4"><img src="{{ car.thumbnail.image.url }}" class="card-img-top card-media" alt="{{ car.get_title }}"></div>
+                <div class="card-body col-md-5">
+                    <h4>{{car.get_title}}</h4>
+                    <div class="features">
+                        <table class="tab">
+                            <tr>
+                                <td>
+                                    <span class="material-icons-two-tone">airline_seat_recline_normal</span>
+                                    {{car.seats}} Seats
+                                </td>
+                                <td>
+                                    <span class="material-icons-two-tone">thermostat_auto</span>
+                                    {{car.transmission}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span class="material-icons-two-tone">meeting_room</span>
+                                    {{car.doors}} Doors
+                                </td>
+                                <td>
+                                    <span class="material-icons-two-tone">local_gas_station</span>
+                                    {{car.engine}}
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <a href="#book-{{ car.id }}" class="btn btn-primary">Book Now</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+</section>
+{% endblock %}
+
+
+<!-- <div class="col-md-12">
+    <a href="{% url 'vehicle_details' car.id %}">
+        <div class="shadow mb-3 rounded-3" >
+            
+            <div class="card-body">
+            <h5 class="card-title"></h5>
+            <p class="text-black-50">By {{ car.owned_by.username }}</p>
+            <span>{{ car.transmission }} | </span>
+            <span>{{ car.doors }} doors | </span>
+            <span>{{ car.seats }} seats</span>
+            <br>
+            <a href="#{{ v.id }}" class="btn btn-primary">Book</a>
+            </div>
+        </div>
+    </a>
+</div> -->

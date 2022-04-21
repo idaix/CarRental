@@ -1,6 +1,5 @@
 {% extends 'base/base.html' %}
 {% load static %}
-{% block title%}Car Rental{% endblock %}
 {% block content%}
 <!-- <nav aria-label=" mt-1 mb-1 breadcrumb">
     <ol class="breadcrumb">
@@ -48,22 +47,10 @@
                     </div>
                     
                 </div>
-                {% if agencies %}
-                    {% for agency in agencies %}
-                        <div class="shadow mb-3 rounded-3 d-flex align-items-center justify-content-between">
-                            <div class="left m-1">
-                                <h5 class="text-primary mb-0">{{ agency.name }}</h5>
-                                <p class="text-secondary mb-0"><small>{{agency.get_full_address}}.</small></p>
-                            </div>
-                            <a class="btn btn-primary" href="{% url 'show_all_cars' agency.id %}">Show all vehicles</a>
-                            
-                        </div>
-                    {% endfor %}
-                {% else %}
-                    <div class="alert alert-danger" role="alert">
-                        <p class="text-center">It seems that no car available in "{{ city }}"!</p>
-                    </div>
-                {% endif %}
+                <section>
+                    {% block search_content %}
+                    {% endblock %}
+                </section>
             </div>
         </div>
     </div>

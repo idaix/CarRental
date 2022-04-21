@@ -1,0 +1,20 @@
+{% extends 'app/search/base.html' %}
+{% block title%}Search...{% endblock %}
+{% block search_content %}
+{% if agencies %}
+    {% for agency in agencies %}
+        <div class="shadow mb-3 rounded-3 d-flex align-items-center justify-content-between">
+            <div class="left m-1">
+                <h5 class="text-primary mb-0">{{ agency.name }}</h5>
+                <p class="text-secondary mb-0"><small>{{agency.get_full_address}}.</small></p>
+            </div>
+            <a class="btn btn-primary" href="{% url 'show_all_cars' agency.id %}?city={{city}}&date-start={{date_start}}&date-end={{date_end}}">Show all vehicles</a>
+            
+        </div>
+    {% endfor %}
+    {% else %}
+        <div class="alert alert-danger" role="alert">
+            <p class="text-center">It seems that no car available in "{{ city }}"!</p>
+        </div>
+    {% endif %}
+{% endblock %}

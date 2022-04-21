@@ -32,16 +32,31 @@ def search(request):
         'energy':energy,
         'transmission':transmission,
     }
-    return render(request, 'app/search.html', context=context)
+    return render(request, 'app/search/search.html', context=context)
 # SHOW ALL CARS FOR SPESIFIC AGENCY
 def show_all_cars(request, pk):
     agency = Agency.objects.get(pk=pk)
-    cars = Vehicle.objects.filter(owned_by=agency)
+    # Show only available vehicles
+    cars = Vehicle.objects.filter(owned_by=agency).filter(is_available=True)
+    # from get
+    city = request.GET.get('city', '')
+    date_start = request.GET.get('date-start', '')
+    date_end = request.GET.get('date-end', '') 
+    # for sidebar...
+    types = Type.objects.all()
+    energy = Energy.objects.all()
+    transmission = Transmission.objects.all()
     context = {
         'agency':agency,
         'cars':cars,
+        'city':city,
+        'date_start':date_start,
+        'date_end':date_end,
+        'types':types,
+        'energy':energy,
+        'transmission':transmission,
     }
-    return render(request, 'app/show_all_cars.html', context=context)
+    return render(request, 'app/search/show_all_cars.html', context=context)
 
 
 # VEHICLE DETAIL 
