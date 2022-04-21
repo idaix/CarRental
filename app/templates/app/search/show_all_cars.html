@@ -2,9 +2,24 @@
 {% block title %}{{agency.name}}{% endblock %}
 {% block search_content %}
 <section class="show-all-cars">
-    <div class="card mb-3">
-        <div class="card-body">
-            <div class="col-md-4">{{ agency.name }}</div>
+    <div class="card shadow mb-3">
+        <div class="card-body row">
+            <div class="col-md-4">
+                <div class="image border mb-1" style="width: 150px;">
+                    <img src="{{ agency.image.url }}" alt="{{ agency.name }}" width="150">
+                </div>
+                <h5 class="mb-1">{{ agency.name }}'s cars</h5>
+                <p class="text-secondary">{{ agency.bio }}</p>
+            </div>
+            <div class="col-md-8">
+                <h5>Contact info</h5>
+                <ul class="text-secondary">
+                    <li class="contact_link"><span class="material-icons-round ul-icon">call</span>{{ agency.contact_phone }}</li>
+                    <li class="contact_link"><span class="material-icons-round ul-icon">alternate_email</span>{{ agency.contact_email }}</li>
+                    <li class="contact_link"><span class="material-icons-round ul-icon">laptop</span>{{ agency.contact_website }}</li>
+                    <li class="contact_link"><span class="material-icons-round ul-icon">place</span>{{ agency.get_full_address }}</li>
+                </ul>
+            </div>
         </div>
     </div>
         {% for car in cars %}
@@ -14,32 +29,33 @@
                 <div class="card-body col-md-5">
                     <h4>{{car.get_title}}</h4>
                     <div class="features">
-                        <table class="tab">
+                        <table class="tab text-secondary">
                             <tr>
                                 <td>
-                                    <span class="material-icons-two-tone">airline_seat_recline_normal</span>
+                                    <span class="material-icons-round">airline_seat_recline_normal</span>
                                     {{car.seats}} Seats
                                 </td>
                                 <td>
-                                    <span class="material-icons-two-tone">thermostat_auto</span>
+                                    <span class="material-icons-round">thermostat_auto</span>
                                     {{car.transmission}}
                                 </td>
                             </tr>
                             <tr>
                                 <td>
-                                    <span class="material-icons-two-tone">meeting_room</span>
+                                    <span class="material-icons-round">meeting_room</span>
                                     {{car.doors}} Doors
                                 </td>
                                 <td>
-                                    <span class="material-icons-two-tone">local_gas_station</span>
+                                    <span class="material-icons-round">local_gas_station</span>
                                     {{car.engine}}
                                 </td>
                             </tr>
                         </table>
                     </div>
                 </div>
-                <div class="col-md-3">
-                    <a href="#book-{{ car.id }}" class="btn btn-primary">Book Now</a>
+                <div class="col-md-3 card-body d-flex align-items-center justify-content-between d-md-block">
+                    <h6>Rent for <strong class="text-success">{{ car.price }} DZD</strong> per day.</h6>
+                    <a href="#book-{{ car.id }}" class="btn btn-success">Book Now</a>
                 </div>
             </div>
         </div>

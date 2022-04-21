@@ -70,7 +70,7 @@
                       <td>{{ vehicle.price }}</td>
                       <td>
                         {% if vehicle.is_available %}
-                          <span class="badge bg-success">Available</span>
+                          <span class="badge bg-success"><span class="material-icons-round">check_circle</span></span>
                         {% else %}
                           <span class="badge bg-danger">Not Available</span>
                         {% endif %}
@@ -117,21 +117,21 @@
                 <tr>
                     
                       <td>
-                        <img src="{{ vehicle.thumbnail.image.url }}" alt="{{ vehicle.thumbnail }}" style="width: 100px;">
+                        <img src="{{ vehicle.thumbnail.image.url }}" alt="{{ vehicle.get_title }}" style="width: 100px;">
                       </td>
                       <td>{{ vehicle.get_title }}</td>
                       <td>{{ vehicle.type }}</td>
                       <td>{{ vehicle.price }}</td>
                       <td>
                         {% if vehicle.is_available %}
-                          <span class="badge bg-success">Available</span>
+                          <a href="{% url 'change_status' vehicle.id %}" title="Click to desable" class="text-success"><span class="material-icons-round">check_circle</span></a>
                         {% else %}
-                          <span class="badge bg-danger">Not Available</span>
+                          <a href="{% url 'change_status' vehicle.id %}" title="Click to enable" class="text-danger"><span class="material-icons-round">cancel</span></a>
                         {% endif %}
                       </td>
-                      <td><a href="{% url 'agency_vehicle_details' vehicle.id %}">See</a></td>
-                      <td><a href="{% url 'vehicle_update' vehicle.id %}">Update</a></td>
-                      <td><a href="{% url 'vehicle_delete' vehicle.id %}">Delete</a></td>
+                      <td><a href="{% url 'agency_vehicle_details' vehicle.id %}">View</a></td>
+                      <td><a href="{% url 'vehicle_update' vehicle.id %}">Edit</a></td>
+                      <td><a class="text-danger" href="{% url 'vehicle_delete' vehicle.id %}">Delete</td>
                   </tr>
                 {% endfor %}
               

@@ -166,5 +166,16 @@ class VehicleDelete(DeleteView):
     model = Vehicle
     success_url = reverse_lazy('dashboard')
 
+# change status
+def change_status(request, pk):
+    car = Vehicle.objects.get(pk=pk)
+    # check the curen status
+    if car.is_available:
+        car.is_available = False
+        car.save()
+    else:
+        car.is_available = True
+        car.save()
 
+    return redirect('dashboard')
 
