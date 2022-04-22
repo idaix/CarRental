@@ -223,4 +223,38 @@ footer {
   font-size: 14px;
   width: 20px;
 }
+
+.show-all-cars .car-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.show-all-cars .car-card .explore {
+  position: absolute;
+  font-weight: bold;
+  width: 120px;
+  font-size: 20px;
+  top: 0;
+  left: -120px;
+  padding: 5px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-transition: .3s;
+  transition: .3s;
+}
+
+.show-all-cars .car-card:hover {
+  background-color: #58585810;
+}
+
+.show-all-cars .car-card:hover > .explore {
+  left: 0;
+}
 /*# sourceMappingURL=main.css.map */

@@ -118,6 +118,29 @@ footer{
             }
         }
     }
+    .car-card{
+        position: relative;
+        overflow: hidden;
+        .explore{
+            position: absolute;
+            font-weight: bold;
+            width: 120px;
+            font-size: 20px;
+            top: 0;
+            left: -120px;
+            padding: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: .3s;
+        }
+        &:hover{
+            background-color: #58585810;
+            &>.explore{
+                left: 0;
+            }
+        }
+    }
 }
 
 
