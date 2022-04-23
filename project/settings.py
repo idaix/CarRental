@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'app.apps.AppConfig',
     'vehicle.apps.VehicleConfig',
     'agency.apps.AgencyConfig',
+    'order.apps.OrderConfig',
 ]
 
 MIDDLEWARE = [

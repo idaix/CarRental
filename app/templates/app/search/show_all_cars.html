@@ -55,29 +55,11 @@
                     </div>
                 </div>
                 <div class="col-md-3 card-body d-flex align-items-center justify-content-between d-md-block">
-                    <h6>Rent for <strong class="text-success">{{ car.price }} DZD</strong> per day.</h6>
-                    <a href="#book-{{ car.id }}" class="btn btn-success">Book Now</a>
+                    <h6>Rent for <strong class="text-success">{{ car.get_price }}</strong> per day.</h6>
+                    <a href="{% url 'book' car.id %}?date-start={{date_start}}&date-end={{date_end}}" class="btn btn-success">Book Now</a>
                 </div>
             </div>
         </div>
         {% endfor %}
 </section>
 {% endblock %}
-
-
-<!-- <div class="col-md-12">
-    <a href="{% url 'vehicle_details' car.id %}">
-        <div class="shadow mb-3 rounded-3" >
-            
-            <div class="card-body">
-            <h5 class="card-title"></h5>
-            <p class="text-black-50">By {{ car.owned_by.username }}</p>
-            <span>{{ car.transmission }} | </span>
-            <span>{{ car.doors }} doors | </span>
-            <span>{{ car.seats }} seats</span>
-            <br>
-            <a href="#{{ v.id }}" class="btn btn-primary">Book</a>
-            </div>
-        </div>
-    </a>
-</div> -->

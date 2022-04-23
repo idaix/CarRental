@@ -90,13 +90,6 @@ footer{
 
 // Show all cars
 .show-all-cars{
-    .contact_link{
-        display: flex;
-    }
-    .ul-icon{
-        font-size: 15px;
-        width: 30px;
-    }
     .tab{
         width: 100%;
         tbody{
@@ -142,5 +135,10 @@ footer{
         }
     }
 }
-
-
+.contact_link{
+    display: flex;
+}
+.ul-icon{
+    font-size: 15px;
+    width: 30px;
+}

@@ -76,6 +76,8 @@ class Vehicle(models.Model):
     # Methods
     def get_title(self):
         return f'{self.model.get_vehicle_name()} {self.year}'
+    def get_price(self):
+        return f'{self.price} DZD'
     
     def __str__(self) -> str:
         return self.get_title()

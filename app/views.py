@@ -1,6 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from app.forms import ClientForm
 from vehicle.models import Images, Vehicle, Type, Energy, Transmission
 from agency.models import Agency
+from order.models import Order
 from django.db.models import Q
 
 # Create your views here.
@@ -70,3 +72,41 @@ def vehicle_details(request, pk):
     }
     return render(request, 'app/vehicle.html', context=context)
 
+
+# ORDER
+def book(request, pk):
+    date_start = request.GET.get('date-start', '')
+    date_end = request.GET.get('date-end', '')
+    car = Vehicle.objects.get(pk=pk)
+    agency = car.owned_by
+    if request.method == 'POST':
+        client_form = ClientForm(request.POST)
+        if client_form.is_valid():
+            # create client
+            client_form.save(commit=False)
+            client_form.agency = agency
+            client = client_form.save()
+            # create client order
+            order = Order(
+                vehicle=car,
+                agency=agency,
+                client=client,
+                date_start=date_start,
+                date_end=date_end,
+                price=car.price,
+            )
+            order.save()
+            print('order created')
+            return redirect('home')
+    else:
+        client_form = ClientForm()
+    
+    context = {
+        'date_start':date_start,
+        'date_end':date_end,
+        'car': car,
+        'agency': agency,
+        'client_form': client_form,
+    }
+
+    return render(request, 'app/booking/book.html', context)

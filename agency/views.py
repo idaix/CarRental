@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login
 from django.views.generic.edit import UpdateView
+
+from order.models import Order, Client
 from .forms import ProfileForm, RegisterForm, UserUpdateForm, VehicleForm
 from vehicle.models import Make, Model, Vehicle, Images
 from .models import Agency
@@ -70,11 +72,18 @@ class AgencyUpdateView(UpdateView):
 def dashboard(request):
     vehicles = Vehicle.objects.filter(owned_by=request.user.agency)
     vehicles_count = vehicles.count()
-    for i in vehicles:
-        print(i.id)
+    orders = Order.objects.filter(agency=request.user.agency)
+    orders_count = orders.count()
+    clients = Client.objects.filter(agency=request.user.agency)
+    clients_count = orders.count()
+    
     context = {
         'vehicles':vehicles,
         'vehicles_count':vehicles_count,
+        'orders':orders,
+        'orders_count':orders_count,
+        'clients':clients,
+        'clients_count':clients_count,
     }
     return render(request, 'agency/dashboard.html', context=context)
 
@@ -167,6 +176,7 @@ class VehicleDelete(DeleteView):
     success_url = reverse_lazy('dashboard')
 
 # change status
+@login_required
 def change_status(request, pk):
     car = Vehicle.objects.get(pk=pk)
     # check the curen status

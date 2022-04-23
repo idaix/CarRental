@@ -1,0 +1,51 @@
+{% extends "base/base.html" %}
+{% load crispy_forms_tags %}
+{% block title %}Book {{ car.get_title }}{% endblock %}
+{% block content %}
+<div class="card p-3 mt-5">
+    <p class="text-center text-secondary">Please fill out fields</p>
+    <div class="row">
+        <div class="col-md-6">
+            <form method="POST">
+                {% csrf_token %}
+                <fieldset class="form-group">
+                    {{ client_form|crispy }}
+                </fieldset>
+                <br>
+                <div class="form-group d-flex align-items-center justify-content-center">
+                    <button class="btn btn-success" type="submit">Confirm booking</button>
+                </div>
+                <br>
+            </form>
+        </div>
+        <div class="col-md-6">
+            <h5 class="text-primary">Booking Details</h5>
+            <div class="row bg-light">
+                <div class="col-md-6">
+                    <small>Pick Up</small>
+                    <p class="text-secondary">{{ agency.get_full_address }} - {{date_start}}</p>
+                </div>
+                <div class="col-md-6">
+                    <small>Drop of</small>
+                    <p class="text-secondary">{{ agency.get_full_address }} - {{date_end}}</p>
+                </div>
+            </div>
+            <hr>
+            <h5>Book {{ car.get_title }} for <span class="text-success">{{ car.get_price }}</span></h5>
+            <img src="{{ car.thumbnail.image.url }}" class="card card-img-top card-media" alt="{{ car.get_title }}">
+            <hr>
+            <h5 class="mb-0 text-primary">Agency Informations</h5>
+            <small class="text-secondary">Please contact the agency for more details.</small>
+            <br>
+            <h1 class="mb-1">{{ agency.name }}</h1>
+            <h5 >Contact info</h5>
+            <ul class="text-secondary">
+                <li class="contact_link"><span class="material-icons-round ul-icon">call</span>{{ agency.contact_phone }}</li>
+                <li class="contact_link"><span class="material-icons-round ul-icon">alternate_email</span>{{ agency.contact_email }}</li>
+                <li class="contact_link"><span class="material-icons-round ul-icon">laptop</span>{{ agency.contact_website }}</li>
+                <li class="contact_link"><span class="material-icons-round ul-icon">place</span>{{ agency.get_full_address }}</li>
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock content %}

@@ -174,17 +174,6 @@ footer {
   color: white;
 }
 
-.show-all-cars .contact_link {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-}
-
-.show-all-cars .ul-icon {
-  font-size: 15px;
-  width: 30px;
-}
-
 .show-all-cars .tab {
   width: 100%;
 }
@@ -256,5 +245,16 @@ footer {
 
 .show-all-cars .car-card:hover > .explore {
   left: 0;
+}
+
+.contact_link {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.ul-icon {
+  font-size: 15px;
+  width: 30px;
 }
 /*# sourceMappingURL=main.css.map */
