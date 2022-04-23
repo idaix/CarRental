@@ -177,7 +177,7 @@ class VehicleDelete(DeleteView):
 
 # change status
 @login_required
-def change_status(request, pk):
+def change_status_vehicle(request, pk):
     car = Vehicle.objects.get(pk=pk)
     # check the curen status
     if car.is_available:
@@ -186,6 +186,21 @@ def change_status(request, pk):
     else:
         car.is_available = True
         car.save()
+
+    return redirect('dashboard')
+
+
+# Accept, refuse orders
+@login_required
+def change_status_order(request, pk):
+    order = Order.objects.get(pk=pk)
+    vehicle = order.vehicle
+    if order.is_available:
+        order.is_available = False
+        order.status = 'a'
+        vehicle.is_available = False
+        vehicle.save()
+        order.save()
 
     return redirect('dashboard')
 

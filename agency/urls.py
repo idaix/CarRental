@@ -12,6 +12,8 @@ urlpatterns = [
     path('vehicle/add_vehicle/', views.add_vehicle, name='add_vehicle'),
     path('vehicle/model_field/', views.model_field, name='model_field'),
     path('vehicle/<int:pk>/update', views.update_vehicle, name='vehicle_update'),
-    path('vehicle/<int:pk>/change_status', views.change_status, name='change_status'),
+    path('vehicle/<int:pk>/change_status', views.change_status_vehicle, name='change_status_vehicle'),
     path('vehicle/<int:pk>/delete', views.VehicleDelete.as_view(), name='vehicle_delete'),
+    # AGENCY ORDERS URLS
+    path('order/<int:pk>/change_status', views.change_status_order, name='change_status_order'),
 ]

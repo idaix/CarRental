@@ -83,8 +83,8 @@ def book(request, pk):
         client_form = ClientForm(request.POST)
         if client_form.is_valid():
             # create client
-            client_form.save(commit=False)
-            client_form.agency = agency
+            client = client_form.save(commit=False)
+            client.agency = agency
             client = client_form.save()
             # create client order
             order = Order(

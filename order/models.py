@@ -10,7 +10,7 @@ from vehicle.models import Vehicle
 
 #2
 class Client(models.Model):
-    agency = models.ForeignKey(Agency, on_delete=models.CASCADE, null=True)
+    agency = models.ForeignKey(Agency, on_delete=models.CASCADE)
 
     first_name = models.CharField(max_length=100, help_text='Please insert your Firstname')
     last_name = models.CharField(max_length=100, help_text='Please insert your Lasttname')
