@@ -15,5 +15,8 @@ urlpatterns = [
     path('vehicle/<int:pk>/change_status', views.change_status_vehicle, name='change_status_vehicle'),
     path('vehicle/<int:pk>/delete', views.VehicleDelete.as_view(), name='vehicle_delete'),
     # AGENCY ORDERS URLS
+    path('orders/', views.orders, name='orders'),
     path('order/<int:pk>/change_status', views.change_status_order, name='change_status_order'),
+    # AGENCY CLIENTS URLS
+    path('clients/', views.clients, name='clients'),
 ]

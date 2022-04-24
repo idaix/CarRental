@@ -72,10 +72,10 @@ class AgencyUpdateView(UpdateView):
 def dashboard(request):
     vehicles = Vehicle.objects.filter(owned_by=request.user.agency)
     vehicles_count = vehicles.count()
-    orders = Order.objects.filter(agency=request.user.agency)
-    orders_count = orders.count()
-    clients = Client.objects.filter(agency=request.user.agency)
-    clients_count = orders.count()
+    orders = Order.objects.filter(agency=request.user.agency)[:3]
+    orders_count = Order.objects.filter(agency=request.user.agency).count()
+    clients = Client.objects.filter(agency=request.user.agency)[:3]
+    clients_count = Client.objects.filter(agency=request.user.agency).count()
     
     context = {
         'vehicles':vehicles,
@@ -196,11 +196,47 @@ def change_status_order(request, pk):
     order = Order.objects.get(pk=pk)
     vehicle = order.vehicle
     if order.is_available:
-        order.is_available = False
-        order.status = 'a'
-        vehicle.is_available = False
-        vehicle.save()
-        order.save()
+        if vehicle.is_available:
+            order.is_available = False
+            order.status = 'a'
+            vehicle.is_available = False
+            vehicle.save()
+            order.save()
 
     return redirect('dashboard')
 
+
+
+# garage 
+@login_required
+def garage(request):
+    vehicles = Vehicle.objects.filter(owned_by=request.user.agency)
+    vehicles_count = vehicles.count()
+    context = {
+        'vehicles':vehicles,
+        'vehicles_count':vehicles_count,
+    }
+    return render(request, 'agency/dashboard.html', context=context)
+
+# orders 
+@login_required
+def orders(request):
+    orders = Order.objects.filter(agency=request.user.agency)
+    orders_count = orders.count()
+    context = {
+        'orders':orders,
+        'orders_count':orders_count,
+    }
+    return render(request, 'order/orders.html', context=context)
+
+# clients 
+@login_required
+def clients(request):
+    clients = Client.objects.filter(agency=request.user.agency)
+    clients_count = clients.count()
+    
+    context = {
+        'clients':clients,
+        'clients_count':clients_count,
+    }
+    return render(request, 'client/clients.html', context=context)

@@ -119,13 +119,17 @@
                     <td>{{ order.vehicle.get_title }}</td>
                     <td>{{ order.price }}</td>
                     <td>{{ order.get_full_date }}</td>
-                    <td>{{ order.get_status_display }}</td>
+                    <td><span class="badge bg-light text-info" >{{ order.get_status_display }}</span></td>
                     <td>
                       {% if order.is_available %}
-                        <a class="text-success" href="{% url 'change_status_order' order.id %}">Accept</a>
+                        {% if order.vehicle.is_available %}
+                          <a class="text-success" href="{% url 'change_status_order' order.id %}">Accept</a>
+                        {% else %}
+                          <span class="text-danger">Car Not available</span>
+                        {% endif %}
                       {% endif %}
                     </td>
-                    <td><a href="#more_details">More details</a></td>
+                    <td><a class="text-warning" href="#more_details">More details</a></td>
                   </tr>
                 {% endfor %}
               

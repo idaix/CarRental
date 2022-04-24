@@ -1,0 +1,47 @@
+{% extends 'agency/base.html' %}
+
+<!-- title -->
+{% block title %}Dashboard{% endblock %}
+<!-- title -->
+
+<!-- content -->
+{% block content %}
+<section class="p-2 mb-3" id="clients">
+  <header>
+    <h2 class="section_title d-flex align-items-center">
+      <span class="material-icons-two-tone">people</span>
+      Clients
+    </h2>
+
+  </header>
+  <div class="table-responsive">
+    {% if clients %}
+      <table class="table table-sm">
+        <thead>
+          <tr>
+            <th scope="col">Client</th>
+            <th scope="col">Mobile</th>
+            <th scope="col">Gender - Age</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for client in clients %}
+              <tr>
+                <td>{{ client.get_full_name }}</td>
+                <td>{{ client.mobile }}</td>
+                <td>{{ client.get_gender_display }} - {{ client.age }} years old</td>
+              </tr>
+            {% endfor %}
+          
+        </tbody>
+      </table>
+      {% else %}
+          <p>No clients yet...</p>
+      {% endif %}
+  </div>
+</section>
+
+{% endblock %}
+<!-- content -->
+
+

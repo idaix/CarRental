@@ -1,0 +1,60 @@
+{% extends 'agency/base.html' %}
+
+<!-- title -->
+{% block title %}Dashboard{% endblock %}
+<!-- title -->
+
+<!-- content -->
+{% block content %}
+<section class="p-2 mb-3" id="orders">
+  <header>
+    <h2 class="section_title d-flex align-items-center">
+      <span class="material-icons-two-tone">content_paste</span>
+      Orders
+    </h2>
+
+  </header>
+  <div class="table-responsive">
+        {% if orders %}
+          <table class="table table-sm">
+            <thead>
+              <tr>
+                <th scope="col">Client</th>
+                <th scope="col">Vehicle</th>
+                <th scope="col">Price</th>
+                <th scope="col">Date</th>
+                <th scope="col">Status</th>
+                <th></th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+                {% for order in orders %}
+                  <tr>
+                    <td>{{ order.client.get_full_name }}</td>
+                    <td>{{ order.vehicle.get_title }}</td>
+                    <td>{{ order.price }}</td>
+                    <td>{{ order.get_full_date }}</td>
+                    <td><span class="badge bg-light text-info" >{{ order.get_status_display }}</span></td>
+                    <td>
+                      {% if order.is_available %}
+                        {% if order.vehicle.is_available %}
+                          <a class="text-success" href="{% url 'change_status_order' order.id %}">Accept</a>
+                        {% else %}
+                          <span class="text-danger">Car Not available</span>
+                        {% endif %}
+                      {% endif %}
+                    </td>
+                    <td><a class="text-warning" href="#more_details">More details</a></td>
+                  </tr>
+                {% endfor %}
+              
+            </tbody>
+          </table>
+          {% else %}
+                <p>No orders yet...</p>
+            {% endif %}
+        </div>
+</section>
+{% endblock %}
+<!-- content -->
