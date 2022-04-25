@@ -32,28 +32,18 @@
         </form>
       </div>
     </div>
-    <section class="section mt-5" id="new">
-      <h1 class="text-center mb-3">New</h1>
-      <div class="row">
-        {% for v in vehicles %}
-            <div class="col-md-3">
-                <a href="{% url 'vehicle_details' v.id %}">
-                    <div class="shadow mb-3 rounded-3" >
-                        <img src="{{ v.thumbnail.image.url }}" class="card-img-top" alt="{{ v.get_title }}">
-                        <div class="card-body">
-                        <h5 class="card-title">{{v.get_title}}</h5>
-                        <a href="">By {{ v.owned_by.name }}</a><br>
-                        <span>{{ v.transmission }} | </span>
-                        <span>{{ v.doors }} doors | </span>
-                        <span>{{ v.seats }} seats</span>
-                        <br>
-                        <a href="#{{ v.id }}" class="btn btn-primary">Book</a>
-                        </div>
-                    </div>
-                </a>
-            </div>
-        {% endfor %}
-    </div>
-    </section>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
 </div>
 {% endblock %}

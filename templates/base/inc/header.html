@@ -21,23 +21,29 @@
             </ul>
             <ul class="navbar-nav mb-2 mb-lg-0">
               {% if request.user.is_authenticated %}
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'dashboard' %}">Dashboard</a>
-              </li>
-              <!-- Example single danger button -->
-              <li class="nav-item">
-                <div class="btn-group">
-                  <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                    Account
-                  </button>
-                  <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="{% url 'agency_profile' %}">Profile</a></li>
-                    <li><a class="dropdown-item" href="#">Settings</a></li>
-                    <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item btn btn-danger" href="{% url 'logout' %}">Logout</a></li>
-                  </ul>
-                </div>
-              </li>
+                {% if request.user.is_agent %}
+                  <li class="nav-item">
+                    <a class="nav-link" href="{% url 'dashboard' %}">Dashboard</a>
+                  </li>
+                {% endif %}
+                <!-- Example single danger button -->
+                <li class="nav-item">
+                  <div class="btn-group">
+                    <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                      Account
+                    </button>
+                    <ul class="dropdown-menu">
+                      {% if request.user.is_agent %}
+                        <li><a class="dropdown-item" href="{% url 'agency_profile' %}">Profile</a></li>
+                        <li><a class="dropdown-item" href="{% url 'agency_profile_edit' %}">Settings</a></li>
+                        {% else %}
+                        <li><a class="dropdown-item" href="#">Profile</a></li>
+                      {% endif %}
+                      <li><hr class="dropdown-divider"></li>
+                      <li><a class="dropdown-item btn btn-danger" href="{% url 'logout' %}">Logout</a></li>
+                    </ul>
+                  </div>
+                </li>
               {% else %}
                 <li class="nav-item">
                   <a class="nav-link" href="{% url 'agency_register' %}">Become_agent</a>

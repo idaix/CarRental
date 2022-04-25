@@ -1,5 +1,6 @@
 from django.db import models
-from django.contrib.auth.models import User
+# from django.contrib.auth.models import User
+from django.conf import settings
 from PIL import Image
 # SIGNALS...
 # from django.db.models.signals import post_save
@@ -17,7 +18,7 @@ class Location(models.Model):
 
 # create [Profile] model
 class Agency(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='agency')
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='agency')
     name = models.CharField(max_length=150)
     bio = models.TextField(max_length=500, blank=True, help_text='(500)')
     image = models.ImageField(default="default/default_profile_image.svg", upload_to='profile_images/%y/%m/%d', blank=True)

@@ -17,7 +17,9 @@ def register(request):
     if request.method == 'POST':
         form = RegisterForm(request.POST)
         if form.is_valid():
-            user = form.save()
+            user = form.save(commit=False)
+            user.is_agent = True
+            user.save()
             # login user
             login(request, user)
             agency = Agency.objects.create(user=user ,name=user.username)

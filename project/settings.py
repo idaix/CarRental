@@ -140,10 +140,16 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 # REDIRECT_URL
-LOGIN_REDIRECT_URL = '/agency/dashboard'
+# LOGIN_REDIRECT_URL = '/agency/dashboard'
+LOGIN_REDIRECT_URL = 'home'
 
 
 
 
 # crispy
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+
+
+# OVERRIDE USER MODEL
+AUTH_USER_MODEL = 'accounts.User'
