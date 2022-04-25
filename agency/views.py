@@ -1,3 +1,4 @@
+from multiprocessing import context
 from django.shortcuts import render, redirect
 from django.contrib.auth import login
 from django.views.generic.edit import UpdateView
@@ -192,9 +193,10 @@ def change_status_vehicle(request, pk):
 
 # Accept, refuse orders
 @login_required
-def change_status_order(request, pk):
+def accept_order(request, pk):
     order = Order.objects.get(pk=pk)
     vehicle = order.vehicle
+    return_to = request.GET.get('return_to')
     if order.is_available:
         if vehicle.is_available:
             order.is_available = False
@@ -203,7 +205,19 @@ def change_status_order(request, pk):
             vehicle.save()
             order.save()
 
-    return redirect('dashboard')
+    return redirect(return_to)
+
+def refuse_order(request, pk):
+    order = Order.objects.get(pk=pk)
+    vehicle = order.vehicle
+    return_to = request.GET.get('return_to')
+    if order.is_available:
+        if vehicle.is_available:
+            order.is_available = False
+            order.status = 'r'
+            order.save()
+
+    return redirect(return_to, pk=pk)
 
 
 
@@ -240,3 +254,15 @@ def clients(request):
         'clients_count':clients_count,
     }
     return render(request, 'client/clients.html', context=context)
+
+@login_required
+def order_detail(request, pk):
+    order = Order.objects.get(pk=pk)
+    client = order.client
+    vehicle = order.vehicle
+    context = {
+        'order':order,
+        'client':client,
+        'vehicle':vehicle,
+    }
+    return render(request, 'order/order_detail.html', context=context)

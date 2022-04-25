@@ -16,7 +16,7 @@
   </header>
   <div class="table-responsive">
         {% if orders %}
-          <table class="table table-sm">
+          <table class="table table-striped table-sm">
             <thead>
               <tr>
                 <th scope="col">Client</th>
@@ -35,17 +35,25 @@
                     <td>{{ order.vehicle.get_title }}</td>
                     <td>{{ order.price }}</td>
                     <td>{{ order.get_full_date }}</td>
-                    <td><span class="badge bg-light text-info" >{{ order.get_status_display }}</span></td>
+                    <td>
+                      {% if order.status == 'a' %}
+                          <span class="badge bg-light text-info" >{{ order.get_status_display }}</span>
+                      {% elif order.status == 'p' %}
+                          <span class="badge bg-light text-warning" >{{ order.get_status_display }}</span>
+                      {% else %}
+                          <span class="badge bg-light text-danger" >{{ order.get_status_display }}</span>
+                      {% endif %}
+                    </td>
                     <td>
                       {% if order.is_available %}
                         {% if order.vehicle.is_available %}
-                          <a class="text-success" href="{% url 'change_status_order' order.id %}">Accept</a>
+                          <a class="text-success" href="{% url 'accept_order' order.id %}?return_to=orders">Accept</a>
                         {% else %}
                           <span class="text-danger">Car Not available</span>
                         {% endif %}
                       {% endif %}
                     </td>
-                    <td><a class="text-warning" href="#more_details">More details</a></td>
+                    <td><a class="text-warning" href="{% url 'order_detail' order.id %}">More details</a></td>
                   </tr>
                 {% endfor %}
               

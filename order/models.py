@@ -61,6 +61,8 @@ class Order(models.Model):
 
     def get_full_date(self):
         return f'{self.date_start} - {self.date_end}'    
+    def get_price(self):
+        return f'{self.price} DZD'    
 
     def __str__(self) -> str:
         return f'{self.client} {self.vehicle.get_title()}'
