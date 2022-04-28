@@ -1,0 +1,466 @@
+[
+    {
+        "model": "vehicle.make", "pk": "1",
+        "fields": { "name": "Abarth"
+    }},
+    {
+        "model": "vehicle.make", "pk": "2",
+        "fields": { "name": "AC"
+    }},
+    {
+        "model": "vehicle.make", "pk": "3",
+        "fields": { "name": "Acura"
+    }},
+    {
+        "model": "vehicle.make", "pk": "4",
+        "fields": { "name": "Aixam"
+    }},
+    {
+        "model": "vehicle.make", "pk": "5",
+        "fields": { "name": "Alfa Romeo"
+    }},
+    {
+        "model": "vehicle.make", "pk": "6",
+        "fields": { "name": "ALPINA"
+    }},
+    {
+        "model": "vehicle.make", "pk": "7",
+        "fields": { "name": "Artega"
+    }},
+    {
+        "model": "vehicle.make", "pk": "8",
+        "fields": { "name": "Asia Motors"
+    }},
+    {
+        "model": "vehicle.make", "pk": "9",
+        "fields": { "name": "Aston Martin"
+    }},
+    {
+        "model": "vehicle.make", "pk": "10",
+        "fields": { "name": "Audi"
+    }},
+    {
+        "model": "vehicle.make", "pk": "11",
+        "fields": { "name": "Austin"
+    }},
+    {
+        "model": "vehicle.make", "pk": "12",
+        "fields": { "name": "Austin Healey"
+    }},
+    {
+        "model": "vehicle.make", "pk": "13",
+        "fields": { "name": "Bentley"
+    }},
+    {
+        "model": "vehicle.make", "pk": "14",
+        "fields": { "name": "BMW"
+    }},
+    {
+        "model": "vehicle.make", "pk": "15",
+        "fields": { "name": "Borgward"
+    }},
+    {
+        "model": "vehicle.make", "pk": "16",
+        "fields": { "name": "Brilliance"
+    }},
+    {
+        "model": "vehicle.make", "pk": "17",
+        "fields": { "name": "Bugatti"
+    }},
+    {
+        "model": "vehicle.make", "pk": "18",
+        "fields": { "name": "Buick"
+    }},
+    {
+        "model": "vehicle.make", "pk": "19",
+        "fields": { "name": "Cadillac"
+    }},
+    {
+        "model": "vehicle.make", "pk": "20",
+        "fields": { "name": "Casalini"
+    }},
+    {
+        "model": "vehicle.make", "pk": "21",
+        "fields": { "name": "Caterham"
+    }},
+    {
+        "model": "vehicle.make", "pk": "22",
+        "fields": { "name": "Chatenet"
+    }},
+    {
+        "model": "vehicle.make", "pk": "23",
+        "fields": { "name": "Chevrolet"
+    }},
+    {
+        "model": "vehicle.make", "pk": "24",
+        "fields": { "name": "Chrysler"
+    }},
+    {
+        "model": "vehicle.make", "pk": "25",
+        "fields": { "name": "Citroën"
+    }},
+    {
+        "model": "vehicle.make", "pk": "26",
+        "fields": { "name": "Cobra"
+    }},
+    {
+        "model": "vehicle.make", "pk": "27",
+        "fields": { "name": "Corvette"
+    }},
+    {
+        "model": "vehicle.make", "pk": "28",
+        "fields": { "name": "Cupra"
+    }},
+    {
+        "model": "vehicle.make", "pk": "29",
+        "fields": { "name": "Dacia"
+    }},
+    {
+        "model": "vehicle.make", "pk": "30",
+        "fields": { "name": "Daewoo"
+    }},
+    {
+        "model": "vehicle.make", "pk": "31",
+        "fields": { "name": "Daihatsu"
+    }},
+    {
+        "model": "vehicle.make", "pk": "32",
+        "fields": { "name": "DeTomaso"
+    }},
+    {
+        "model": "vehicle.make", "pk": "33",
+        "fields": { "name": "Dodge"
+    }},
+    {
+        "model": "vehicle.make", "pk": "34",
+        "fields": { "name": "Donkervoort"
+    }},
+    {
+        "model": "vehicle.make", "pk": "35",
+        "fields": { "name": "DS Automobiles"
+    }},
+    {
+        "model": "vehicle.make", "pk": "36",
+        "fields": { "name": "Ferrari"
+    }},
+    {
+        "model": "vehicle.make", "pk": "37",
+        "fields": { "name": "Fiat"
+    }},
+    {
+        "model": "vehicle.make", "pk": "38",
+        "fields": { "name": "Fisker"
+    }},
+    {
+        "model": "vehicle.make", "pk": "39",
+        "fields": { "name": "Ford"
+    }},
+    {
+        "model": "vehicle.make", "pk": "40",
+        "fields": { "name": "GAC Gonow"
+    }},
+    {
+        "model": "vehicle.make", "pk": "41",
+        "fields": { "name": "Gemballa"
+    }},
+    {
+        "model": "vehicle.make", "pk": "42",
+        "fields": { "name": "GMC"
+    }},
+    {
+        "model": "vehicle.make", "pk": "43",
+        "fields": { "name": "Grecav"
+    }},
+    {
+        "model": "vehicle.make", "pk": "44",
+        "fields": { "name": "Hamann"
+    }},
+    {
+        "model": "vehicle.make", "pk": "45",
+        "fields": { "name": "Holden"
+    }},
+    {
+        "model": "vehicle.make", "pk": "46",
+        "fields": { "name": "Honda"
+    }},
+    {
+        "model": "vehicle.make", "pk": "47",
+        "fields": { "name": "Hummer"
+    }},
+    {
+        "model": "vehicle.make", "pk": "48",
+        "fields": { "name": "Hyundai"
+    }},
+    {
+        "model": "vehicle.make", "pk": "49",
+        "fields": { "name": "Infiniti"
+    }},
+    {
+        "model": "vehicle.make", "pk": "50",
+        "fields": { "name": "Isuzu"
+    }},
+    {
+        "model": "vehicle.make", "pk": "51",
+        "fields": { "name": "Iveco"
+    }},
+    {
+        "model": "vehicle.make", "pk": "52",
+        "fields": { "name": "Jaguar"
+    }},
+    {
+        "model": "vehicle.make", "pk": "53",
+        "fields": { "name": "Jeep"
+    }},
+    {
+        "model": "vehicle.make", "pk": "54",
+        "fields": { "name": "Kia"
+    }},
+    {
+        "model": "vehicle.make", "pk": "55",
+        "fields": { "name": "Koenigsegg"
+    }},
+    {
+        "model": "vehicle.make", "pk": "56",
+        "fields": { "name": "KTM"
+    }},
+    {
+        "model": "vehicle.make", "pk": "57",
+        "fields": { "name": "Lada"
+    }},
+    {
+        "model": "vehicle.make", "pk": "58",
+        "fields": { "name": "Lamborghini"
+    }},
+    {
+        "model": "vehicle.make", "pk": "59",
+        "fields": { "name": "Lancia"
+    }},
+    {
+        "model": "vehicle.make", "pk": "60",
+        "fields": { "name": "Land Rover"
+    }},
+    {
+        "model": "vehicle.make", "pk": "61",
+        "fields": { "name": "Landwind"
+    }},
+    {
+        "model": "vehicle.make", "pk": "62",
+        "fields": { "name": "Lexus"
+    }},
+    {
+        "model": "vehicle.make", "pk": "63",
+        "fields": { "name": "Ligier"
+    }},
+    {
+        "model": "vehicle.make", "pk": "64",
+        "fields": { "name": "Lincoln"
+    }},
+    {
+        "model": "vehicle.make", "pk": "65",
+        "fields": { "name": "Lotus"
+    }},
+    {
+        "model": "vehicle.make", "pk": "66",
+        "fields": { "name": "Mahindra"
+    }},
+    {
+        "model": "vehicle.make", "pk": "67",
+        "fields": { "name": "Maserati"
+    }},
+    {
+        "model": "vehicle.make", "pk": "68",
+        "fields": { "name": "Maybach"
+    }},
+    {
+        "model": "vehicle.make", "pk": "69",
+        "fields": { "name": "Mazda"
+    }},
+    {
+        "model": "vehicle.make", "pk": "70",
+        "fields": { "name": "McLaren"
+    }},
+    {
+        "model": "vehicle.make", "pk": "71",
+        "fields": { "name": "Mercedes-Benz"
+    }},
+    {
+        "model": "vehicle.make", "pk": "72",
+        "fields": { "name": "MG"
+    }},
+    {
+        "model": "vehicle.make", "pk": "73",
+        "fields": { "name": "Microcar"
+    }},
+    {
+        "model": "vehicle.make", "pk": "74",
+        "fields": { "name": "MINI"
+    }},
+    {
+        "model": "vehicle.make", "pk": "75",
+        "fields": { "name": "Mitsubishi"
+    }},
+    {
+        "model": "vehicle.make", "pk": "76",
+        "fields": { "name": "Morgan"
+    }},
+    {
+        "model": "vehicle.make", "pk": "77",
+        "fields": { "name": "Nissan"
+    }},
+    {
+        "model": "vehicle.make", "pk": "78",
+        "fields": { "name": "NSU"
+    }},
+    {
+        "model": "vehicle.make", "pk": "79",
+        "fields": { "name": "Oldsmobile"
+    }},
+    {
+        "model": "vehicle.make", "pk": "80",
+        "fields": { "name": "Opel"
+    }},
+    {
+        "model": "vehicle.make", "pk": "81",
+        "fields": { "name": "Pagani"
+    }},
+    {
+        "model": "vehicle.make", "pk": "82",
+        "fields": { "name": "Peugeot"
+    }},
+    {
+        "model": "vehicle.make", "pk": "83",
+        "fields": { "name": "Piaggio"
+    }},
+    {
+        "model": "vehicle.make", "pk": "84",
+        "fields": { "name": "Plymouth"
+    }},
+    {
+        "model": "vehicle.make", "pk": "85",
+        "fields": { "name": "Polestar"
+    }},
+    {
+        "model": "vehicle.make", "pk": "86",
+        "fields": { "name": "Pontiac"
+    }},
+    {
+        "model": "vehicle.make", "pk": "87",
+        "fields": { "name": "Porsche"
+    }},
+    {
+        "model": "vehicle.make", "pk": "88",
+        "fields": { "name": "Proton"
+    }},
+    {
+        "model": "vehicle.make", "pk": "89",
+        "fields": { "name": "Renault"
+    }},
+    {
+        "model": "vehicle.make", "pk": "90",
+        "fields": { "name": "Rolls-Royce"
+    }},
+    {
+        "model": "vehicle.make", "pk": "91",
+        "fields": { "name": "Rover"
+    }},
+    {
+        "model": "vehicle.make", "pk": "92",
+        "fields": { "name": "Ruf"
+    }},
+    {
+        "model": "vehicle.make", "pk": "93",
+        "fields": { "name": "Saab"
+    }},
+    {
+        "model": "vehicle.make", "pk": "94",
+        "fields": { "name": "Santana"
+    }},
+    {
+        "model": "vehicle.make", "pk": "95",
+        "fields": { "name": "Seat"
+    }},
+    {
+        "model": "vehicle.make", "pk": "96",
+        "fields": { "name": "Skoda"
+    }},
+    {
+        "model": "vehicle.make", "pk": "97",
+        "fields": { "name": "Smart"
+    }},
+    {
+        "model": "vehicle.make", "pk": "98",
+        "fields": { "name": "speedART"
+    }},
+    {
+        "model": "vehicle.make", "pk": "99",
+        "fields": { "name": "Spyker"
+    }},
+    {
+        "model": "vehicle.make", "pk": "100",
+        "fields": { "name": "Ssangyong"
+    }},
+    {
+        "model": "vehicle.make", "pk": "101",
+        "fields": { "name": "Subaru"
+    }},
+    {
+        "model": "vehicle.make", "pk": "102",
+        "fields": { "name": "Suzuki"
+    }},
+    {
+        "model": "vehicle.make", "pk": "103",
+        "fields": { "name": "Talbot"
+    }},
+    {
+        "model": "vehicle.make", "pk": "104",
+        "fields": { "name": "Tata"
+    }},
+    {
+        "model": "vehicle.make", "pk": "105",
+        "fields": { "name": "TECHART"
+    }},
+    {
+        "model": "vehicle.make", "pk": "106",
+        "fields": { "name": "Tesla"
+    }},
+    {
+        "model": "vehicle.make", "pk": "107",
+        "fields": { "name": "Toyota"
+    }},
+    {
+        "model": "vehicle.make", "pk": "108",
+        "fields": { "name": "Trabant"
+    }},
+    {
+        "model": "vehicle.make", "pk": "109",
+        "fields": { "name": "Triumph"
+    }},
+    {
+        "model": "vehicle.make", "pk": "110",
+        "fields": { "name": "TVR"
+    }},
+    {
+        "model": "vehicle.make", "pk": "111",
+        "fields": { "name": "Volkswagen"
+    }},
+    {
+        "model": "vehicle.make", "pk": "112",
+        "fields": { "name": "Volvo"
+    }},
+    {
+        "model": "vehicle.make", "pk": "113",
+        "fields": { "name": "Wartburg"
+    }},
+    {
+        "model": "vehicle.make", "pk": "114",
+        "fields": { "name": "Westfield"
+    }},
+    {
+        "model": "vehicle.make", "pk": "115",
+        "fields": { "name": "Wiesmann"
+    }},
+    {
+        "model": "vehicle.make", "pk": "116",
+        "fields": { "name": "Other"
+    }}
+]

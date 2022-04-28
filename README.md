@@ -23,3 +23,7 @@
 > py .\manage.py loaddata wilaya.json
 > 
 > py .\manage.py loaddata commune.json
+>
+> py .\manage.py loaddata makes.json
+>
+> py .\manage.py loaddata models.json

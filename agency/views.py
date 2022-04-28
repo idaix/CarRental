@@ -144,7 +144,7 @@ def add_vehicle(request):
     return render(request, 'vehicle/add_vehicle.html', context=context)
 def model_field(request):
     if request.method == 'GET':
-            models=Model.objects.filter(make = request.GET.get('make'))
+            models=Model.objects.filter(make_id = request.GET.get('make'))
             context={'models':models}
             return render(request, 'vehicle/partials/model_field.html', context=context)
 

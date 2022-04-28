@@ -12,12 +12,13 @@ class Make(models.Model):
 
 # ------------------ VehicleModel  -----------------
 class Model(models.Model):
-    make = models.ForeignKey(Make, on_delete=models.CASCADE)
-    model = models.CharField(max_length=100, help_text='Model')
+    make_id = models.ForeignKey(Make, on_delete=models.CASCADE)
+    name = models.CharField(max_length=100, help_text='Model')
+    series = models.CharField(max_length=100, help_text='Model', blank=True, null=True)
     def __str__(self) -> str:
-        return f'{self.make.name} {self.model}'
+        return f'{self.make.name} {self.name}'
     def get_vehicle_name(self):
-        return f'{self.make.name} {self.model}'
+        return f'{self.make.name} {self.name}'
 
 
 class Type(models.Model):

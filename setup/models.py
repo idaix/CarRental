@@ -28,3 +28,6 @@ class Commune(models.Model):
     
     def __str__(self) -> str:
         return self.name
+
+# -----------------SET UP CAR MAKES MODELS --------------
+# setup is in vehicle model...
