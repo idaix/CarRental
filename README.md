@@ -17,6 +17,9 @@
 
 
 ### Please do the following ...
-run py .\manage.py migrate
-run py .\manage.py loaddata wilaya.json
-run py .\manage.py loaddata commune.json
+###### run
+> py .\manage.py migrate
+> 
+> py .\manage.py loaddata wilaya.json
+> 
+> py .\manage.py loaddata commune.json
