@@ -21,7 +21,7 @@
             </ul>
             <ul class="navbar-nav mb-2 mb-lg-0">
               {% if request.user.is_authenticated %}
-                {% if request.user.is_agent %}
+                {% if request.user.agency %}
                   <li class="nav-item">
                     <a class="nav-link" href="{% url 'dashboard' %}">Dashboard</a>
                   </li>
@@ -33,10 +33,10 @@
                       Account
                     </button>
                     <ul class="dropdown-menu">
-                      {% if request.user.is_agent %}
+                      {% if request.user.agency %}
                         <li><a class="dropdown-item" href="{% url 'agency_profile' %}">Profile</a></li>
                         <li><a class="dropdown-item" href="{% url 'agency_profile_edit' %}">Settings</a></li>
-                        {% else %}
+                      {% else %}
                         <li><a class="dropdown-item" href="#">Profile</a></li>
                       {% endif %}
                       <li><hr class="dropdown-divider"></li>

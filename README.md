@@ -1,9 +1,8 @@
 # CarRental
-
+- Setup
+    - Wilaya & Commune
+    - Vehicle Make & Model & Type
 - Vehicle
-    - Add vehicle
-    - Update vehicle
-    - Delete Vehicle
     - Vehicle Details
 - Agency
     - Register
@@ -11,3 +10,13 @@
     - Update profile
     - Delete profile
     - Dashboard *See & manage vehicles*
+    - Add vehicle
+    - Update vehicle
+    - Delete Vehicle
+
+
+
+### Please do the following ...
+run py .\manage.py migrate
+run py .\manage.py loaddata wilaya.json
+run py .\manage.py loaddata commune.json
