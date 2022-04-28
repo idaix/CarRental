@@ -1,0 +1,5 @@
+[ 
+    {"model": "vehicle.energy", "pk": 1, "fields": {"name": "Petrol"}},
+    {"model": "vehicle.energy", "pk": 2, "fields": {"name": "Diesel"}},
+    {"model": "vehicle.energy", "pk": 3, "fields": {"name": "GPL"}}
+]

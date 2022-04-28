@@ -1,0 +1,4 @@
+[ 
+    {"model": "vehicle.transmission", "pk": 1, "fields": {"name": "Automatic"}},
+    {"model": "vehicle.transmission", "pk": 2, "fields": {"name": "Manual"}}
+]

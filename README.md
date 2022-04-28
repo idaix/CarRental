@@ -27,3 +27,9 @@
 > py .\manage.py loaddata makes.json
 >
 > py .\manage.py loaddata models.json
+>
+> py .\manage.py loaddata energy.json
+>
+> py .\manage.py loaddata transmission.json
+>
+> py .\manage.py loaddata type.json

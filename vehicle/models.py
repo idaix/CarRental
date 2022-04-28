@@ -26,6 +26,7 @@ class Type(models.Model):
     name = models.CharField(max_length=100, help_text='Type of vehicle')
     def __str__(self) -> str:
         return self.name
+    
 
 # ------------------ VehicleEngine ----------------------
 class Energy(models.Model):
