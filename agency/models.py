@@ -6,14 +6,14 @@ from PIL import Image
 # from django.db.models.signals import post_save
 # from django.dispatch import receiver
 # [Location] model
-class Location(models.Model):
-    user = models.ForeignKey('Agency', related_name='location', on_delete=models.CASCADE, null=True, blank=True)
-    name = models.CharField(max_length=200, blank=True)
-    city = models.CharField(max_length=200, blank=True)
-    lat = models.CharField(max_length=50, null=True, blank=True)
-    lon = models.CharField(max_length=50, null=True, blank=True)
-    def __str__(self) -> str:
-        return self.name
+# class Location(models.Model):
+#     user = models.ForeignKey('Agency', related_name='location', on_delete=models.CASCADE, null=True, blank=True)
+#     name = models.CharField(max_length=200, blank=True)
+#     city = models.CharField(max_length=200, blank=True)
+#     lat = models.CharField(max_length=50, null=True, blank=True)
+#     lon = models.CharField(max_length=50, null=True, blank=True)
+#     def __str__(self) -> str:
+#         return self.name
 
 
 # create [Profile] model
