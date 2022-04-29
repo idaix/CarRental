@@ -1,6 +1,9 @@
 <div id="commune-select">
     <label>Commune *</label>
     <select name="commune" class="form-select" aria-label="Default select example">
+      {% if profile %}
+        <option value="{{ profile.commune.id }}" selected>{{profile.commune.name}}</option>
+      {% endif %}
         {% for c in commune %}
         <option value="{{c.id}}">{{c.name}}</option>
         {% endfor %}

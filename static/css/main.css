@@ -46,6 +46,18 @@ img {
   cursor: pointer !important;
 }
 
+.steps_container input.invalid {
+  background-color: #ffdddd;
+}
+
+.steps_container .tab {
+  display: none;
+}
+
+.steps_container .tab.active {
+  opacity: 1;
+}
+
 .navbar-brand {
   letter-spacing: 5px;
   font-weight: bolder;

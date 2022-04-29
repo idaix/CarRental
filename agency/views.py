@@ -3,7 +3,7 @@ from django.contrib.auth import login
 from django.views.generic.edit import UpdateView
 
 from order.models import Order, Client
-from .forms import ProfileForm, RegisterForm, UserUpdateForm, VehicleForm
+from .forms import ProfileForm, RegisterAgencyForm, RegisterUserForm, UserUpdateForm, VehicleForm
 from vehicle.models import Make, Model, Vehicle, Images
 from .models import Agency
 from setup.models import Wilaya, Commune
@@ -15,21 +15,30 @@ from django.urls import reverse_lazy
 # Agency Registration ...
 def register(request):
     if request.method == 'POST':
-        form = RegisterForm(request.POST)
-        if form.is_valid():
-            user = form.save(commit=False)
-            user.is_agent = True
-            user.save()
+        user_form = RegisterUserForm(request.POST)
+        agency_form = RegisterAgencyForm(request.POST)
+        if user_form.is_valid() and agency_form.is_valid():
+            user = user_form.save()
+            agency = agency_form.save(commit=False)
+            agency.user = user
+            # set agency address
+            agency.wilaya=Wilaya.objects.get(id=request.POST.get('wilaya'))
+            agency.commune=Commune.objects.get(id=request.POST.get('commune'))
+            agency.state = agency.wilaya.name
+            agency.city = agency.commune.name
+            agency.save()
             # login user
             login(request, user)
-            agency = Agency.objects.create(user=user ,name=user.username)
             return redirect('agency_profile')
     else:
-        form = RegisterForm()
+        user_form = RegisterUserForm()
+        agency_form = RegisterAgencyForm()
+
     wilayas = Wilaya.objects.all()
 
     context = {
-        'form' : form,
+        'user_form' : user_form,
+        'agency_form' : agency_form,
         'wilayas' : wilayas,
     }
 
@@ -57,15 +66,29 @@ def agency_profile_edit(request):
         p_form = ProfileForm(request.POST, request.FILES, instance=profile)
         if p_form.is_valid() and u_form.is_valid():
             u_form.save()
-            p_form.save()
+            agency = p_form.save(commit=False)
+            # set agency address
+            agency.wilaya=Wilaya.objects.get(id=request.POST.get('wilaya'))
+            agency.commune=Commune.objects.get(id=request.POST.get('commune'))
+            agency.state = agency.wilaya.name
+            agency.city = agency.commune.name
+            agency.save()
             return redirect('agency_profile')
     else:
         u_form = UserUpdateForm(instance=request.user)
         p_form = ProfileForm(instance=profile)
+    
+
+    # get current wilaya 
+    current_wilaya = profile.wilaya
+    current_commune = profile.commune
+    wilayas = Wilaya.objects.all()
+    
     context = {
         'profile': profile,
         'u_form' : u_form,
         'p_form' : p_form,
+        'wilayas' : wilayas,
     }
     return render(request, 'agency/profile_edit.html', context=context)
 

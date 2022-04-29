@@ -1,0 +1,14 @@
+.steps_container{
+    // error on validation
+    input.invalid{
+        background-color: #ffdddd;
+    }
+    // hide all steps by default
+    .tab{
+        display: none;
+        // active steps
+        &.active{
+            opacity: 1;
+        }
+    }
+}

@@ -6,10 +6,14 @@ from django.contrib.auth import get_user_model
 
 
 # PROFILE FORMS
-class RegisterForm(UserCreationForm):
+class RegisterUserForm(UserCreationForm):
     class Meta:
         model=get_user_model()
         fields = ['username', 'email', 'password1', 'password2']
+class RegisterAgencyForm(ModelForm):
+    class Meta:
+        model=Agency
+        fields = ['name', 'contact_phone', 'contact_email', 'contact_website']
 
 class UserUpdateForm(ModelForm):
     class Meta:
@@ -19,7 +23,7 @@ class UserUpdateForm(ModelForm):
 class ProfileForm(ModelForm):
     class Meta:
         model=Agency
-        fields = ['image','name', 'bio','contact_phone', 'contact_email', 'contact_website', 'address', 'wilaya', 'commune']
+        fields = ['image','name', 'bio','contact_phone', 'contact_email', 'contact_website', 'address']
 
 # VEHCILE FORMS
 class VehicleForm(ModelForm):
