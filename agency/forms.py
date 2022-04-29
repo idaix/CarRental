@@ -19,7 +19,7 @@ class UserUpdateForm(ModelForm):
 class ProfileForm(ModelForm):
     class Meta:
         model=Agency
-        fields = ['image','name', 'bio','contact_phone', 'contact_email', 'contact_website', 'state', 'city', 'address']
+        fields = ['image','name', 'bio','contact_phone', 'contact_email', 'contact_website', 'address', 'wilaya', 'commune']
 
 # VEHCILE FORMS
 class VehicleForm(ModelForm):

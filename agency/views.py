@@ -1,4 +1,3 @@
-from multiprocessing import context
 from django.shortcuts import render, redirect
 from django.contrib.auth import login
 from django.views.generic.edit import UpdateView
@@ -7,6 +6,7 @@ from order.models import Order, Client
 from .forms import ProfileForm, RegisterForm, UserUpdateForm, VehicleForm
 from vehicle.models import Make, Model, Vehicle, Images
 from .models import Agency
+from setup.models import Wilaya, Commune
 from django.contrib.auth.decorators import login_required
 from django.views.generic.edit import DeleteView
 from django.urls import reverse_lazy
@@ -26,14 +26,19 @@ def register(request):
             return redirect('agency_profile')
     else:
         form = RegisterForm()
-    
+    wilayas = Wilaya.objects.all()
 
     context = {
-        'form' : form
+        'form' : form,
+        'wilayas' : wilayas,
     }
 
     return render(request, 'agency/register.html', context=context)
-
+def commune_field(request):
+    if request.method == 'GET':
+            commune=Commune.objects.filter(wilaya_id = request.GET.get('wilaya'))
+            context={'commune':commune}
+            return render(request, 'agency/partials/commune_field.html', context=context)
 
 # Agency Agency Show...
 @login_required

@@ -13,8 +13,19 @@
             <img src="{% static 'img/vehicle_sale.svg' %}" alt="banner">
         </div>
         <div class="col-md-6">
-            <form method="post">{% csrf_token %}
+            <form method="post" action="{% url 'agency_register' %}" enctype="multipart/form-data">
+                {% csrf_token %}
+
                 {{ form|crispy }}
+                <br>
+                <label>Wilaya *</label>
+                <select name="wilaya" hx-get="{% url 'commune_field'%}" hx-target="#commune-select" class="form-select" aria-label="Default select example">
+                    <option selected>Select Wilaya</option>
+                    {% for w in wilayas %}
+                        <option value="{{w.id}}">{{ w.name }}</option>
+                    {% endfor %}.
+                </select>
+                {% include 'agency/partials/commune_field.html'%}
                 <br>
                 <input type="submit" class="btn btn-primary" value="Register">
             </form>

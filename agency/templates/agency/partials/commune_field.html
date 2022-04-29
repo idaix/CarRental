@@ -1,0 +1,8 @@
+<div id="commune-select">
+    <label>Commune *</label>
+    <select name="commune" class="form-select" aria-label="Default select example">
+        {% for c in commune %}
+        <option value="{{c.id}}">{{c.name}}</option>
+        {% endfor %}
+      </select>
+</div>

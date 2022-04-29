@@ -1,6 +1,9 @@
+from statistics import mode
 from django.db import models
 # from django.contrib.auth.models import User
 from django.conf import settings
+from setup.models import Wilaya, Commune
+
 from PIL import Image
 # SIGNALS...
 # from django.db.models.signals import post_save
@@ -30,8 +33,11 @@ class Agency(models.Model):
     city = models.CharField(max_length=100, blank=True)
     address = models.CharField(max_length=250, blank=True)
 
+    wilaya = models.ForeignKey(Wilaya, on_delete=models.SET_NULL, null=True)
+    commune = models.ForeignKey(Commune, on_delete=models.SET_NULL, null=True)
+
     def get_full_address(self):
-        return f'{self.state}, {self.city} - {self.address}'
+        return f'{self.wilaya.name}, {self.commune.name} - {self.address}'
 
     created_at = models.DateTimeField(auto_now_add=True)
 
