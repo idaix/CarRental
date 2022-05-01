@@ -154,3 +154,11 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 # OVERRIDE USER MODEL
 AUTH_USER_MODEL = 'accounts.User'
+
+# RESET PASSWORD
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'Your Email'
+EMAIL_HOST_PASSWORD = 'Your password'
