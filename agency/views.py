@@ -78,10 +78,6 @@ def agency_profile_edit(request):
         u_form = UserUpdateForm(instance=request.user)
         p_form = ProfileForm(instance=profile)
     
-
-    # get current wilaya 
-    current_wilaya = profile.wilaya
-    current_commune = profile.commune
     wilayas = Wilaya.objects.all()
     
     context = {
@@ -235,17 +231,16 @@ def accept_order(request, pk):
             vehicle.save()
             order.save()
 
-    return redirect(return_to)
+    return redirect(return_to, pk=pk)
 
 def refuse_order(request, pk):
     order = Order.objects.get(pk=pk)
     vehicle = order.vehicle
     return_to = request.GET.get('return_to')
     if order.is_available:
-        if vehicle.is_available:
-            order.is_available = False
-            order.status = 'r'
-            order.save()
+        order.is_available = False
+        order.status = 'r'
+        order.save()
 
     return redirect(return_to, pk=pk)
 

@@ -5,6 +5,7 @@ from vehicle.models import Images, Vehicle, Type, Energy, Transmission
 from agency.models import Agency
 from order.models import Order
 from django.db.models import Q
+from datetime import datetime
 
 # Create your views here.
 
@@ -78,6 +79,9 @@ def vehicle_details(request, pk):
 def book(request, pk):
     date_start = request.GET.get('date-start', '')
     date_end = request.GET.get('date-end', '')
+    if not date_start:date_start = datetime.today()
+    if not date_end:date_end = datetime.today()
+
     car = Vehicle.objects.get(pk=pk)
     agency = car.owned_by
     if request.method == 'POST':
