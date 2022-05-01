@@ -1,4 +1,5 @@
 from django.db import models
+from datetime import datetime
 # todo...
 # import Agency, Vehicle models
 # create client model
@@ -38,8 +39,8 @@ class Order(models.Model):
     agency = models.ForeignKey(Agency, on_delete=models.CASCADE)
     client = models.ForeignKey(Client, on_delete=models.CASCADE, related_name='order')
 
-    date_start = models.DateField()
-    date_end = models.DateField()
+    date_start = models.DateField(default=datetime.today)
+    date_end = models.DateField(default=datetime.today)
     # time_start = models.TimeField()
     # time_end = models.TimeField()
 
