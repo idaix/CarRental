@@ -3,23 +3,30 @@
 {% block title%}Car Rental{% endblock %}
 {% block content%}
 <div class="home pt-5">
-    <div class="row banner">
+    <div class="row banner align-items-center">
       <div class="col-md-6 pt-5">
-        <h4 class="title text-black">Car Hire - Search, Compare & Save</h4>
-        <p class="description text-black-50">Compare companies at over Algeria. Price Match Guarantee</p>
+        <h2 class="text-primary">Car Hire - Search, Compare & Save.<br>Hawes Ga3 <span class="badge bg-primary">DZAYER</span> .</h2>
+        <p class="description text-black-50">Compare all agencies inside Algeria.</p>
       </div>
       <div class="col-md-6">
-        <img src="{% static 'img/vehicle_roud.svg' %}" alt="banner">
+        <img src="{% static 'img/worldmap.svg' %}" alt="banner">
       </div>
     </div>
-    <div class="search-box shadow mt-5">
+    <div class="search-box p-3 shadow mt-5">
       <form method="get" action="{% url 'search' %}">
         <div class="form">
-          
+          <!-- SELECT -->
           <div class="control">
-            <label for="city">Pick-up City</label>
-            <input class="form-control" type="text" id="city" name="city" placeholder="City, airposrt, destination...">
+              <label for="date-start">Pick-up State</label>
+              <select name="wilaya" hx-get="{% url 'commune_field'%}" hx-target="#commune-select" class="form-select" aria-label="Default select example">
+                  <option selected>State</option>
+                  {% for w in wilayas %}
+                      <option value="{{w.id}}">{{ w.name }}</option>
+                  {% endfor %}.
+              </select>
           </div>
+          {% include 'location/partials/commune_field.html'%}
+          <!-- END SELECT -->
           <div class="control">
             <label for="date-start">Pick-up Date</label>
             <input class="form-control" type="date" id="date-start" name="date-start">
@@ -30,7 +37,6 @@
           </div>
           <button type="submit" class="btn btn-primary">Search</button>
         </div>
-        <button type="submit" class="btn btn-primary" id="submitBtn" style="display: none;">Search</button>
       </form>
     </div>
     <br>

@@ -1,9 +1,9 @@
 {% extends 'app/search/base.html' %}
-{% block title%}Search...{% endblock %}
+{% block title%}Search {{ city }}, {{ state }}...{% endblock %}
 {% block search_content %}
-{% if agencies %}
-    {% for agency in agencies %}
-        <div class="shadow mb-3 rounded-3 d-flex align-items-center justify-content-between p-1">
+{% if result %}
+    {% for agency in result %}
+        <div class="shadow mb-3 rounded-3 d-flex align-items-center justify-content-between p-3">
             <div class="left m-1">
                 <h5 class="text-primary mb-0">{{ agency.name }}</h5>
                 <p class="text-secondary mb-0"><small>{{agency.get_full_address}}.</small></p>
@@ -14,7 +14,34 @@
     {% endfor %}
     {% else %}
         <div class="alert alert-danger" role="alert">
-            <p class="text-center">It seems that no car available in "{{ city }}"!</p>
+                <p class="text-center">No Cars Available In "{{ city }}, {{ state }}"!</p>
         </div>
     {% endif %}
+    <div class="search-box p-3 shadow mt-5">
+        <form method="get" action="{% url 'search' %}">
+          <div class="form">
+            <!-- SELECT -->
+            <div class="control">
+                <label for="date-start">Pick-up State</label>
+                <select name="wilaya" hx-get="{% url 'commune_field'%}" hx-target="#commune-select" class="form-select" aria-label="Default select example">
+                    <option selected>State</option>
+                    {% for w in wilayas %}
+                        <option value="{{w.id}}">{{ w.name }}</option>
+                    {% endfor %}.
+                </select>
+            </div>
+            {% include 'location/partials/commune_field.html'%}
+            <!-- END SELECT -->
+            <div class="control d-none">
+              <label for="date-start">Pick-up Date</label>
+              <input class="form-control" type="date" value="{{ date_start }}" id="date-start" name="date-start">
+            </div>
+            <div class="control d-none">
+              <label for="date-end">Drop-off Date</label>
+              <input class="form-control" type="date" value="{{ date_end }}" id="date-end" name="date-end">
+            </div>
+            <button type="submit" class="btn btn-primary">Search</button>
+          </div>
+        </form>
+    </div>
 {% endblock %}

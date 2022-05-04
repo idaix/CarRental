@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from app.forms import ClientForm
-from setup.models import Wilaya
+from setup.models import Commune, Wilaya
 from vehicle.models import Images, Vehicle, Type, Energy, Transmission
 from agency.models import Agency
 from order.models import Order
@@ -10,26 +10,36 @@ from datetime import datetime
 # Create your views here.
 
 def home(request):
-    vehicles = Vehicle.objects.all()
+    wilayas = Wilaya.objects.all()
     context = {
-        'vehicles': vehicles
+        'wilayas': wilayas,
     }
     return render(request, 'app/home.html', context)
 
 
 # SEARCH FORM
 def search(request):
-    city = request.GET.get('city', '')
-    date_start = request.GET.get('date-start', '')
-    date_end = request.GET.get('date-end', '')
-    agencies = Agency.objects.filter(Q(state__icontains=city) | Q(city__icontains=city) | Q(address__icontains=city))
+
+    # Quique check if city selected
+    if request.GET.get('commune'):
+        state = Wilaya.objects.get(id=request.GET.get('wilaya'))
+        city = Commune.objects.get(id=request.GET.get('commune'))
+        date_start = request.GET.get('date-start', '')
+        date_end = request.GET.get('date-end', '')
+    else:
+        return redirect('home')
+    result = Agency.objects.filter(commune=city)
+    # result = Agency.objects.filter(Q(state__icontains=city) | Q(city__icontains=city) | Q(address__icontains=city))
     # for sidebar...
     types = Type.objects.all()
     energy = Energy.objects.all()
     transmission = Transmission.objects.all()
+    wilayas = Wilaya.objects.all()
     context = {
-        'agencies':agencies,
+        'wilayas':wilayas,
+        'result':result,
         'city':city,
+        'state':state,
         'date_start':date_start,
         'date_end':date_end,
         'types':types,

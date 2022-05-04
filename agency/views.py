@@ -47,7 +47,7 @@ def commune_field(request):
     if request.method == 'GET':
             commune=Commune.objects.filter(wilaya_id = request.GET.get('wilaya'))
             context={'commune':commune}
-            return render(request, 'agency/partials/commune_field.html', context=context)
+            return render(request, 'location/partials/commune_field.html', context=context)
 
 # Agency Agency Show...
 @login_required

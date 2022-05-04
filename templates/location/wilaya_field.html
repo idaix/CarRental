@@ -1,0 +1,10 @@
+<div class="control">
+    <label for="date-start">Pick-up State</label>
+    <select name="wilaya" hx-get="{% url 'commune_field'%}" hx-target="#commune-select" class="form-select" aria-label="Default select example">
+        <option selected>State</option>
+        {% for w in wilayas %}
+            <option value="{{w.id}}">{{ w.name }}</option>
+        {% endfor %}.
+    </select>
+</div>
+{% include 'location/partials/commune_field.html'%}

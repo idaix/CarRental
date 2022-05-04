@@ -22,15 +22,14 @@
                 <fieldset class="form-group">
                     {{ u_form|crispy }}
                     {{ p_form|crispy }}
-                    <label>Wilaya *</label>
+                    <label>State *</label>
                     <select name="wilaya" hx-get="{% url 'commune_field'%}" hx-target="#commune-select" class="form-select" aria-label="Default select example">
                         <option value="{{ profile.wilaya.id }}" selected>{{profile.wilaya.name}}</option>
                         {% for w in wilayas %}
                             <option value="{{w.id}}">{{ w.name }}</option>
                         {% endfor %}.
                     </select>
-                    {% include 'agency/partials/commune_field.html'%}
-                    current : {{current_wilaya}} {{current_commune}}
+                    {% include 'location/partials/commune_field.html'%}
                 </fieldset>
         
                 <div class="form-group mt-3 d-flex justify-content-between">
