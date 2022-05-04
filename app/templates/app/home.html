@@ -12,25 +12,26 @@
         <img src="{% static 'img/vehicle_roud.svg' %}" alt="banner">
       </div>
     </div>
-    <div class="row">
-      <div class="col-md-12">
-        <form class="search row" method="get" action="{% url 'search' %}">
-            <div class="control col-md-3">
-              <label for="city">Pick-up Location</label>
-              <input type="text" id="city" name="city" placeholder="City, airport, destination...">
-            </div>
-            <div class="control col-md-3">
-              <label for="date-start">Pick-up Date</label>
-              <input type="date" id="date-start" name="date-start">
-            </div>
-            <div class="control col-md-3">
-              <label for="date-end">Pick-off Date</label>
-              <input type="date" id="date-end" name="date-end">
-            </div>
-            <button type="submit" class="btn btn-primary">Search</button>
+    <div class="search-box shadow mt-5">
+      <form method="get" action="{% url 'search' %}">
+        <div class="form">
           
-        </form>
-      </div>
+          <div class="control">
+            <label for="city">Pick-up City</label>
+            <input class="form-control" type="text" id="city" name="city" placeholder="City, airposrt, destination...">
+          </div>
+          <div class="control">
+            <label for="date-start">Pick-up Date</label>
+            <input class="form-control" type="date" id="date-start" name="date-start">
+          </div>
+          <div class="control">
+            <label for="date-end">Drop-off Date</label>
+            <input class="form-control" type="date" id="date-end" name="date-end">
+          </div>
+          <button type="submit" class="btn btn-primary">Search</button>
+        </div>
+        <button type="submit" class="btn btn-primary" id="submitBtn" style="display: none;">Search</button>
+      </form>
     </div>
     <br>
     <br>
@@ -46,4 +47,34 @@
     <br>
     <br>
 </div>
+<script>
+  console.log('red')
+  const dateStart = document.getElementById('date-start'),
+        dateEnd = document.getElementById('date-end')
+  const date = new Date()
+  let dateNow = `${date.getFullYear()}-${date.getMonth() < 10 ? `0${date.getMonth()}`: date.getMonth()}-${date.getDate() < 10 ? `0${date.getDate()}`: date.getDate()}`
+  dateStart.value = dateNow
+  //get date 3 days from now
+  
+  
+  let dateAfter3Days = `${date.getFullYear()}-${date.getMonth() < 10 ? `0${date.getMonth()}`: date.getMonth()}-${date.setDate(date.getDate() + 3) < 10 ? `0${date.setDate(date.getDate() + 3)}`: date.getDate() + 3}`
+  dateEnd.value = dateAfter3Days
+  console.log(dateNow)
+  console.log(dateAfter3Days)
+</script>
 {% endblock %}
+
+
+<!-- <div class="control col-md-3">
+  <label for="city">Pick-up Location</label>
+  <input type="text" id="city" name="city" placeholder="City, airport, destination...">
+</div>
+<div class="control col-md-3">
+  <label for="date-start">Pick-up Date</label>
+  <input type="date" id="date-start" name="date-start">
+</div>
+<div class="control col-md-3">
+  <label for="date-end">Pick-off Date</label>
+  <input type="date" id="date-end" name="date-end">
+</div>
+<button type="submit" class="btn btn-primary">Search</button> -->
