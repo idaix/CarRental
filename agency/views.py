@@ -213,7 +213,6 @@ def change_status_vehicle(request, pk):
     else:
         car.is_available = True
         car.save()
-
     return redirect('dashboard')
 
 
@@ -230,7 +229,6 @@ def accept_order(request, pk):
             vehicle.is_available = False
             vehicle.save()
             order.save()
-
     return redirect(return_to, pk=pk)
 
 def refuse_order(request, pk):
@@ -241,7 +239,6 @@ def refuse_order(request, pk):
         order.is_available = False
         order.status = 'r'
         order.save()
-
     return redirect(return_to, pk=pk)
 
 

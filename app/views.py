@@ -28,7 +28,12 @@ def search(request):
         date_end = request.GET.get('date-end', '')
     else:
         return redirect('home')
-    result = Agency.objects.filter(commune=city)
+
+    result=[]
+    agencies = Agency.objects.filter(commune=city)
+    for agency in agencies:
+        if agency.get_available_cars_count()>0:
+            result.append(agency)
     # result = Agency.objects.filter(Q(state__icontains=city) | Q(city__icontains=city) | Q(address__icontains=city))
     # for sidebar...
     types = Type.objects.all()

@@ -68,7 +68,7 @@
                         <div class="d-flex align-text-top "> <span class="fas fa-dollar-sign mt-1 pe-1 fs-14 "></span><span class="h4">{{ vehicle.price }}DZD/DAY</span> </div>
                     </div>
                 </div>
-                <a href="#book-{{ car.id }}" class="btn btn-success">Book Now</a>
+                <a href="{% url 'book' vehicle.id %}?date-start={{date_start}}&date-end={{date_end}}" class="btn btn-success">Book Now</a>
             </div>
         </div>
     </div>

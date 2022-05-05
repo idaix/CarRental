@@ -24,7 +24,7 @@
     </div>
         {% for car in cars %}
         <div class="card car-card mb-3">
-            <a href="{% url 'vehicle_details' car.id %}" class="explore bg-dark text-white shadow">Explore <span class="material-icons-round">navigate_next</span></a>
+            <a href="{% url 'vehicle_details' car.id %}?date-start={{date_start}}&date-end={{date_end}}" class="explore bg-dark text-white shadow">Explore <span class="material-icons-round">navigate_next</span></a>
             <div class="row align-items-center">
                 <div class="col-md-4"><img src="{{ car.thumbnail.image.url }}" class="card-img-top card-media" alt="{{ car.get_title }}"></div>
                 <div class="card-body col-md-5">
