@@ -229,8 +229,11 @@ def accept_order(request, pk):
             vehicle.is_available = False
             vehicle.save()
             order.save()
-    return redirect(return_to, pk=pk)
-
+    if return_to == 'dashboard':
+        return redirect(return_to)
+    else:
+        return redirect(return_to, pk=pk)
+    
 def refuse_order(request, pk):
     order = Order.objects.get(pk=pk)
     vehicle = order.vehicle
