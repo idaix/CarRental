@@ -9,9 +9,11 @@
                     <!-- Additional required wrapper -->
                     <div class="swiper-wrapper">
                       <!-- Slides -->
-                      {% for image in images %}
-                        <div class="swiper-slide"><img style="width: 100%;" src="{{ image.image.url }}" alt="{{ image.vehicle.model.getModel }}"></div>
-                      {% endfor %}
+                      {% if images %}
+                        {% for image in images %}
+                            <div class="swiper-slide"><img style="width: 100%;" src="{{ image.image.url }}" alt="{{ image.vehicle.model.getModel }}"></div>
+                        {% endfor %}
+                      {% endif %}
                     </div>
                     <!-- If we need pagination -->
                     <div class="swiper-pagination"></div>
@@ -24,10 +26,6 @@
                     <div class="swiper-scrollbar"></div>
                 </div>
                 <div class="row mt-3 bg-light">
-                    <div class="col-md-4 col-6 ps-30 pe-0 my-4">
-                        <p class="text-muted">Mileage</p>
-                        <p class="h5">{{ vehicle.mileage }}<span class="ps-1">Km</span></p>
-                    </div>
                     <div class="col-md-4 col-6 ps-30 my-4">
                         <p class="text-muted">Transmission</p>
                         <p class="h5 m-0">{{ vehicle.transmission }}</p>
@@ -48,7 +46,17 @@
                         <p class="text-muted">Doors</p>
                         <p class="h5 m-0">{{ vehicle.doors }}</p>
                     </div>
-                    
+                    <hr>
+                    <div class="options mb-3">
+                        {% if vehicle.options.all %}
+                            <p class="text-muted mb-0">Options</p>
+                            {% for option in vehicle.options.all %}
+                                <span class="badge bg-dark">{{option.name}}</span>
+                            {% endfor %}
+                        {% else %}
+                            no options!
+                        {% endif %}
+                    </div>
                 </div>
             </div>
         </div>

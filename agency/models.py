@@ -32,18 +32,3 @@ class Agency(models.Model):
 
     def __str__(self) -> str:
         return f'{self.name} - {self.user.username}'
-
-
-# -----------------------------------------
-# how it work? 
-# - Signup [create user]
-#   - signal
-#   - call function -> create_user_profile
-#   - create the profile for this user ...
-# -----------------------------------------
-# @receiver(post_save, sender=User) #connect this function with the user [the user sends a signal, reciever took the signal & call the function...]
-# def create_user_profile(sender, instance, created, **kwargs):
-#     if created:
-#         Agency.objects.create(
-#             user=instance
-#         )

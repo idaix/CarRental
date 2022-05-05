@@ -1,0 +1,12 @@
+[ 
+    {"model": "vehicle.option", "pk": 1, "fields": {"name": "Leather seats"}},
+    {"model": "vehicle.option", "pk": 2, "fields": {"name": "Sunroof"}},
+    {"model": "vehicle.option", "pk": 3, "fields": {"name": "Heated seats"}},
+    {"model": "vehicle.option", "pk": 4, "fields": {"name": "Backup camera"}},
+    {"model": "vehicle.option", "pk": 5, "fields": {"name": "Bluetooth"}},
+    {"model": "vehicle.option", "pk": 6, "fields": {"name": "Apple CarPlay/Android Auto"}},
+    {"model": "vehicle.option", "pk": 7, "fields": {"name": "Electric windows"}},
+    {"model": "vehicle.option", "pk": 8, "fields": {"name": "AC"}},
+    {"model": "vehicle.option", "pk": 9, "fields": {"name": "ABS"}},
+    {"model": "vehicle.option", "pk": 10, "fields": {"name": "ESP"}}
+]

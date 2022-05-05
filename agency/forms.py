@@ -29,4 +29,4 @@ class ProfileForm(ModelForm):
 class VehicleForm(ModelForm):
     class Meta:
         model = Vehicle
-        fields = ['year', 'type', 'price','engine', 'transmission', 'color', 'seats', 'doors', 'mileage', 'description'] 
+        fields = ['year', 'type', 'price','engine', 'transmission', 'color', 'seats', 'doors', 'options', 'description'] 

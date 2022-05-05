@@ -40,6 +40,15 @@ class Transmission(models.Model):
     def __str__(self) -> str:
         return self.name
 
+# ------------------ Options ----------------------
+# (many to many relation with vehicle model)
+class Option(models.Model):
+    name = models.CharField(max_length=100)
+    def __str__(self) -> str:
+        return self.name
+    class Meta:
+        ordering = ['name']
+
 # ------------------ Vehicle ----------------------
 class Vehicle(models.Model):
     # cumments - Dai Shek
@@ -67,7 +76,8 @@ class Vehicle(models.Model):
     doors = models.PositiveSmallIntegerField(null=True, blank=True)
     mileage = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
     description = models.TextField(max_length=1000, help_text='Small description (1000)', null=True, blank=True)
-    
+    # Options
+    options = models.ManyToManyField(Option, related_name='vehicle', blank=True)
     # System -----------------------------------------
     created_at = models.DateTimeField(auto_now_add=True)
     
@@ -94,3 +104,5 @@ class Images(models.Model):
     image = models.ImageField(upload_to='vehicle_images/%y/%m/%d', blank=True)
     def __str__(self) -> str:
         return self.belong_to.get_title()
+
+

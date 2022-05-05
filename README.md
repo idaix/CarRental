@@ -33,3 +33,5 @@
 > py .\manage.py loaddata transmission.json
 >
 > py .\manage.py loaddata type.json
+>
+> py .\manage.py loaddata options.json
