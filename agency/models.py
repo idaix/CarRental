@@ -21,14 +21,19 @@ class Agency(models.Model):
     wilaya = models.ForeignKey(Wilaya, on_delete=models.SET_NULL, null=True)
     commune = models.ForeignKey(Commune, on_delete=models.SET_NULL, null=True)
     available_cars_count = models.IntegerField(default=0)
+    
+    # system
+    created_at = models.DateTimeField(auto_now_add=True)
+    views = models.IntegerField(default=0)
+    
+    def update_views(self):
+        self.views += 1
+        return self.views
+    def __str__(self) -> str:
+        return f'{self.name} - {self.user.username}'
     def get_available_cars_count(self):
         allCars = self.my_cars.filter(is_available=True)
         return allCars.count()
 
     def get_full_address(self):
         return f'{self.wilaya.name}, {self.commune.name} - {self.address}'
-
-    created_at = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self) -> str:
-        return f'{self.name} - {self.user.username}'

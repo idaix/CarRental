@@ -1,12 +1,13 @@
 {% extends 'agency/base.html' %}
 {% block title %}{{ vehicle.get_title }}{% endblock %}
 {% block content %}
-<div class="container mt-3 mb-3">
+<div class="container mt-3 mb-3 shadow-sm rounded bg-body">
     <div class="row m-0">
         <div class="col-lg-7 pb-5 pe-lg-5">
             <div class="row">
                 <div class="swiper">
                     <!-- Additional required wrapper -->
+                    <span class="badge bg-light text-secondary mb-1 mt-1">{{ vehicle.views }} views</span>
                     <div class="swiper-wrapper">
                       <!-- Slides -->
                       {% for image in images %}

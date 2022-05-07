@@ -105,6 +105,7 @@ def dashboard(request):
     clients_count = Client.objects.filter(agency=request.user.agency).count()
     
     context = {
+        'views_count':request.user.agency.views,
         'vehicles':vehicles,
         'vehicles_count':vehicles_count,
         'orders':orders,

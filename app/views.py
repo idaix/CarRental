@@ -57,6 +57,9 @@ def search(request):
 # SHOW ALL CARS FOR SPESIFIC AGENCY
 def show_all_cars(request, pk):
     agency = Agency.objects.get(pk=pk)
+    # update vehicle viewes count
+    agency.update_views()
+    agency.save()
     # Show only available vehicles
     cars = Vehicle.objects.filter(owned_by=agency).filter(is_available=True)
     # from get
@@ -83,6 +86,9 @@ def show_all_cars(request, pk):
 # VEHICLE DETAIL 
 def vehicle_details(request, pk):
     vehicle = Vehicle.objects.get(pk=pk)
+    # update vehicle viewes count
+    vehicle.update_views()
+    vehicle.save()
     # get vehicle images 
     images = Images.objects.filter(belong_to=vehicle)
     context = {

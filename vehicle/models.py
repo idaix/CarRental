@@ -80,6 +80,7 @@ class Vehicle(models.Model):
     options = models.ManyToManyField(Option, related_name='vehicle', blank=True)
     # System -----------------------------------------
     created_at = models.DateTimeField(auto_now_add=True)
+    views = models.IntegerField(default=0)
     
     # Ordering
     class Meta:
@@ -90,7 +91,9 @@ class Vehicle(models.Model):
         return f'{self.model.get_vehicle_name()} {self.year}'
     def get_price(self):
         return f'{self.price} DZD'
-    
+    def update_views(self):
+        self.views += 1
+        return self.views
     def __str__(self) -> str:
         return self.get_title()
     
