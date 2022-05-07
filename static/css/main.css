@@ -48,6 +48,30 @@ img {
   cursor: pointer !important;
 }
 
+.rounded {
+  border-radius: 0.6rem !important;
+}
+
+.bg-light-pink {
+  background-color: #F9CEEE !important;
+}
+
+.bg-light-green {
+  background-color: #B6FFCE !important;
+}
+
+.bg-light-blue {
+  background-color: #BFFFF0 !important;
+}
+
+.bg-light-red {
+  background-color: #FFBBBB !important;
+}
+
+.bg-light-yellow {
+  background-color: #F0FFC2 !important;
+}
+
 .steps_container input.invalid {
   background-color: #ffdddd;
 }

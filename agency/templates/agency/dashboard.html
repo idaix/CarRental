@@ -12,20 +12,26 @@
     <h1 class="h2">Dashboard</h1>
   </div>
   <div class="row mb-3">
-    <div class="col-sm-4">
-      <div class="card card-styled bg-primary bg-opacity-25 mb-3">
+    <div class="col-md-12">
+      <div class="card card-styled bg-light-blue mb-3 shadow-sm rounded">
         <span class="material-icons-two-tone icon">directions_car</span>
         <div class="text">{{ vehicles_count }} vehicles</div>
       </div>
     </div>
     <div class="col-sm-4">
-      <div class="card card-styled bg-success bg-opacity-25 mb-3">
+      <div class="card card-styled bg-light-green mb-3 shadow-sm rounded">
+        <span class="material-icons-two-tone icon">directions_car</span>
+        <div class="text">{{ vehicles_count }} vehicles</div>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="card card-styled bg-light-pink mb-3 shadow-sm rounded">
         <span class="material-icons-two-tone icon">content_paste</span>
         <div class="text">{{ orders_count }} Orders</div>
       </div>
     </div>
     <div class="col-sm-4">
-      <div class="card card-styled bg-danger bg-opacity-25">
+      <div class="card card-styled bg-light-yellow shadow-sm rounded">
         <span class="material-icons-two-tone icon">people</span>
         <div class="text">{{ clients_count }} Clients</div>
       </div>
@@ -35,19 +41,19 @@
 </section>
 <!-- <canvas class="my-4 w-100" id="myChart" width="900" height="10"></canvas> -->
 
-<section class="p-2 mb-3 " id="garage">
-  <header class="d-flex align-items-center justify-content-between">
-    <h2 class="section_title d-flex align-items-center">
+<section class="p-3 mb-3 bg-white shadow-sm rounded" id="garage">
+  <header class="d-flex align-items-center justify-content-between mb-2">
+    <h3 class="section_title d-flex align-items-center">
       <span class="material-icons-two-tone">garage</span>
       Garage
-    </h2>
+    </h3>
     <a href="{% url 'add_vehicle' %}" class="btn btn-primary">Add Vehicle</a>
 
   </header>
   <div class="table-responsive">
         {% if vehicles %}
-          <table class="table table-sm">
-            <thead>
+          <table class="table table-sm table-bordered border-light">
+            <thead class="bg-light text-secondary">
               <tr>
                 <th scope="col">Image</th>
                 <th scope="col">Name</th>
@@ -90,18 +96,20 @@
         </div>
 </section>
 
-<section class="p-2 mb-3" id="orders">
-  <header>
-    <h2 class="section_title d-flex align-items-center">
+<section class="p-3 mb-3 bg-white shadow-sm rounded" id="orders">
+  <header class="d-flex align-items-center justify-content-between mb-2">
+    <h3 class="section_title d-flex align-items-center">
       <span class="material-icons-two-tone">content_paste</span>
       Orders
-    </h2>
-
+    </h3>
+    {% if orders_count > 3 %}
+            <a class="btn btn-light text-info" href="{% url 'orders' %}">View all</a>
+    {% endif %}
   </header>
   <div class="table-responsive">
         {% if orders %}
-          <table class="table table-striped table-bordered table-sm">
-            <thead>
+          <table class="table table-sm table-bordered border-light">
+            <thead class="bg-light text-secondary">
               <tr>
                 <th scope="col">Client</th>
                 <th scope="col">Vehicle</th>
@@ -133,7 +141,7 @@
                         {% if order.vehicle.is_available %}
                           <a class="text-success" href="{% url 'accept_order' order.id %}?return_to=dashboard">Accept</a>
                         {% else %}
-                          <span class="text-danger">Car Not available</span>
+                          <span class="text-danger">Car not available</span>
                         {% endif %}
                       {% endif %}
                     </td>
@@ -143,27 +151,27 @@
               
             </tbody>
           </table>
-          {% if orders_count > 3 %}
-            <a class="text-secondary" href="{% url 'orders' %}">See more...</a>
-          {% endif %}
+          
           {% else %}
                 <p>No orders yet...</p>
             {% endif %}
         </div>
 </section>
 
-<section class="p-2 mb-3" id="clients">
-  <header>
-    <h2 class="section_title d-flex align-items-center">
+<section class="p-3 mb-3 bg-white shadow-sm rounded" id="clients">
+  <header class="d-flex align-items-center justify-content-between mb-2">
+    <h3 class="section_title d-flex align-items-center">
       <span class="material-icons-two-tone">people</span>
       Clients
-    </h2>
-
+    </h3>
+    {% if clients_count > 3 %}
+            <a class="btn btn-light text-info" href="{% url 'clients' %}">View all</a>
+    {% endif %}
   </header>
   <div class="table-responsive">
     {% if clients %}
-      <table class="table table-striped table-bordered table-sm">
-        <thead>
+      <table class="table table-sm table-bordered border-light">
+        <thead class="bg-light text-secondary">
           <tr>
             <th scope="col">Client</th>
             <th scope="col">Mobile</th>
@@ -181,9 +189,7 @@
           
         </tbody>
       </table>
-      {% if clients_count > 3 %}
-            <a class="text-secondary" href="{% url 'clients' %}">See more...</a>
-      {% endif %}
+      
       {% else %}
           <p>No clients yet...</p>
       {% endif %}

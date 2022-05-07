@@ -48,3 +48,24 @@ img{
 .cursor-pointer{
     cursor: pointer!important;
 }
+
+.rounded{
+    border-radius: .6rem!important;
+}
+
+// colors
+.bg-light-pink{
+    background-color: $light-pink!important;
+}
+.bg-light-green{
+    background-color: $light-green!important;
+}
+.bg-light-blue{
+    background-color: $light-blue!important;
+}
+.bg-light-red{
+    background-color: $light-red!important;
+}
+.bg-light-yellow{
+    background-color: $light-yellow!important;
+}

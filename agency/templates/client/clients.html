@@ -6,18 +6,18 @@
 
 <!-- content -->
 {% block content %}
-<section class="p-2 mb-3" id="clients">
+<section class="p-3 mt-2 mb-2 bg-white shadow-sm rounded" id="clients">
   <header>
-    <h2 class="section_title d-flex align-items-center">
+    <h3 class="section_title d-flex align-items-center">
       <span class="material-icons-two-tone">people</span>
       Clients
-    </h2>
+    </h3>
 
   </header>
   <div class="table-responsive">
     {% if clients %}
-      <table class="table table-striped table-sm">
-        <thead>
+      <table class="table table-sm table-bordered border-light">
+        <thead class="bg-light text-secondary">
           <tr>
             <th scope="col">Client</th>
             <th scope="col">Mobile</th>
