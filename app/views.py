@@ -1,4 +1,6 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect
+from django.http import HttpResponseRedirect
+from django.urls import reverse
 from app.forms import ClientForm
 from setup.models import Commune, Wilaya
 from vehicle.models import Images, Vehicle, Type, Energy, Transmission
@@ -116,8 +118,15 @@ def book(request, pk):
                 price=car.price,
             )
             order.save()
-            print('order created')
-            return redirect('home')
+            # client = order.client
+            # vehicle = order.vehicle
+            # context = {
+            #         'order': order,
+            #         'client': client,
+            #         'vehicle': vehicle
+            # }
+            # return render(request, 'app/booking/confirm_reservation.html', context=context) //NOT WORKING!!
+            return redirect('confirm_reservation', pk=order.id)
     else:
         client_form = ClientForm()
     
@@ -130,3 +139,50 @@ def book(request, pk):
     }
 
     return render(request, 'app/booking/book.html', context)
+
+
+
+
+# confirm_reservation
+def confirm_reservation(request, pk):
+    order = Order.objects.get(pk=pk)
+    client = order.client
+    vehicle = order.vehicle
+    context = {
+        'order': order,
+        'client': client,
+        'vehicle': vehicle
+    }
+    return render(request, 'app/booking/order_detail.html', context=context)
+
+# MANAGE BOOKING
+def manage_booking(request):
+    if request.method == 'POST':
+        email = request.POST.get('email')
+        number = request.POST.get('number')
+        # check if empty
+        if not email or not number:
+            return redirect('home')
+        else:
+            # get unique order
+            order = Order.objects.get(pk=int(number))
+            client = order.client
+            vehicle = order.vehicle
+            # check if this order awned by this email
+            if order.client.email == email:
+                context = {
+                    'order': order,
+                    'client': client,
+                    'vehicle': vehicle
+                }
+                return render(request, 'app/booking/order_detail.html', context=context)
+            else:
+                return redirect('home')
+
+    else:
+        if request.order:
+            return redirect('login')
+        else:
+            return redirect('home')
+
+

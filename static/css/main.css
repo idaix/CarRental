@@ -172,6 +172,33 @@ footer {
   color: white;
 }
 
+#manageBooking {
+  overflow: hidden;
+  background-color: white;
+  z-index: 99;
+  position: absolute;
+  width: 80%;
+  height: auto;
+  top: -100%;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+  -webkit-transition: .3s;
+  transition: .3s;
+}
+
+#manageBooking.show {
+  display: block;
+  top: 0;
+}
+
+#manageBooking #manageBookingHide {
+  cursor: pointer;
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+}
+
 .show-all-cars .tab {
   width: 100%;
 }

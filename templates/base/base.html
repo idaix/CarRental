@@ -31,6 +31,16 @@
     </header>
     <!-- END HEADER -->
 
+    <!-- MANAGE BOOKING-->
+    <div id="manageBooking" class="container shadow p-3">
+        <div id="manageBookingHide"><span class="material-icons-round icon">close</span></div>
+        <h3 class="text-primary mb-3">Manage booking</h3>
+        <p class="text-secondary">If you don’t have an account, you can still manage your booking.</p>
+        <hr>
+        {% include 'app/booking/manage_booking.html' %}
+    </div>
+    <!-- END MANAGE BOOKING-->
+
     <!-- MAIN -->
     <main class="container">
         {% block content %}
@@ -46,6 +56,7 @@
 
     <!-- JS SCRIPTS -->
     <!-- bootstrap script -->
+    <script src="{% static 'js/main.js' %}"></script>
     <script src="{% static 'js/steps.js' %}"></script>
     <script src="{% static 'js/other/bootstrap.bundle.min.js' %}"></script>
 </body>

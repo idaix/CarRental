@@ -1,0 +1,15 @@
+
+<form action="{% url 'manage_booking' %}" method="post">
+    {% csrf_token %}
+    <div class="mb-3">
+        <label for="bookingEmail" class="form-label">Email address</label>
+        <input type="email" name="email" class="form-control" id="bookingEmail" aria-describedby="emailHelp">
+        <div id="emailHelp" class="form-text">Your reservation email.</div>
+    </div>
+    <div class="mb-3">
+        <label for="bookingNumber" class="form-label">Reservation number</label>
+        <input type="text" name="number" class="form-control" id="bookingNumber">
+        <div id="numberHelp" class="form-text">Your reservation number.</div>
+    </div>
+    <button type="submit" class="btn btn-primary">Go to reservation</button>
+</form>

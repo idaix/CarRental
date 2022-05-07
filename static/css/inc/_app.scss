@@ -72,6 +72,30 @@ footer{
     color: white;
 }
 
+// manage booking
+#manageBooking{
+    overflow: hidden;
+    background-color: white;
+    z-index: 99;
+    position: absolute;
+    width: 80%;
+    height: auto;
+    top: -100%;
+    left: 50%;
+    transform: translateX(-50%);
+    transition: .3s;
+    &.show{
+        display: block;
+        top: 0;
+    }
+    #manageBookingHide{
+        cursor: pointer;
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+    }
+}
+
 
 // Show all cars
 .show-all-cars{

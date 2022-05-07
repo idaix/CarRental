@@ -29,7 +29,7 @@
                     <strong>Mobile: </strong>
                     <span>{{ client.mobile }}.</span>
                 </li>
-                {% if order.email %}
+                {% if client.email %}
                   <li>
                       <strong>Email: </strong>
                       <span>{{ client.email }}.</span>
@@ -64,8 +64,9 @@
           </div>
       </div>
       <div class="col-md-6">
-        <h4>Booking Details</h4>
-        <h6 class="text-primary">Booking Date</h6>
+        <h4>Reservation Details</h4>
+          <h6 class="text-primary">Reservation number: <span class="text-warning bg-dark badge">{{ order.id }}</span></h6>
+        <h6 class="text-primary">Date</h6>
         <div class="row bg-light">
             <div class="col-md-6">
                 <small>Pick Up</small>
@@ -77,11 +78,11 @@
             </div>
         </div>
         <br>
-        <h6 class="text-primary">Booked Vehicle</h6>
+        <h6 class="text-primary">Vehicle</h6>
         <p class="text-success"><strong>{{ vehicle.get_title }}</strong></p>
         <img src="{{ vehicle.thumbnail.image.url }}" class="card card-img-top card-media" alt="{{ car.get_title }}">
         <br>
-        <h6 class="text-primary">Booking Price: <span class="text-success">{{order.get_price}}</span></h6>
+        <h6 class="text-primary">Price: <span class="text-success">{{order.get_price}}</span></h6>
       </div>
   </div>
 </section>
