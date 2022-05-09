@@ -1,0 +1,92 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- ==================================== LINKS ========================================== -->
+    <!-- GOOGLE ICONS -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/other/google-icons.css' %}">
+    <!-- BOOTSTRAP CDN -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/other/bootstrap.min.css' %}">
+    <!-- --- -->
+    <!--=== SWIPER JS & htmx====-->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/other/swiper-bundle.min.css' %}">
+    <script src="{% static 'js/other/swiper-bundle.min.js' %}"></script>
+    <script src="{% static 'js/other/htmx.min.js' %}"></script>
+    <script src="{% static 'js/other/htmx.min.js' %}" integrity="sha384-EzBXYPt0/T6gxNp0nuPtLkmRpmDBbjg6WmCUZRLXBBwYYmwAUxzlSGej0ARHX0Bo" crossorigin="anonymous"></script>
+    <!-- ---- -->
+    <!-- STATIC -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/dashboard.css' %}">
+    
+    <!-- --- -->
+    <title>{% block title %}{% endblock %}</title>
+
+    <!-- Style -->
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+</head>
+<body>
+  <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+    <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="{% url 'home' %}">CARENT</a>
+    <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="w-100"></div>
+    <div class="navbar-nav">
+      <div class="nav-item text-nowrap">
+        <a class="nav-link px-3" href="{% url 'logout' %}">Logout</a>
+      </div>
+    </div>
+  </header>
+  <div class="container-fluid">
+    <div class="row">
+      <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-body sidebar collapse">
+        <div class="position-sticky pt-3">
+          <ul class="nav flex-column">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="{% url 'admin-dashboard' %}">
+                <span class="material-icons-two-tone">dashboard</span>
+                Dashboard
+              </a>
+            </li>
+            
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'manage_users' %}">
+                <span class="material-icons-two-tone">people</span>
+                Users
+              </a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    <!-- ================== MAIN ================ -->
+      <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 bg-light">
+        {% block content %}{% endblock %}
+      </main>
+    </div>
+  </div>
+
+  <!-- SCRIPTS -->
+  <!-- bootstrap script -->
+  <script src="{% static 'js/other/bootstrap.bundle.min.js' %}"></script>
+  <!-- font awessome -->
+  <script src="{% static 'js/other/all.min.js' %}"></script>
+
+  </body>
+</html>

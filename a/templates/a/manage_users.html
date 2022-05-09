@@ -1,0 +1,191 @@
+{% extends 'a/base.html' %}
+{% block title %}Admin @{{request.user.username}}{% endblock %}
+{% block content %}
+<h1>Manage Users</h1>
+<hr>
+<section>
+  <div class="row mb-3">
+    <div class="col-md-3">
+      <div class="card card-styled bg-light-blue mb-3 shadow-sm rounded">
+        <span class="material-icons-two-tone icon">people</span>
+        <div class="text">{{ users.count }} users</div>
+      </div>
+    </div>
+    <div class="col-sm-3">
+      <div class="card card-styled bg-light-green mb-3 shadow-sm rounded">
+        <span class="material-icons-two-tone icon">admin_panel_settings</span>
+        <div class="text">{{ admins_count }} admins</div>
+      </div>
+    </div>
+    <div class="col-sm-3">
+      <div class="card card-styled bg-light-pink mb-3 shadow-sm rounded">
+        <span class="material-icons-two-tone icon">car_rental</span>
+        <div class="text">{{ orders_count }} agents</div>
+      </div>
+    </div>
+    <div class="col-sm-3">
+      <div class="card card-styled bg-light-yellow shadow-sm rounded">
+        <span class="material-icons-two-tone icon">supervisor_account</span>
+        <div class="text">{{ clients_count }} members</div>
+      </div>
+    </div>
+    
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <section class="p-3 mb-3 bg-white shadow-sm rounded" id="orders">
+        <header class="d-flex align-items-center justify-content-between mb-2">
+          <h3 class="section_title d-flex align-items-center text-primary">
+            Users {{users.count}}
+          </h3>
+          <div class="actions">
+            {% if users.count > 3 %}
+              <a class="btn btn-light text-info" href="{% url 'manage_users_all' %}">View all</a>
+            {% endif %}
+            <a class="btn btn-primary" href="{% url 'manage_users_member' %}">Add</a>
+          </div>
+        </header>
+        <div class="table-responsive">
+              {% if users %}
+                <table class="table table-sm table-bordered border-light">
+                  <thead class="bg-light text-secondary">
+                    <tr>
+                      <th scope="col">Username</th>
+                      <th scope="col">Email address</th>
+                      <th scope="col">Admin</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                        {% for user in users_only_3 %}
+                          <tr>
+                              <td><a class="text-primary" href="{% url 'manage_user' user.id %}">{{ user.username }}</a></td>
+                              <td>{{ user.email }}</td>
+                              <td>
+                                {% if user.is_staff %}
+                                  <span class="material-icons-round text-success">check_circle</span>
+                                {% else %}
+                                  <span class="material-icons-round text-danger">cancel</span>
+                                {%endif%}
+                              </td>
+                          </tr>
+                        {% endfor %}
+                  </tbody>
+                </table>
+                
+                {% else %}
+                      <p>No users</p>
+                  {% endif %}
+        </div>
+      </section>
+    </div>
+    <div class="col-md-6">
+      <section class="p-3 mb-3 bg-white shadow-sm rounded" id="orders">
+        <header class="d-flex align-items-center justify-content-between mb-2">
+          <h3 class="section_title d-flex align-items-center text-primary">
+            Admins {{admins_count}}
+          </h3>
+          <div class="actions">
+            {% if admins_count > 3 %}
+                    <a class="btn btn-light text-info" href="{% url 'manage_users_admin' %}">View all</a>
+            {% endif %}
+            <a class="btn btn-primary" href="{% url 'manage_users_member' %}">Add</a>
+          </div>
+        </header>
+        <div class="table-responsive">
+              {% if admins %}
+                <table class="table table-sm table-bordered border-light">
+                  <thead class="bg-light text-secondary">
+                    <tr>
+                      <th scope="col">Users</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                        {% for user in admins %}
+                        <tr>
+                            <td>{{ user }}</td>
+                        </tr>
+                        {% endfor %}
+                  </tbody>
+                </table>
+                
+                {% else %}
+                      <p>No users</p>
+                  {% endif %}
+              </div>
+      </section>
+    </div>
+    <div class="col-md-6">
+      <section class="p-3 mb-3 bg-white shadow-sm rounded" id="orders">
+        <header class="d-flex align-items-center justify-content-between mb-2">
+          <h3 class="section_title d-flex align-items-center text-primary">
+            Agencies {{agencies_count}}
+          </h3>
+          <div class="actions">
+            {% if agencies_count > 3 %}
+                    <a class="btn btn-light text-info" href="{% url 'manage_users_agency' %}">View all</a>
+            {% endif %}
+            <a class="btn btn-primary" href="{% url 'manage_users_member' %}">Add</a>
+          </div>
+        </header>
+        <div class="table-responsive">
+              {% if agencies %}
+                <table class="table table-sm table-bordered border-light">
+                  <thead class="bg-light text-secondary">
+                    <tr>
+                      <th scope="col">Users</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                        {% for user in agencies %}
+                        <tr>
+                            <td>{{ user }}</td>
+                        </tr>
+                        {% endfor %}
+                  </tbody>
+                </table>
+                
+                {% else %}
+                      <p>No users</p>
+                  {% endif %}
+              </div>
+    </section>
+    </div>
+    <div class="col-md-6">
+      <section class="p-3 mb-3 bg-white shadow-sm rounded" id="orders">
+        <header class="d-flex align-items-center justify-content-between mb-2">
+          <h3 class="section_title d-flex align-items-center text-primary">
+            Members {{members_count}}
+          </h3>
+          <div class="actions">
+            {% if members_count > 3 %}
+                    <a class="btn btn-light text-info" href="{% url 'manage_users_member' %}">View all</a>
+            {% endif %}
+            <a class="btn btn-primary" href="{% url 'manage_users_member' %}">Add</a>
+          </div>
+        </header>
+        <div class="table-responsive">
+              {% if admins %}
+                <table class="table table-sm table-bordered border-light">
+                  <thead class="bg-light text-secondary">
+                    <tr>
+                      <th scope="col">Users</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                        {% for user in members %}
+                        <tr>
+                            <td>{{ user }}</td>
+                        </tr>
+                        {% endfor %}
+                  </tbody>
+                </table>
+                
+                {% else %}
+                      <p>No users</p>
+                  {% endif %}
+              </div>
+    </section>
+    </div>
+  </div>
+</section>
+{% endblock %}

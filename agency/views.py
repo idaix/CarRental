@@ -18,7 +18,9 @@ def register(request):
         user_form = RegisterUserForm(request.POST)
         agency_form = RegisterAgencyForm(request.POST)
         if user_form.is_valid() and agency_form.is_valid():
-            user = user_form.save()
+            user = user_form.save(commit=False)
+            user.is_agent = True
+            user.save()
             agency = agency_form.save(commit=False)
             agency.user = user
             # set agency address
@@ -97,22 +99,25 @@ class AgencyUpdateView(UpdateView):
 # DASHBOARD PAGE
 @login_required
 def dashboard(request):
-    vehicles = Vehicle.objects.filter(owned_by=request.user.agency)
-    vehicles_count = vehicles.count()
-    orders = Order.objects.filter(agency=request.user.agency)[:3]
-    orders_count = Order.objects.filter(agency=request.user.agency).count()
-    clients = Client.objects.filter(agency=request.user.agency)[:3]
-    clients_count = Client.objects.filter(agency=request.user.agency).count()
-    
-    context = {
-        'views_count':request.user.agency.views,
-        'vehicles':vehicles,
-        'vehicles_count':vehicles_count,
-        'orders':orders,
-        'orders_count':orders_count,
-        'clients':clients,
-        'clients_count':clients_count,
-    }
+    if request.user.is_agent or request.user.is_staff:
+        vehicles = Vehicle.objects.filter(owned_by=request.user.agency)
+        vehicles_count = vehicles.count()
+        orders = Order.objects.filter(agency=request.user.agency)[:3]
+        orders_count = Order.objects.filter(agency=request.user.agency).count()
+        clients = Client.objects.filter(agency=request.user.agency)[:3]
+        clients_count = Client.objects.filter(agency=request.user.agency).count()
+        
+        context = {
+            'views_count':request.user.agency.views,
+            'vehicles':vehicles,
+            'vehicles_count':vehicles_count,
+            'orders':orders,
+            'orders_count':orders_count,
+            'clients':clients,
+            'clients_count':clients_count,
+        }
+    else:
+        return redirect('home')
     return render(request, 'agency/dashboard.html', context=context)
 
 

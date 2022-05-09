@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'crispy_forms',
     # Our Apps
+    'a.apps.AConfig',
     'setup.apps.SetupConfig',
     'app.apps.AppConfig',
     'vehicle.apps.VehicleConfig',

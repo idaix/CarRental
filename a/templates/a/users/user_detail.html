@@ -1,0 +1,38 @@
+{% extends 'a/base.html' %}
+{% block title %}Admin @{{request.user.username}}{% endblock %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div id="agency_profile" class="container mt-3 mb-3">
+    <div class="row shadow-sm p-3 mb-3 bg-body">
+        <div class="col-md-4 mb-3">
+            <div class="card-body">
+                <div class="image border" style="width: 150px;">
+                    <img src="{{ u.image.url }}" alt="{{ u.username }} profile image" width="150">
+                </div>
+                <div class="mt-3">
+                    <h4>@{{ u.username }}</h4>
+                    <p class="text-secondary mb-1">{{ u.bio }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <fieldset class="form-group">
+                    <h3 class="text-primary">User Form</h3>
+                    {{ u_form|crispy }}
+                    {% if a_form %}
+                        <h3 class="text-primary">Agency Form</h3>
+                        {{ a_form|crispy }}
+                    {% endif %}
+                </fieldset>
+        
+                <div class="form-group mt-3 d-flex justify-content-between">
+                    <button class="btn btn-primary" type="submit">Save changes</button>
+                    <a class="btn btn-outline-secondary" href="{% url 'admin-dashboard' %}">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,61 @@
+{% extends 'a/base.html' %}
+{% block title %}Admin @{{request.user.username}}{% endblock %}
+{% block content %}
+<h1>Manage Users</h1>
+<hr>
+<section class="p-3 mb-3 bg-white shadow-sm rounded" id="orders">
+    <header class="d-flex align-items-center justify-content-between mb-2">
+      <h3 class="section_title d-flex align-items-center">
+        Users {{users.count}}
+      </h3>
+      <a class="btn btn-primary" href="{% url 'manage_users_member' %}">Add</a>
+    </header>
+    <div class="table-responsive">
+      {% if users %}
+        <table class="table table-sm table-bordered border-light">
+          <thead class="bg-light text-secondary">
+            <tr>
+              <th scope="col">Username</th>
+              <th scope="col">Email address</th>
+              <th scope="col">FullName</th>
+              <th scope="col">Last login</th>
+              <th scope="col">Date Joind</th>
+              <th scope="col">Admin</th>
+              <th scope="col">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+                {% for user in users %}
+                  <tr>
+                      <td><a class="text-primary" href="{% url 'manage_user' user.id %}">{{ user.username }}</a></td>
+                      <td>{{ user.email }}</td>
+                      <td>{{ user.first_name }} {{ user.last_name }}</td>
+                      <td>{{ user.last_login }}</td>
+                      <td>{{ user.date_joined }}</td>
+                      <td>
+                        {% if user.is_staff %}
+                          <span class="material-icons-round text-success">check_circle</span>
+                        {% else %}
+                          <span class="material-icons-round text-danger">cancel</span>
+                        {%endif%}
+                      </td>
+                      <td>
+                        {% if user.is_staff %}
+                          <span class="text-secondary">Admin</span>
+                          {% elif user.is_agent %}
+                          <span class="text-secondary">Agent</span>
+                        {% else %}
+                          <span class="text-secondary">Member</span>
+                        {%endif%}
+                      </td>
+                  </tr>
+                {% endfor %}
+          </tbody>
+        </table>
+        
+        {% else %}
+              <p>No users</p>
+        {% endif %}
+  </div>
+</section>
+{% endblock %}
