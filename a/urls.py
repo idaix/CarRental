@@ -13,4 +13,7 @@ urlpatterns = [
     path('users/member', views.manage_users_member, name='manage_users_member'),
     path('users/member/add', views.manage_users_member_add, name='manage_users_member_add'),
     path('users/<int:pk>', views.manage_user, name='manage_user'),
+    # setup
+    path('setup', views.setup, name='setup'),
+
 ]

@@ -151,4 +151,7 @@ def manage_users_member_add(request):
     context={'u_form':form}
     return render(request, 'a/users/add.html', context)
 
+# setup
+def setup(request):
+    return render(request, 'a/setup.html')
 

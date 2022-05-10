@@ -1,0 +1,79 @@
+{% extends 'a/base.html' %}
+{% block title %}Admin @{{request.user.username}}{% endblock %}
+{% block content %}
+<section class="mt-3 mb-3">
+    <h4>Setup</h4>
+    <hr>
+    <div class="p-3 shadow-sm bg-white rounded mb-3">
+        <h5>Vehicle App</h5>
+        <hr>
+        <div class="d-flex align-items-center justify-content-between mb-2">
+            <h6>Makes</h6>
+            <div class="actions">
+                <a href="#" class="btn btn-outline-success">Add</a>
+                <a href="#" class="btn btn-outline-secondary">Change</a>
+            </div>
+        </div>
+        <div class="d-flex align-items-center justify-content-between mb-2">
+            <h6>Models</h6>
+            <div class="actions">
+                <a href="#" class="btn btn-outline-success">Add</a>
+                <a href="#" class="btn btn-outline-secondary">Change</a>
+            </div>
+        </div>
+        <div class="d-flex align-items-center justify-content-between mb-2">
+            <h6>Options</h6>
+            <div class="actions">
+                <a href="#" class="btn btn-outline-success">Add</a>
+                <a href="#" class="btn btn-outline-secondary">Change</a>
+            </div>
+        </div>
+        <div class="d-flex align-items-center justify-content-between mb-2">
+            <h6>Types</h6>
+            <div class="actions">
+                <a href="#" class="btn btn-outline-success">Add</a>
+                <a href="#" class="btn btn-outline-secondary">Change</a>
+            </div>
+        </div>
+        <div class="d-flex align-items-center justify-content-between mb-2">
+            <h6>Engines</h6>
+            <div class="actions">
+                <a href="#" class="btn btn-outline-success">Add</a>
+                <a href="#" class="btn btn-outline-secondary">Change</a>
+            </div>
+        </div>
+        <div class="d-flex align-items-center justify-content-between mb-2">
+            <h6>Transsmissions</h6>
+            <div class="actions">
+                <a href="#" class="btn btn-outline-success">Add</a>
+                <a href="#" class="btn btn-outline-secondary">Change</a>
+            </div>
+        </div>
+        <div class="d-flex align-items-center justify-content-between mb-2">
+            <h6>Energys</h6>
+            <div class="actions">
+                <a href="#" class="btn btn-outline-success">Add</a>
+                <a href="#" class="btn btn-outline-secondary">Change</a>
+            </div>
+        </div>
+    </div>
+    <div class="p-3 shadow-sm bg-white rounded mb-3">
+        <h5>Location App</h5>
+        <hr>
+        <div class="d-flex align-items-center justify-content-between mb-2">
+            <h6>Wilayas</h6>
+            <div class="actions">
+                <a href="#" class="btn btn-outline-success">Add</a>
+                <a href="#" class="btn btn-outline-secondary">Change</a>
+            </div>
+        </div>
+        <div class="d-flex align-items-center justify-content-between mb-2">
+            <h6>Communes</h6>
+            <div class="actions">
+                <a href="#" class="btn btn-outline-success">Add</a>
+                <a href="#" class="btn btn-outline-secondary">Change</a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
