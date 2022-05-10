@@ -1,9 +1,19 @@
 {% extends 'a/base.html' %}
 {% block title %}Admin @{{request.user.username}}{% endblock %}
 {% block content %}
-<h1>Manage Users</h1>
-<hr>
-<section>
+<section class="mt-3 mb-3">
+  <div class="row">
+    <div class="col-md-6">
+      <h1>Manage Users</h1>
+    </div>
+    <div class="col-md-6">
+      <form class="d-flex" method="GET" action="{% url 'manage_users_search' %}">
+        <input class="form-control me-2" name="search" type="search" placeholder="Search username..." aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
+    </div>
+  </div>
+  <hr>
   <div class="row mb-3">
     <div class="col-md-3">
       <div class="card card-styled bg-light-blue mb-3 shadow-sm rounded">
@@ -20,13 +30,13 @@
     <div class="col-sm-3">
       <div class="card card-styled bg-light-pink mb-3 shadow-sm rounded">
         <span class="material-icons-two-tone icon">car_rental</span>
-        <div class="text">{{ orders_count }} agents</div>
+        <div class="text">{{ agencies_count }} agencies</div>
       </div>
     </div>
     <div class="col-sm-3">
       <div class="card card-styled bg-light-yellow shadow-sm rounded">
         <span class="material-icons-two-tone icon">supervisor_account</span>
-        <div class="text">{{ clients_count }} members</div>
+        <div class="text">{{ members_count }} members</div>
       </div>
     </div>
     
@@ -41,8 +51,9 @@
           <div class="actions">
             {% if users.count > 3 %}
               <a class="btn btn-light text-info" href="{% url 'manage_users_all' %}">View all</a>
+            {% else %}
+              <a class="btn btn-light text-info" href="{% url 'manage_users_all' %}">Details</a>
             {% endif %}
-            <a class="btn btn-primary" href="{% url 'manage_users_member' %}">Add</a>
           </div>
         </header>
         <div class="table-responsive">
@@ -87,8 +98,10 @@
           <div class="actions">
             {% if admins_count > 3 %}
                     <a class="btn btn-light text-info" href="{% url 'manage_users_admin' %}">View all</a>
+            {% else %}
+                    <a class="btn btn-light text-info" href="{% url 'manage_users_admin' %}">Details</a>
             {% endif %}
-            <a class="btn btn-primary" href="{% url 'manage_users_member' %}">Add</a>
+            <a class="btn btn-primary" href="{% url 'manage_users_admin_add' %}">Add</a>
           </div>
         </header>
         <div class="table-responsive">
@@ -97,12 +110,17 @@
                   <thead class="bg-light text-secondary">
                     <tr>
                       <th scope="col">Users</th>
+                      <th scope="col">Date Joind</th>
+                      <th scope="col">Last Login</th>
+
                     </tr>
                   </thead>
                   <tbody>
                         {% for user in admins %}
                         <tr>
-                            <td>{{ user }}</td>
+                          <td><a class="text-primary" href="{% url 'manage_user' user.id %}">{{ user.username }}</a></td>
+                          <td>{{ user.last_login }}</td>
+                          <td>{{ user.date_joined }}</td>
                         </tr>
                         {% endfor %}
                   </tbody>
@@ -123,8 +141,10 @@
           <div class="actions">
             {% if agencies_count > 3 %}
                     <a class="btn btn-light text-info" href="{% url 'manage_users_agency' %}">View all</a>
+            {% else %}
+                    <a class="btn btn-light text-info" href="{% url 'manage_users_agency' %}">Details</a>
             {% endif %}
-            <a class="btn btn-primary" href="{% url 'manage_users_member' %}">Add</a>
+            <a class="btn btn-primary" href="{% url 'manage_users_agency_add' %}">Add</a>
           </div>
         </header>
         <div class="table-responsive">
@@ -132,13 +152,17 @@
                 <table class="table table-sm table-bordered border-light">
                   <thead class="bg-light text-secondary">
                     <tr>
-                      <th scope="col">Users</th>
+                      <th scope="col">Username</th>
+                      <th scope="col">Name</th>
+                      <th scope="col">Views</th>
                     </tr>
                   </thead>
                   <tbody>
                         {% for user in agencies %}
                         <tr>
-                            <td>{{ user }}</td>
+                          <td><a class="text-primary" href="{% url 'manage_user' user.id %}">{{ user.username }}</a></td>
+                          <td>{{ user.agency.name }}</td>
+                          <td>{{ user.agency.views }}</td>
                         </tr>
                         {% endfor %}
                   </tbody>
@@ -159,8 +183,10 @@
           <div class="actions">
             {% if members_count > 3 %}
                     <a class="btn btn-light text-info" href="{% url 'manage_users_member' %}">View all</a>
+            {% else %}
+                    <a class="btn btn-light text-info" href="{% url 'manage_users_member' %}">Details</a>
             {% endif %}
-            <a class="btn btn-primary" href="{% url 'manage_users_member' %}">Add</a>
+            <a class="btn btn-primary" href="{% url 'manage_users_member_add' %}">Add</a>
           </div>
         </header>
         <div class="table-responsive">
@@ -169,12 +195,14 @@
                   <thead class="bg-light text-secondary">
                     <tr>
                       <th scope="col">Users</th>
+                      <th scope="col">Email address</th>
                     </tr>
                   </thead>
                   <tbody>
                         {% for user in members %}
                         <tr>
-                            <td>{{ user }}</td>
+                          <td><a class="text-primary" href="{% url 'manage_user' user.id %}">{{ user.username }}</a></td>
+                          <td>{{ user.email }}</td>
                         </tr>
                         {% endfor %}
                   </tbody>

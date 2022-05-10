@@ -1,6 +1,9 @@
+from multiprocessing import context
 from django.shortcuts import render, redirect
 from accounts.models import User
-from .forms import AgencyForm, UserForm
+from django.db.models import Q
+import agency
+from .forms import AdminForm, AgencyForm, AgencyFormCreate, UserForm
 # Create your views here.
 def dashboard(request):
     return render(request, 'a/dashboard.html')
@@ -31,7 +34,13 @@ def manage_users(request):
         # don't have permission
         return redirect('home')
     return render(request, 'a/manage_users.html', context)
-
+def manage_users_search(request):
+    if request.method == 'GET':
+        q=request.GET.get('search', ' ')
+        result = User.objects.filter(Q(username__icontains=q))
+        context={'result':result}
+    
+    return render(request, 'a/users/search.html', context)
 def manage_users_all(request):
     if request.user.is_staff:
         users = User.objects.all()
@@ -76,7 +85,6 @@ def manage_users_member(request):
         return redirect('home')
     
     return render(request, 'a/users/member.html', context)
-
 def manage_user(request, pk):
     u = User.objects.get(pk=pk)
     if request.method=="POST":
@@ -102,3 +110,45 @@ def manage_user(request, pk):
     else:
         context={'u':u,'u_form':u_form}
     return render(request, 'a/users/user_detail.html', context)
+def manage_users_admin_add(request):
+    if request.method == 'POST':
+        form = AdminForm(request.POST)
+        if form.is_valid():
+            user = form.save(commit=False)
+            user.is_staff = True
+            user.is_superuser = True
+            user.save()
+            return redirect('manage_users_admin')
+    else:
+        form = AdminForm()
+    context={'u_form':form}
+    return render(request, 'a/users/add.html', context)
+def manage_users_agency_add(request):
+    if request.method == 'POST':
+        u_form = AdminForm(request.POST)
+        a_form = AgencyFormCreate(request.POST)
+        if u_form.is_valid() and a_form.is_valid():
+            user = u_form.save(commit=False)
+            user.is_agent = True
+            user.save()
+            agency = a_form.save(commit=False)
+            agency.user = user
+            agency.save()
+            return redirect('manage_users_agency')
+    else:
+        u_form = AdminForm()
+        a_form = AgencyFormCreate()
+    context={'u_form':u_form, 'a_form':a_form}
+    return render(request, 'a/users/add.html', context)
+def manage_users_member_add(request):
+    if request.method == 'POST':
+        form = AdminForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('manage_users_member')
+    else:
+        form = AdminForm()
+    context={'u_form':form}
+    return render(request, 'a/users/add.html', context)
+
+

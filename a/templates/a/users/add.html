@@ -1,0 +1,22 @@
+{% extends 'a/base.html' %}
+{% load crispy_forms_tags %}
+{% block title %}Admin @{{request.user.username}}{% endblock %}
+{% block content %}
+<section class="p-3 mt-3 mb-3 bg-white shadow-sm rounded" id="orders">
+    <form method="POST">
+        {% csrf_token %}
+        <fieldset class="form-group">
+            {% if a_form %}
+                {{ a_form|crispy }}
+            {% endif %}
+            {{ u_form|crispy }}
+        </fieldset>
+        <br>
+        <div class="form-group d-flex align-items-center justify-content-between">
+            <button class="btn btn-primary" type="submit">Sign Up</button>
+            <a href="{% url 'manage_users' %}" class="btn btn-outline-secondary" >Cnacel</a>
+        </div>
+        <br>
+    </form>
+</section>
+{% endblock %}

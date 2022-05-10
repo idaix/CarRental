@@ -8,7 +8,7 @@
       <h3 class="section_title d-flex align-items-center">
         Users {{users.count}}
       </h3>
-      <a class="btn btn-primary" href="{% url 'manage_users_member' %}">Add</a>
+      <a class="btn btn-primary" href="{% url 'manage_users_agency_add' %}">Add</a>
     </header>
     <div class="table-responsive">
           {% if users %}
@@ -17,7 +17,7 @@
                   <tr>
                     <th scope="col">Username</th>
                     <th scope="col">Email address</th>
-                    <th scope="col">FullName</th>
+                    <th scope="col">Name</th>
                     <th scope="col">Last login</th>
                     <th scope="col">Date Joind</th>
                   </tr>
@@ -27,7 +27,7 @@
                         <tr>
                             <td><a class="text-primary" href="{% url 'manage_user' user.id %}">{{ user.username }}</a></td>
                             <td>{{ user.email }}</td>
-                            <td>{{ user.first_name }} {{ user.last_name }}</td>
+                            <td><a class="text-primary" href="{% url 'show_all_cars' user.agency.id %}">{{ user.agency.name }}</a></td>
                             <td>{{ user.last_login }}</td>
                             <td>{{ user.date_joined }}</td>
                         </tr>
