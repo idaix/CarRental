@@ -1,7 +1,13 @@
 {% extends 'app/search/base.html' %}
 {% block title%}Search {{ city }}, {{ state }}...{% endblock %}
 {% block search_content %}
+<script>
+    let lg = '{{ geocode.0 }}';
+    let lt = '{{ geocode.1 }}';
+</script>
+
 {% if result %}
+
     {% for agency in result %}
         <div class="shadow mb-3 rounded-3 d-flex align-items-center justify-content-between p-3">
             <div class="left m-1">

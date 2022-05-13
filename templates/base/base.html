@@ -8,6 +8,8 @@
     <!-- LINKS -->
     <!-- GOOGLE icons  -->
     <link rel="stylesheet" type="text/css" href="{% static 'css/other/google-icons.css' %}">
+    <!-- GOOGLE Map  -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
     <!-- bootstrap link -->
     <link rel="stylesheet" type="text/css" href="{% static 'css/other/bootstrap.min.css' %}">
     <!--=== SWIPER JS & htmx====-->
@@ -21,7 +23,11 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
     <!-- --- -->
     <title>{% block title %}{% endblock %}</title>
-
+    
+    <!-- map style -->
+    <style>
+        #map {height: 100%;}
+    </style>
 </head>
 <body>
 
@@ -55,9 +61,12 @@
     <!-- END FOOTER -->
 
     <!-- JS SCRIPTS -->
+    <!-- google map -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAiXspovYSHLMbVuaofueCFwNVZkPKVlXg&callback=initMap&v=weekly" async></script>
     <!-- bootstrap script -->
+    <script src="{% static 'js/other/bootstrap.bundle.min.js' %}"></script>
+    <!-- main -->
     <script src="{% static 'js/main.js' %}"></script>
     <script src="{% static 'js/steps.js' %}"></script>
-    <script src="{% static 'js/other/bootstrap.bundle.min.js' %}"></script>
 </body>
 </html>
