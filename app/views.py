@@ -6,7 +6,9 @@ from agency.models import Agency
 from order.models import Order
 from django.db.models import Q
 from datetime import datetime
-
+from django.contrib.auth.decorators import login_required
+from feedbacks.models import feedback
+from feedbacks.forms import *
 # Create your views here.
 
 def home(request):
@@ -55,6 +57,8 @@ def search(request):
 # SHOW ALL CARS FOR SPESIFIC AGENCY
 def show_all_cars(request, pk):
     agency = Agency.objects.get(pk=pk)
+    comments=feedback.objects.filter(agency=pk)
+    form= FeedbackForm()
     # Show only available vehicles
     cars = Vehicle.objects.filter(owned_by=agency).filter(is_available=True)
     # from get
@@ -65,6 +69,16 @@ def show_all_cars(request, pk):
     types = Type.objects.all()
     energy = Energy.objects.all()
     transmission = Transmission.objects.all()
+    if request.POST:
+        if request.POST.get('type'):
+            _type= Type.objects.get(id=request.POST.get('type'))
+            cars=cars.filter(type=_type)
+        if request.POST.get('energy'): 
+            _energy= Energy.objects.get(id=request.POST.get('energy'))
+            cars=cars.filter(engine=_energy)
+        if request.POST.get('transmission'):
+            _transmission= Transmission.objects.get(id=request.POST.get('transmission'))
+            cars=cars.filter(transmission=_transmission)
     context = {
         'agency':agency,
         'cars':cars,
@@ -74,6 +88,8 @@ def show_all_cars(request, pk):
         'types':types,
         'energy':energy,
         'transmission':transmission,
+        'comments':comments,
+        'form':form,
     }
     return render(request, 'app/search/show_all_cars.html', context=context)
 
@@ -130,3 +146,35 @@ def book(request, pk):
     }
 
     return render(request, 'app/booking/book.html', context)
+
+
+#FEEDBACKS
+@login_required
+def CreateFeedback(request):
+    
+    if request.method=='POST':
+        form=FeedbackForm(request.POST)
+        if form.is_valid():
+            feedback=form.save(commit=False)
+            feedback.client=request.user
+            agency=Agency.objects.get(id=request.GET.get('agency_id'))
+            feedback.agency=agency
+            feedback.save()
+            return redirect('show_all_cars',agency.id)
+    
+    return render(request, 'app/search/show_all_cars.html')
+
+
+@login_required
+def DeleteFeedback(request,pk):
+    id=feedback.objects.get(id=pk).agency.id
+    
+    if request.method=='GET':
+        comment=feedback.objects.get(id=pk)
+        if request.user.id==comment.client.id:
+            comment.delete()
+        
+            
+            
+    
+    return redirect('show_all_cars',id)

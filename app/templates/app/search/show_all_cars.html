@@ -1,65 +1,135 @@
-{% extends 'app/search/base.html' %}
-{% block title %}{{agency.name}}{% endblock %}
-{% block search_content %}
-<section class="show-all-cars">
-    <div class="card shadow mb-3">
-        <div class="card-body row">
-            <div class="col-md-4">
-                <div class="image border mb-1" style="width: 150px;">
-                    <img src="{{ agency.image.url }}" alt="{{ agency.name }}" width="150">
+{% extends 'app/search/base.html' %} {% load crispy_forms_tags %}{% block title %}{{agency.name}}{% endblock %}{% block filter%}
+<div class="col-md-3 mb-3">
+    <form action="{% url 'show_all_cars' agency.id %}?city={{city}}&date-start={{date_start}}&date-end={{date_end}}" method="POST">
+        {%csrf_token%}
+        <div class="card p-2">
+            <h5>Types</h5>
+            <ul class="text-secondary">
+                {% for type in types %}
+                <li>
+                    <input class="form-check-input" type="radio" name="type" id="{{ type.id }}" value="{{ type.id }}">
+                    <label class="form-check-label" for="{{ type.id }}">
+                        {{type.name}}
+                    </label>
+                </li>
+
+                {% endfor %}
+            </ul>
+            <h5>Energy</h5>
+            <ul class="text-secondary">
+                {% for e in energy %}
+                <li>
+                    <input class="form-check-input" type="radio" name="energy" id="{{ e.id }}" value="{{ e.id }}">
+                    <label class="form-check-label" for="{{ e.id }}">
+                        {{e.name}}
+                    </label>
+                </li>
+                {% endfor %}
+            </ul>
+            <h5>Transmission</h5>
+            <ul class="text-secondary">
+                {% for t in transmission %}
+                <li>
+                    <input class="form-check-input" type="radio" name="transmission" id="{{ t.id }}" value="{{ t.id }}">
+                    <label class="form-check-label" for="{{ t.id }}">
+                        {{t.name}}
+                    </label>
+                </li>
+                {% endfor %}
+            </ul>
+            <li><button class="btn btn-primary" type="submit">Filter</button></li>
+        </div>
+    </form>
+
+    <div style="margin-top: 15px;">
+        <div style="overflow-y:scroll; height:50rem;width:20rem">
+            {%for comment in comments%}
+            <div class="card" style="width: 18rem;margin: 5px ;">
+                <div class="card-body">
+                    {%if request.user.id == comment.client.id%}
+                    <a href="{%url 'delete_feedback' comment.id %}">
+                        <h6>Delite</h6>
+                    </a>
+                    {%endif%}
+                    <h5 class="card-title">{{comment.client}}</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                    <p class="card-text">{{comment.comment}}</p>
+                    <a href="#" class="card-link">Card link</a>
+                    <a href="#" class="card-link">Another link</a>
                 </div>
-                <h5 class="mb-1">{{ agency.name }}'s cars</h5>
-                <p class="text-secondary">{{ agency.bio }}</p>
             </div>
-            <div class="col-md-8">
+            {%endfor%}
+
+        </div>
+
+        <div>
+            <form action="{%url 'create_feedback'%}?agency_id={{agency.id}}" method="POST">
+                {%csrf_token%} {{form|crispy}}
+                <button class="btn btn-success" type=" submit ">Comment</button>
+            </form>
+        </div>
+
+
+    </div>
+    <div></div>
+</div>
+{%endblock%} {% block search_content %}
+<section class="show-all-cars " id="all_cars ">
+    <div class="card shadow mb-3 ">
+        <div class="card-body row ">
+            <div class="col-md-4 ">
+                <div class="image border mb-1 " style="width: 150px; ">
+                    <img src="{{ agency.image.url }} " alt="{{ agency.name }} " width="150 ">
+                </div>
+                <h5 class="mb-1 ">{{ agency.name }}'s cars</h5>
+                <p class="text-secondary ">{{ agency.bio }}</p>
+            </div>
+            <div class="col-md-8 ">
                 <h5>Contact info</h5>
-                <ul class="text-secondary">
-                    <li class="contact_link"><span class="material-icons-round ul-icon">call</span>{{ agency.contact_phone }}</li>
-                    <li class="contact_link"><span class="material-icons-round ul-icon">alternate_email</span>{{ agency.contact_email }}</li>
-                    <li class="contact_link"><span class="material-icons-round ul-icon">laptop</span>{{ agency.contact_website }}</li>
-                    <li class="contact_link"><span class="material-icons-round ul-icon">place</span>{{ agency.get_full_address }}</li>
+                <ul class="text-secondary ">
+                    <li class="contact_link "><span class="material-icons-round ul-icon ">call</span>{{ agency.contact_phone }}</li>
+                    <li class="contact_link "><span class="material-icons-round ul-icon ">alternate_email</span>{{ agency.contact_email }}</li>
+                    <li class="contact_link "><span class="material-icons-round ul-icon ">laptop</span>{{ agency.contact_website }}</li>
+                    <li class="contact_link "><span class="material-icons-round ul-icon ">place</span>{{ agency.get_full_address }}</li>
                 </ul>
             </div>
         </div>
     </div>
-        {% for car in cars %}
-        <div class="card car-card mb-3">
-            <a href="{% url 'vehicle_details' car.id %}?date-start={{date_start}}&date-end={{date_end}}" class="explore bg-dark text-white shadow">Explore <span class="material-icons-round">navigate_next</span></a>
-            <div class="row align-items-center">
-                <div class="col-md-4"><img src="{{ car.thumbnail.image.url }}" class="card-img-top card-media" alt="{{ car.get_title }}"></div>
-                <div class="card-body col-md-5">
-                    <h4>{{car.get_title}}</h4>
-                    <div class="features">
-                        <table class="tab text-secondary">
-                            <tr>
-                                <td>
-                                    <span class="material-icons-round">airline_seat_recline_normal</span>
-                                    {{car.seats}} Seats
-                                </td>
-                                <td>
-                                    <span class="material-icons-round">thermostat_auto</span>
-                                    {{car.transmission}}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <span class="material-icons-round">meeting_room</span>
-                                    {{car.doors}} Doors
-                                </td>
-                                <td>
-                                    <span class="material-icons-round">local_gas_station</span>
-                                    {{car.engine}}
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-                </div>
-                <div class="col-md-3 card-body d-flex align-items-center justify-content-between d-md-block">
-                    <h6>Rent for <strong class="text-success">{{ car.get_price }}</strong> per day.</h6>
-                    <a href="{% url 'book' car.id %}?date-start={{date_start}}&date-end={{date_end}}" class="btn btn-success">Book Now</a>
+    {% for car in cars %}
+    <div class="card car-card mb-3 " id="all_cars ">
+        <a href="{% url 'vehicle_details' car.id %} " class="explore bg-dark text-white shadow ">Explore <span class="material-icons-round ">navigate_next</span></a>
+        <div class="row align-items-center ">
+            <div class="col-md-4 "><img src="{{ car.thumbnail.image.url }} " class="card-img-top card-media " alt="{{ car.get_title }} "></div>
+            <div class="card-body col-md-5 ">
+                <h4>{{car.get_title}}</h4>
+                <div class="features ">
+                    <table class="tab text-secondary ">
+                        <tr>
+                            <td>
+                                <span class="material-icons-round ">airline_seat_recline_normal</span> {{car.seats}} Seats
+                            </td>
+                            <td>
+                                <span class="material-icons-round ">thermostat_auto</span> {{car.transmission}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span class="material-icons-round ">meeting_room</span> {{car.doors}} Doors
+                            </td>
+                            <td>
+                                <span class="material-icons-round ">local_gas_station</span> {{car.engine}}
+                            </td>
+                        </tr>
+                    </table>
                 </div>
             </div>
+            <div class="col-md-3 card-body d-flex align-items-center justify-content-between d-md-block ">
+                <h6>Rent for <strong class="text-success ">{{ car.get_price }}</strong> per day.</h6>
+                <a href="{% url 'book' car.id %}?date-start={{date_start}}&date-end={{date_end}} " class="btn btn-success ">Book Now</a>
+            </div>
         </div>
-        {% endfor %}
+    </div>
+    {% endfor %}
+
 </section>
 {% endblock %}

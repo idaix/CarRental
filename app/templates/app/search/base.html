@@ -1,6 +1,4 @@
-{% extends 'base/base.html' %}
-{% load static %}
-{% block content%}
+{% extends 'base/base.html' %} {% load static %} {% block content%}
 <!-- <nav aria-label=" mt-1 mb-1 breadcrumb">
     <ol class="breadcrumb">
       <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
@@ -9,51 +7,29 @@
 </nav> -->
 <div class="home pt-5">
     <section class="section" id="new">
-    <div class="row">
-        <div class="col-md-3 mb-3">
-            <div class="card p-2">
-                <h5>Types</h5>
-                <ul class="text-secondary">
-                    {% for type in types %}
-                        <li><a href="#{{ type.id }}">{{type.name}}</a></li>
-                    {% endfor %}
-                </ul>
-                <h5>Energy</h5>
-                <ul class="text-secondary">
-                    {% for e in energy %}
-                        <li><a href="#{{ e.id }}">{{e.name}}</a></li>
-                    {% endfor %}
-                </ul>
-                <h5>Transmission</h5>
-                <ul class="text-secondary">
-                    {% for t in transmission %}
-                        <li><a href="#{{ t.id }}">{{t.name}}</a></li>
-                    {% endfor %}
-                </ul>
-            </div>
-        </div>
-        <div class="col-md-9 mb-3">
-            <div class="row">
-                <div class="col-md-12 card bg-light mb-3">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <small>Pick Up</small>
-                            <p>{{ city }}, {{ state }} - {{date_start}}</p>
+        <div class="row">
+            {%block filter%}{%endblock%}
+            <div class="col-md-9 mb-3">
+                <div class="row">
+                    <div class="col-md-12 card bg-light mb-3">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <small>Pick Up</small>
+                                <p>{{ city }}, {{ state }} - {{date_start}}</p>
+                            </div>
+                            <div class="col-md-6">
+                                <small>Drop of</small>
+                                <p>{{ city }}, {{ state }} - {{date_end}}</p>
+                            </div>
                         </div>
-                        <div class="col-md-6">
-                            <small>Drop of</small>
-                            <p>{{ city }}, {{ state }} - {{date_end}}</p>
-                        </div>
+
                     </div>
-                    
+                    <section>
+                        {% block search_content %} {% endblock %}
+                    </section>
                 </div>
-                <section>
-                    {% block search_content %}
-                    {% endblock %}
-                </section>
             </div>
         </div>
-    </div>
     </section>
 </div>
 {% endblock %}
