@@ -3,6 +3,7 @@ from .models import Agency
 from django.forms import ModelForm
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import get_user_model
+from accounts.models import User
 
 
 # PROFILE FORMS
@@ -18,12 +19,12 @@ class RegisterAgencyForm(ModelForm):
 class UserUpdateForm(ModelForm):
     class Meta:
         model = get_user_model()
-        fields = ['username', 'email']
+        fields = ['image', 'username', 'email',]
 
 class ProfileForm(ModelForm):
     class Meta:
         model=Agency
-        fields = ['image','name', 'bio','contact_phone', 'contact_email', 'contact_website', 'address']
+        fields = ['name', 'bio','contact_phone', 'contact_email', 'contact_website', 'address']
 
 # VEHCILE FORMS
 class VehicleForm(ModelForm):

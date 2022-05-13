@@ -64,7 +64,7 @@ def agency_profile(request):
 def agency_profile_edit(request):
     profile = Agency.objects.get(user=request.user)
     if request.method == "POST":
-        u_form = UserUpdateForm(request.POST, instance=request.user)
+        u_form = UserUpdateForm(request.POST, request.FILES, instance=request.user)
         p_form = ProfileForm(request.POST, request.FILES, instance=profile)
         if p_form.is_valid() and u_form.is_valid():
             u_form.save()
@@ -102,16 +102,17 @@ def dashboard(request):
     if request.user.is_agent or request.user.is_staff:
         vehicles = Vehicle.objects.filter(owned_by=request.user.agency)
         vehicles_count = vehicles.count()
-        orders = Order.objects.filter(agency=request.user.agency)[:3]
-        orders_count = Order.objects.filter(agency=request.user.agency).count()
-        clients = Client.objects.filter(agency=request.user.agency)[:3]
-        clients_count = Client.objects.filter(agency=request.user.agency).count()
+        orders = Order.objects.filter(agency=request.user.agency)
+        orders_3 = orders[:3]
+        orders_count = orders.count()
+        clients = orders.filter(status='a')[:3]
+        clients_count = orders.filter(status='a').count()
         
         context = {
             'views_count':request.user.agency.views,
             'vehicles':vehicles,
             'vehicles_count':vehicles_count,
-            'orders':orders,
+            'orders':orders_3,
             'orders_count':orders_count,
             'clients':clients,
             'clients_count':clients_count,
@@ -277,8 +278,10 @@ def orders(request):
 # clients 
 @login_required
 def clients(request):
-    clients = Client.objects.filter(agency=request.user.agency)
-    clients_count = clients.count()
+    orders = Order.objects.filter(agency=request.user.agency).filter(status='a')
+    
+    clients = orders
+    clients_count = orders.count()
     
     context = {
         'clients':clients,

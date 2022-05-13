@@ -1,12 +1,14 @@
-from multiprocessing import context
 from django.shortcuts import render, redirect
+from django.contrib.admin.views.decorators import staff_member_required
 from accounts.models import User
 from django.db.models import Q
 import agency
 from .forms import AdminForm, AgencyForm, AgencyFormCreate, UserForm
 # Create your views here.
+@staff_member_required()
 def dashboard(request):
     return render(request, 'a/dashboard.html')
+@staff_member_required()
 def manage_users(request):
     if request.user.is_staff:
         # App users-------------------------------
@@ -34,6 +36,7 @@ def manage_users(request):
         # don't have permission
         return redirect('home')
     return render(request, 'a/manage_users.html', context)
+@staff_member_required()
 def manage_users_search(request):
     if request.method == 'GET':
         q=request.GET.get('search', ' ')
@@ -41,6 +44,7 @@ def manage_users_search(request):
         context={'result':result}
     
     return render(request, 'a/users/search.html', context)
+@staff_member_required()
 def manage_users_all(request):
     if request.user.is_staff:
         users = User.objects.all()
@@ -52,6 +56,7 @@ def manage_users_all(request):
         return redirect('home')
     
     return render(request, 'a/users/users.html', context)
+@staff_member_required()
 def manage_users_admin(request):
     if request.user.is_staff:
         users = User.objects.filter(is_staff = True)
@@ -63,6 +68,7 @@ def manage_users_admin(request):
         return redirect('home')
     
     return render(request, 'a/users/admin.html', context)
+@staff_member_required()
 def manage_users_agency(request):
     if request.user.is_staff:
         users = User.objects.filter(is_agent = True)
@@ -74,6 +80,7 @@ def manage_users_agency(request):
         return redirect('home')
     
     return render(request, 'a/users/agency.html', context)
+@staff_member_required()
 def manage_users_member(request):
     if request.user.is_staff:
         users = User.objects.filter(is_agent = False)
@@ -85,6 +92,7 @@ def manage_users_member(request):
         return redirect('home')
     
     return render(request, 'a/users/member.html', context)
+@staff_member_required()
 def manage_user(request, pk):
     u = User.objects.get(pk=pk)
     if request.method=="POST":
@@ -110,6 +118,7 @@ def manage_user(request, pk):
     else:
         context={'u':u,'u_form':u_form}
     return render(request, 'a/users/user_detail.html', context)
+@staff_member_required()
 def manage_users_admin_add(request):
     if request.method == 'POST':
         form = AdminForm(request.POST)
@@ -123,6 +132,7 @@ def manage_users_admin_add(request):
         form = AdminForm()
     context={'u_form':form}
     return render(request, 'a/users/add.html', context)
+@staff_member_required()
 def manage_users_agency_add(request):
     if request.method == 'POST':
         u_form = AdminForm(request.POST)
@@ -140,6 +150,7 @@ def manage_users_agency_add(request):
         a_form = AgencyFormCreate()
     context={'u_form':u_form, 'a_form':a_form}
     return render(request, 'a/users/add.html', context)
+@staff_member_required()
 def manage_users_member_add(request):
     if request.method == 'POST':
         form = AdminForm(request.POST)
@@ -152,6 +163,7 @@ def manage_users_member_add(request):
     return render(request, 'a/users/add.html', context)
 
 # setup
+@staff_member_required()
 def setup(request):
     return render(request, 'a/setup.html')
 

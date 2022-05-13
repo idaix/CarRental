@@ -22,14 +22,16 @@
             <th scope="col">Client</th>
             <th scope="col">Mobile</th>
             <th scope="col">Gender - Age</th>
+            <th scope="col">Status</th>
           </tr>
         </thead>
         <tbody>
             {% for client in clients %}
               <tr>
-                <td>{{ client.get_full_name }}</td>
-                <td>{{ client.mobile }}</td>
-                <td>{{ client.get_gender_display }} - {{ client.age }} years old</td>
+                <td>{{ client.client.get_full_name }}</td>
+                <td>{{ client.client.mobile }}</td>
+                <td>{{ client.client.get_gender_display }} - {{ client.client.age }} years old</td>
+                <td>{{ client.get_status_display }}</td>
               </tr>
             {% endfor %}
           

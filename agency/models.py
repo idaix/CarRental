@@ -9,7 +9,7 @@ class Agency(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='agency')
     name = models.CharField(max_length=150)
     bio = models.TextField(max_length=500, blank=True, help_text='(500)')
-    image = models.ImageField(default="default/default_profile_image.svg", upload_to='profile_images/%y/%m/%d', blank=True)
+    # image = models.ImageField(default="default/default_profile_image.svg", upload_to='profile_images/%y/%m/%d', blank=True)
     contact_phone = models.CharField(max_length=12, blank=True)
     contact_email = models.CharField(max_length=150, blank=True)
     contact_website = models.CharField(max_length=150, null=True, blank=True)
