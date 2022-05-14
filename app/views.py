@@ -80,6 +80,18 @@ def show_all_cars(request, pk):
     types = Type.objects.all()
     energy = Energy.objects.all()
     transmission = Transmission.objects.all()
+
+    # FILTER
+    if request.POST:
+        if request.POST.get('type'):
+            _type= Type.objects.get(id=request.POST.get('type'))
+            cars=cars.filter(type=_type)
+        if request.POST.get('energy'): 
+            _energy= Energy.objects.get(id=request.POST.get('energy'))
+            cars=cars.filter(engine=_energy)
+        if request.POST.get('transmission'):
+            _transmission= Transmission.objects.get(id=request.POST.get('transmission'))
+            cars=cars.filter(transmission=_transmission)
     context = {
         'agency':agency,
         'cars':cars,

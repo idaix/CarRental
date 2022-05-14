@@ -18,24 +18,44 @@
                     </div>
                 {% else %}
                     <div class="card-body">
-                        <h5 class="text-primary" >Types</h5>
-                        <ul class="text-secondary">
-                            {% for type in types %}
-                                <li><a href="#{{ type.id }}">{{type.name}}</a></li>
-                            {% endfor %}
-                        </ul>
-                        <h5>Energy</h5>
-                        <ul class="text-secondary">
-                            {% for e in energy %}
-                                <li><a href="#{{ e.id }}">{{e.name}}</a></li>
-                            {% endfor %}
-                        </ul>
-                        <h5>Transmission</h5>
-                        <ul class="text-secondary">
-                            {% for t in transmission %}
-                                <li><a href="#{{ t.id }}">{{t.name}}</a></li>
-                            {% endfor %}
-                        </ul>
+                        <form action="{% url 'show_all_cars' agency.id %}?city={{city}}&date-start={{date_start}}&date-end={{date_end}}" method="POST">
+                            {%csrf_token%}
+                            <h5>Types</h5>
+                            <ul class="text-secondary">
+                                {% for type in types %}
+                                <li>
+                                    <input class="form-check-input" type="radio" name="type" id="{{ type.id }}" value="{{ type.id }}">
+                                    <label class="form-check-label" for="{{ type.id }}">
+                                        {{type.name}}
+                                    </label>
+                                </li>
+                
+                                {% endfor %}
+                            </ul>
+                            <h5>Energy</h5>
+                            <ul class="text-secondary">
+                                {% for e in energy %}
+                                <li>
+                                    <input class="form-check-input" type="radio" name="energy" id="{{ e.id }}" value="{{ e.id }}">
+                                    <label class="form-check-label" for="{{ e.id }}">
+                                        {{e.name}}
+                                    </label>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                            <h5>Transmission</h5>
+                            <ul class="text-secondary">
+                                {% for t in transmission %}
+                                <li>
+                                    <input class="form-check-input" type="radio" name="transmission" id="{{ t.id }}" value="{{ t.id }}">
+                                    <label class="form-check-label" for="{{ t.id }}">
+                                        {{t.name}}
+                                    </label>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                            <button class="btn btn-success" type="submit">Filter</button>
+                        </form>                                            
                     </div>
                 {% endif %}
             </div>

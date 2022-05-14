@@ -1,4 +1,5 @@
 {% extends 'app/search/base.html' %}
+{% load static %}
 {% load crispy_forms_tags %}
 {% block title %}{{agency.name}}{% endblock %}
 {% block search_content %}
@@ -23,45 +24,56 @@
             </div>
         </div>
     </div>
-        {% for car in cars %}
-        <div class="card car-card mb-3 rounded">
-            <a href="{% url 'vehicle_details' car.id %}?date-start={{date_start}}&date-end={{date_end}}" class="explore bg-dark text-white shadow">Explore <span class="material-icons-round">navigate_next</span></a>
-            <div class="row align-items-center">
-                <div class="col-md-4"><img src="{{ car.thumbnail.image.url }}" class="card-img-top card-media" alt="{{ car.get_title }}"></div>
-                <div class="card-body col-md-5">
-                    <h4>{{car.get_title}}</h4>
-                    <div class="features">
-                        <table class="tab text-secondary">
-                            <tr>
-                                <td>
-                                    <span class="material-icons-round">airline_seat_recline_normal</span>
-                                    {{car.seats}} Seats
-                                </td>
-                                <td>
-                                    <span class="material-icons-round">thermostat_auto</span>
-                                    {{car.transmission}}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <span class="material-icons-round">meeting_room</span>
-                                    {{car.doors}} Doors
-                                </td>
-                                <td>
-                                    <span class="material-icons-round">local_gas_station</span>
-                                    {{car.engine}}
-                                </td>
-                            </tr>
-                        </table>
+        {% if cars %}
+            {% for car in cars %}
+                <div class="card car-card mb-3 rounded">
+                    <a href="{% url 'vehicle_details' car.id %}?date-start={{date_start}}&date-end={{date_end}}" class="explore bg-dark text-white shadow">Explore <span class="material-icons-round">navigate_next</span></a>
+                    <div class="row align-items-center">
+                        <div class="col-md-4"><img src="{{ car.thumbnail.image.url }}" class="card-img-top card-media" alt="{{ car.get_title }}"></div>
+                        <div class="card-body col-md-5">
+                            <h4>{{car.get_title}}</h4>
+                            <div class="features">
+                                <table class="tab text-secondary">
+                                    <tr>
+                                        <td>
+                                            <span class="material-icons-round">airline_seat_recline_normal</span>
+                                            {{car.seats}} Seats
+                                        </td>
+                                        <td>
+                                            <span class="material-icons-round">thermostat_auto</span>
+                                            {{car.transmission}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <span class="material-icons-round">meeting_room</span>
+                                            {{car.doors}} Doors
+                                        </td>
+                                        <td>
+                                            <span class="material-icons-round">local_gas_station</span>
+                                            {{car.engine}}
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-md-3 card-body d-flex align-items-center justify-content-between d-md-block">
+                            <h6>Rent for <strong class="text-success">{{ car.get_price }}</strong> per day.</h6>
+                            <a href="{% url 'book' car.id %}?date-start={{date_start}}&date-end={{date_end}}" class="btn btn-success">Book Now</a>
+                        </div>
                     </div>
                 </div>
-                <div class="col-md-3 card-body d-flex align-items-center justify-content-between d-md-block">
-                    <h6>Rent for <strong class="text-success">{{ car.get_price }}</strong> per day.</h6>
-                    <a href="{% url 'book' car.id %}?date-start={{date_start}}&date-end={{date_end}}" class="btn btn-success">Book Now</a>
-                </div>
+            {% endfor %}
+        {% else %}
+            <div class="d-flex align-items-center justify-content-center">
+                <img style="width: 100px;" src="{% static 'img/1140-error-flat.gif' %}" alt="404">
+                
             </div>
-        </div>
-        {% endfor %}
+            <br>    
+            <div class="alert alert-danger" role="alert">
+                <p class="text-center mb-0">No Cars!</p>
+            </div>
+        {% endif %}
     <section class="comments p-3 mt-3 mb-3 shadow-sm rounded bg-light">
         <h5>Comments</h5>
         <hr>
