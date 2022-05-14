@@ -1,3 +1,4 @@
+    {% load static %}
     <nav class="navbar navbar-expand-lg navbar-light navbar-bg ">
         <div class="container">
           <a class="navbar-brand" href="{% url 'home' %}">CARENT</a>
@@ -38,12 +39,8 @@
                       Account
                     </button>
                     <ul class="dropdown-menu">
-                      {% if request.user.agency %}
-                        <li><a class="dropdown-item" href="{% url 'agency_profile' %}">Profile</a></li>
-                        <li><a class="dropdown-item" href="{% url 'agency_profile_edit' %}">Settings</a></li>
-                      {% else %}
-                        <li><a class="dropdown-item" href="#">Profile</a></li>
-                      {% endif %}
+                      <li><a class="dropdown-item" href="{% url 'profile' %}">Profile</a></li>
+                      <li><a class="dropdown-item" href="">Settings</a></li>
                       <li><hr class="dropdown-divider"></li>
                       <li><a class="dropdown-item btn btn-danger" href="{% url 'logout' %}">Logout</a></li>
                     </ul>

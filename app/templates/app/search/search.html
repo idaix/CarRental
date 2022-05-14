@@ -1,4 +1,5 @@
 {% extends 'app/search/base.html' %}
+{% load static %}
 {% block title%}Search {{ city }}, {{ state }}...{% endblock %}
 {% block search_content %}
 <script>
@@ -19,9 +20,14 @@
         </div>
     {% endfor %}
     {% else %}
-        <div class="alert alert-danger" role="alert">
-                <p class="text-center mb-0">No Cars Available In "{{ city }}, {{ state }}"!</p>
+        <div class="d-flex align-items-center justify-content-center">
+            <img style="width: 100px;" src="{% static 'img/warning.png' %}" alt="404">
         </div>
+        <br>    
+        <div class="alert alert-danger" role="alert">
+            <p class="text-center mb-0">No Cars Available In "{{ city }}, {{ state }}"!</p>
+        </div>
+        
     {% endif %}
     <div class="search-box p-3 shadow mt-5">
         <form method="get" action="{% url 'search' %}">

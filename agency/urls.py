@@ -6,9 +6,9 @@ urlpatterns = [
     path('register/', views.register, name='agency_register'),
     path('commune_field/', views.commune_field, name='commune_field'),
     # AGENCY PROFILE
-    path('profile/', views.agency_profile, name='agency_profile'),
-    path('profile/edit', views.agency_profile_edit, name='agency_profile_edit'),
-    path('profile/edit/<int:pk>', views.AgencyUpdateView.as_view(), name='agency_profile_edit'),
+    # path('profile/', views.agency_profile, name='agency_profile'),
+    # path('profile/edit', views.agency_profile_edit, name='agency_profile_edit'),
+    # path('profile/edit/<int:pk>', views.AgencyUpdateView.as_view(), name='agency_profile_edit'),
     path('dashboard/', views.dashboard, name='dashboard'),
     # AGENCY VEHICLE URLS
     path('vehicle/<int:pk>', views.vehicle_details, name='agency_vehicle_details'),

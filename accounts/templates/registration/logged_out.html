@@ -1,6 +1,16 @@
 {% extends "base/base.html" %}
-
+{% load static %}
+{% block title %}
+Logout
+{% endblock %}
 {% block content %}
-  <p>Logged out!</p>
-  <a href="{% url 'login'%}">Click here to login again.</a>
+  <section class="p-5 rounded shadow-sm mt-5 mb-5 bg-light d-flex align-items-center justify-content-between">
+    <h5>All Done! Have a nice day</h5>
+    <a class="btn btn-outline-success" href="{% url 'login'%}">Login again.</a>
+  </section>
+  <div class="d-flex justify-content-center align-content-center">
+    <div class="img" style="width: 200px;">
+      <img src="{% static 'img/thank-you.png' %}" alt="thankyou">
+    </div>
+  </div>
 {% endblock %}
