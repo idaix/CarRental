@@ -151,3 +151,18 @@ footer{
     font-size: 15px;
     width: 30px;
 }
+
+.comments{
+    .comment{
+        .comment-owner{
+            font-weight: bold;
+            font-size: 15px;
+            margin-right: 1.5rem;
+        }
+        .comment-text{font-size: 12px;}
+        .comment-delete{font-size: 10px;}
+    }
+    label{
+        display: none;
+    }
+}

@@ -1,8 +1,9 @@
 {% extends 'app/search/base.html' %}
+{% load crispy_forms_tags %}
 {% block title %}{{agency.name}}{% endblock %}
 {% block search_content %}
 <section class="show-all-cars">
-    <div class="card shadow mb-3">
+    <div class="card rounded shadow mb-3">
         <div class="card-body row">
             <div class="col-md-4">
                 <div class="image border mb-1" style="width: 150px;">
@@ -23,7 +24,7 @@
         </div>
     </div>
         {% for car in cars %}
-        <div class="card car-card mb-3">
+        <div class="card car-card mb-3 rounded">
             <a href="{% url 'vehicle_details' car.id %}?date-start={{date_start}}&date-end={{date_end}}" class="explore bg-dark text-white shadow">Explore <span class="material-icons-round">navigate_next</span></a>
             <div class="row align-items-center">
                 <div class="col-md-4"><img src="{{ car.thumbnail.image.url }}" class="card-img-top card-media" alt="{{ car.get_title }}"></div>
@@ -61,5 +62,35 @@
             </div>
         </div>
         {% endfor %}
+    <section class="comments p-3 mt-3 mb-3 shadow-sm rounded bg-light">
+        <h5>Comments</h5>
+        <hr>
+        <div style="overflow-y:scroll;" class="mb-3">
+            {%for comment in comments%}
+            <div class="card p-2 rounded mb-1">
+                <div class="comment">
+                    <div class="head d-flex align-items-center justify-content-between">
+                        <span class="comment-owner text-dark">@{{comment.client.username}}</span>
+                        {%if request.user.id == comment.client.id%}
+                            <a class="comment-delete text-secondary" href="{%url 'delete_feedback' comment.id %}">Delete</a>
+                        {%endif%}
+                    </div>
+                    <div class="body">
+                        <p class="comment-text text-secondary m-0">{{comment.comment}}</p>
+                    </div>
+                </div>
+            </div>
+            {%endfor%}
+
+        </div>
+
+        <div>
+            <form action="{%url 'create_feedback'%}?agency_id={{agency.id}}" method="POST">
+                {%csrf_token%} {{form|crispy}}
+                <button class="btn btn-outline-success mt-3 mb-3" type=" submit ">Comment</button>
+            </form>
+        </div>
+
+    </section>
 </section>
 {% endblock %}

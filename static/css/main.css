@@ -306,4 +306,22 @@ footer {
   font-size: 15px;
   width: 30px;
 }
+
+.comments .comment .comment-owner {
+  font-weight: bold;
+  font-size: 15px;
+  margin-right: 1.5rem;
+}
+
+.comments .comment .comment-text {
+  font-size: 12px;
+}
+
+.comments .comment .comment-delete {
+  font-size: 10px;
+}
+
+.comments label {
+  display: none;
+}
 /*# sourceMappingURL=main.css.map */

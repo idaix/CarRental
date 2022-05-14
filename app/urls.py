@@ -10,4 +10,7 @@ urlpatterns = [
     path('book/<int:pk>', views.book, name='book'),
     path('book/confirm_reservation/<int:pk>', views.confirm_reservation, name='confirm_reservation'),
     path('book/manage_booking', views.manage_booking, name='manage_booking'),
+    # FEEDBACKS
+    path('create_feedback/', views.CreateFeedback, name='create_feedback'),
+    path('delete_feedback/<int:pk>', views.DeleteFeedback, name='delete_feedback'),
 ]
