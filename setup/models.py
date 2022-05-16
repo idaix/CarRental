@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.urls import reverse
 # Create your models here.
 
 
@@ -15,6 +15,9 @@ class Wilaya(models.Model):
     
     def __str__(self) -> str:
         return self.name
+    
+    def get_absolute_url(self):
+        return reverse('wilaya-change')
 
 class Commune(models.Model):
     post_code = models.IntegerField(blank=True)
@@ -28,6 +31,9 @@ class Commune(models.Model):
     
     def __str__(self) -> str:
         return self.name
+    
+    def get_absolute_url(self):
+        return reverse('commune-change')
 
 # -----------------SET UP CAR MAKES MODELS --------------
 # setup is in vehicle model...

@@ -1,0 +1,20 @@
+{% extends "a/base.html" %}
+{% block content %}
+<article class="media content-section">
+    <div class="p-3 shadow-sm bg-white rounded mb-3">
+        <div class="d-flex align-items-center justify-content-between mb-4">
+            <h3 class="">Select make to change</h3>
+            <a href="{% url 'make-create' %}" class="btn btn-outline-secondary">Add Make <i class="fa-solid fa-plus"></i></a>
+        </div>
+        <hr>
+        {% for make in makes %}
+            <div class="d-flex align-items-center justify-content-between mb-3">
+                <h6><a href="{% url 'make-update' make.id %}" style="color: rgb(0, 0, 243);" >{{ make }}</a></h6>
+                <div class="actions">
+                    <a href="{% url 'make-delete' make.id %}" class="btn btn-outline-danger"><i class="fa-solid fa-trash"></i></a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</article>
+{% endblock content %}

@@ -1,0 +1,20 @@
+{% extends "a/base.html" %}
+{% block content %}
+<article class="media content-section">
+    <div class="p-3 shadow-sm bg-white rounded mb-3">
+        <div class="d-flex align-items-center justify-content-between mb-4">
+            <h3 class="">Select transmission to change</h3>
+            <a href="{% url 'transmission-create' %}" class="btn btn-outline-secondary">Add Transmission <i class="fa-solid fa-plus"></i></a>
+        </div>
+        <hr>
+        {% for transmission in transmissions %}
+            <div class="d-flex align-items-center justify-content-between mb-3">
+                <h6><a href="{% url 'transmission-update' transmission.id %}" style="color: rgb(0, 0, 243);" >{{ transmission }}</a></h6>
+                <div class="actions">
+                    <a href="{% url 'transmission-delete' transmission.id %}" class="btn btn-outline-danger"><i class="fa-solid fa-trash"></i></a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</article>
+{% endblock content %}

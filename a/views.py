@@ -2,6 +2,17 @@ from django.shortcuts import render, redirect
 from django.contrib.admin.views.decorators import staff_member_required
 from accounts.models import User
 from django.db.models import Q
+
+from django.urls import reverse_lazy
+from vehicle.models import Make,Model,Option,Type,Energy,Transmission
+from setup.models import Wilaya,Commune
+from django.views.generic import (
+    CreateView,
+    UpdateView,
+    DeleteView
+)
+
+
 import agency
 from .forms import AdminForm, AgencyForm, AgencyFormCreate, UserForm
 # Create your views here.
@@ -162,8 +173,214 @@ def manage_users_member_add(request):
     context={'u_form':form}
     return render(request, 'a/users/add.html', context)
 
-# setup
+
+# SETUP PART
 @staff_member_required()
 def setup(request):
     return render(request, 'a/setup.html')
 
+##########################
+
+class MakeCreateView(CreateView):
+    model = Make
+    fields = ['name']
+
+class MakeDeleteView(DeleteView):
+    model = Make
+    success_url = reverse_lazy('make-change')
+
+class MakeUpdateView(UpdateView):
+    model = Make
+    fields = ['name']
+
+    def test_func(self):
+        make = self.get_object()
+        return True
+
+
+def MakeChange(request):
+    makes = Make.objects.all()
+    context = {
+        'makes':makes,
+    }
+    return render(request, 'vehicle/make_change.html', context)
+
+#######################
+
+class ModelCreateView(CreateView):
+    model = Model
+    fields = ['make_id','name','series']
+
+class ModelDeleteView(DeleteView):
+    model = Model
+    success_url = reverse_lazy('model-change')
+
+class ModelUpdateView(UpdateView):
+    model = Model
+    fields = ['make_id','name','series']
+
+    def test_func(self):
+        model = self.get_object()
+        return True
+
+def ModelChange(request):
+    models = Model.objects.all()
+    context = {
+        'models':models,
+    }
+    return render(request, 'vehicle/model_change.html', context)
+
+
+
+###########################
+class OptionCreateView(CreateView):
+    model = Option
+    fields = ['name']
+
+class OptionDeleteView(DeleteView):
+    model = Option
+    success_url = reverse_lazy('option-change')
+
+class OptionUpdateView(UpdateView):
+    model = Option
+    fields = ['name']
+
+    def test_func(self):
+        Option = self.get_object()
+        return True
+
+
+def OptionChange(request):
+    Options = Option.objects.all()
+    context = {
+        'options':Options,
+    }
+    return render(request, 'vehicle/option_change.html', context)
+
+
+###########################
+class TypeCreateView(CreateView):
+    model = Type
+    fields = ['name']
+
+class TypeDeleteView(DeleteView):
+    model = Type
+    success_url = reverse_lazy('type-change')
+
+class TypeUpdateView(UpdateView):
+    model = Type
+    fields = ['name']
+
+    def test_func(self):
+        Type = self.get_object()
+        return True
+
+
+def TypeChange(request):
+    types = Type.objects.all()
+    context = {
+        'types':types,
+    }
+    return render(request, 'vehicle/type_change.html', context)
+
+###########################
+class EnergyCreateView(CreateView):
+    model = Energy
+    fields = ['name']
+
+class EnergyDeleteView(DeleteView):
+    model = Energy
+    success_url = reverse_lazy('energy-change')
+
+class EnergyUpdateView(UpdateView):
+    model = Energy
+    fields = ['name']
+
+    def test_func(self):
+        Energy = self.get_object()
+        return True
+
+
+def EnergyChange(request):
+    Energys = Energy.objects.all()
+    context = {
+        'energys':Energys,
+    }
+    return render(request, 'vehicle/energy_change.html', context)
+
+#######################
+class TransmissionCreateView(CreateView):
+    model = Transmission
+    fields = ['name']
+
+class TransmissionDeleteView(DeleteView):
+    model = Transmission
+    success_url = reverse_lazy('transmission-change')
+
+class TransmissionUpdateView(UpdateView):
+    model = Transmission
+    fields = ['name']
+
+    def test_func(self):
+        transmission = self.get_object()
+        return True
+
+
+def TransmissionChange(request):
+    Transmissions = Transmission.objects.all()
+    context = {
+        'transmissions':Transmissions,
+    }
+    return render(request, 'vehicle/transmission_change.html', context)
+
+#######################
+class WilayaCreateView(CreateView):
+    model = Wilaya
+    fields = ['code','name','ar_name','longitude','latitude']
+
+class WilayaDeleteView(DeleteView):
+    model = Transmission
+    success_url = reverse_lazy('wilaya-change')
+
+class WilayaUpdateView(UpdateView):
+    model = Wilaya
+    fields = ['code','name','ar_name','longitude','latitude']
+
+    def test_func(self):
+        Wilaya = self.get_object()
+        return True
+
+
+def WilayaChange(request):
+    Wilayas = Wilaya.objects.all()
+    context = {
+        'wilayas':Wilayas,
+    }
+    return render(request, 'setup/wilaya_change.html', context)
+
+#######################
+class CommuneCreateView(CreateView):
+    model = Commune
+    fields = ['post_code','name','wilaya_id','ar_name','longitude','latitude']
+
+class CommuneDeleteView(DeleteView):
+    model = Commune
+    success_url = reverse_lazy('commune-change')
+
+class CommuneUpdateView(UpdateView):
+    model = Commune
+    fields = ['post_code','name','wilaya_id','ar_name','longitude','latitude']
+
+    def test_func(self):
+        Commune = self.get_object()
+        return True
+
+
+def CommuneChange(request):
+    Communes = Commune.objects.all()
+    context = {
+        'communes':Communes,
+    }
+    return render(request, 'setup/commune_change.html', context)
+
+#######################

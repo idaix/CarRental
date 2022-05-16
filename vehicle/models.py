@@ -1,12 +1,14 @@
 from django.db import models
 
 from agency.models import Agency
-
+from django.urls import reverse
 # Create your models here.
 
 # ------------------ VehicleBrand  -----------------
 class Make(models.Model):
     name = models.CharField(max_length=100)
+    def get_absolute_url(self):
+        return reverse('make-change')
     def __str__(self) -> str:
         return self.name
 
@@ -15,6 +17,8 @@ class Model(models.Model):
     make_id = models.ForeignKey(Make, on_delete=models.CASCADE)
     name = models.CharField(max_length=100, help_text='Model')
     series = models.CharField(max_length=100, help_text='Model', blank=True, null=True)
+    def get_absolute_url(self):
+        return reverse('model-change')
     def __str__(self) -> str:
         return f'{self.make_id.name} {self.name}'
     def get_vehicle_name(self):
@@ -24,6 +28,8 @@ class Model(models.Model):
 class Type(models.Model):
     """Represent the type of vehicle"""
     name = models.CharField(max_length=100, help_text='Type of vehicle')
+    def get_absolute_url(self):
+        return reverse('type-change')
     def __str__(self) -> str:
         return self.name
     
@@ -31,12 +37,16 @@ class Type(models.Model):
 # ------------------ VehicleEngine ----------------------
 class Energy(models.Model):
     name = models.CharField(max_length=50, help_text="Engine name")
+    def get_absolute_url(self):
+        return reverse('energy-change')
     def __str__(self) -> str:
         return self.name
 
 # ------------------ Transmission ----------------------
 class Transmission(models.Model):
     name = models.CharField(max_length=20, help_text="Transmission name")
+    def get_absolute_url(self):
+        return reverse('transmission-change')
     def __str__(self) -> str:
         return self.name
 
@@ -48,6 +58,8 @@ class Option(models.Model):
         return self.name
     class Meta:
         ordering = ['name']
+    def get_absolute_url(self):
+        return reverse('option-change')
 
 # ------------------ Vehicle ----------------------
 class Vehicle(models.Model):
