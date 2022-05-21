@@ -1,5 +1,7 @@
+from multiprocessing import context
 from django.shortcuts import render, redirect
 from django.contrib.admin.views.decorators import staff_member_required
+from a.models import HelpMessage
 from accounts.models import User
 from django.db.models import Q
 
@@ -173,6 +175,17 @@ def manage_users_member_add(request):
     context={'u_form':form}
     return render(request, 'a/users/add.html', context)
 
+# Messages
+def v_messages(request):
+    messages = HelpMessage.objects.all()
+    context={'messages':messages}
+    return render(request, 'a/messages.html', context)
+
+def v_message_read(request, pk):
+    m = HelpMessage.objects.get(pk=pk)
+    print(m)
+    context={'m':m}
+    return render(request, 'a/messages/read.html', context)
 
 # SETUP PART
 @staff_member_required()

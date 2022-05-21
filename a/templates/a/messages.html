@@ -1,0 +1,41 @@
+{% extends 'a/base.html' %}
+{% block title %}Admin @{{request.user.username}}{% endblock %}
+{% block content %}
+<section class="mt-3 mb-3">
+    <h4>Messages</h4>
+    <hr>
+    <div class="table-responsive p-3 shadow-sm bg-white rounded mb-1">
+        {% if messages %}
+          <table class="table table-sm  border-light">
+            <thead class="bg-light text-secondary">
+              <tr>
+                <th scope="col">User</th>
+                <th scope="col">Message</th>
+                <th scope="col">Read</th>
+              </tr>
+            </thead>
+            <tbody>
+                  {% for m in messages %}
+                    <tr>
+                        <td>{{ m.email }}</td>
+                        <td>
+                            {% if m.message|length > 50 %}
+                                {{m.message|slice:':50'}}...
+                            {%else%}
+                                {{m.message}}
+                            {%endif%}
+
+                        </td>
+                        <td>
+                            <a href="{% url 'v_message_read' m.id %}" style="width: fit-content;" class="btn btn-outline-dark d-flex align-items-center"><span class="material-icons-round">email</span>&nbsp <span class="fw-bold">Read</span></a>
+                        </td>
+                    </tr>
+                  {% endfor %}
+            </tbody>
+          </table>
+          
+          {% else %}
+                <p>No Messages</p>
+          {% endif %}
+</section>
+{% endblock %}

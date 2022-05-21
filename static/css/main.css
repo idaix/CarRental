@@ -72,6 +72,38 @@ img {
   background-color: #F0FFC2 !important;
 }
 
+.bg-svg-both {
+  position: relative;
+  overflow: hidden;
+  z-index: -1;
+}
+
+.bg-svg-both::after {
+  position: absolute;
+  content: "";
+  width: 153px;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-image: url("/static/img/shape.svg");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.bg-svg-both::before {
+  position: absolute;
+  content: "";
+  width: 153px;
+  height: 100%;
+  top: 0;
+  right: 0;
+  background-image: url("/static/img/shape.svg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  -webkit-transform: rotate(180deg);
+          transform: rotate(180deg);
+}
+
 .steps_container input.invalid {
   background-color: #ffdddd;
 }

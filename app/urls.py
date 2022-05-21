@@ -13,4 +13,7 @@ urlpatterns = [
     # FEEDBACKS
     path('create_feedback/', views.CreateFeedback, name='create_feedback'),
     path('delete_feedback/<int:pk>', views.DeleteFeedback, name='delete_feedback'),
+    # send message to admin
+    path('send_message_to_admin/', views.send_message_to_admin, name='send_message_to_admin'),
+
 ]

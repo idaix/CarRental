@@ -13,6 +13,9 @@ urlpatterns = [
     path('users/member', views.manage_users_member, name='manage_users_member'),
     path('users/member/add', views.manage_users_member_add, name='manage_users_member_add'),
     path('users/<int:pk>', views.manage_user, name='manage_user'),
+    # messages
+    path('messages/', views.v_messages, name='v_messages'),
+    path('messages/<int:pk>', views.v_message_read, name='v_message_read'),
     # setup
     path('setup', views.setup, name='setup'),
     path('make/new/', MakeCreateView.as_view(), name='make-create'),

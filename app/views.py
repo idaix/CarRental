@@ -2,6 +2,7 @@ from distutils.log import error
 from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
 from django.urls import reverse
+from a.models import HelpMessage
 from app.forms import ClientForm
 from feedbacks.forms import FeedbackForm
 from feedbacks.models import feedback
@@ -243,3 +244,23 @@ def DeleteFeedback(request,pk):
         if request.user.id==comment.client.id:
             comment.delete()
     return redirect('show_all_cars',id)
+
+
+
+
+
+
+def send_message_to_admin(request):
+
+    if request.method == 'POST':
+        email = request.POST.get('email')
+        message = request.POST.get('message')
+
+        if email and message:
+            m = HelpMessage.objects.create(email=email, message=message)
+            m.save()
+            return redirect('home')
+        else:
+            return redirect('home')
+    else:
+        return redirect('home')
