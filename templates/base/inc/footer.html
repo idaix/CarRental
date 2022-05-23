@@ -1,3 +1,4 @@
+{% load static %}
 <div class="container pt-5 pb-5">
   <section class="footer__form_x p-3 rounded col-md-8">
     <form method="post">
@@ -10,7 +11,7 @@
   </section>
   <div class="row pt-5 pb-5">
     <div class="col-md-6">
-      <a class="navbar-brand" href="/">CARENT</a>
+      <a class="navbar-brand" href="{% url 'home' %}"><img src="{% static 'img/autorent.svg' %}" alt="brand" style="width: 150px;"></a>
       <p class="text-white-50">
         The first, only and the best car rental in algeria.
         <br>This website was made by 3 students from Al Borg University as a final undergraduate project
@@ -19,7 +20,7 @@
     <div class="col-md-6">
       <div class="row">
         <div class="col-6 col-md-4 col-lg-3 offset-lg-1 mb-3">
-          <h5>Links</h5>
+          <h5 class="text-primary">Links</h5>
           <ul class="list-unstyled">
             <li class="mb-2"><a href="/">Home</a></li>
             <li class="mb-2"><a href="/">Search</a></li>
@@ -29,7 +30,7 @@
           </ul>
         </div>
         <div class="col-6 col-md-4 col-lg-3 mb-3">
-          <h5>Other Links</h5>
+          <h5 class="text-primary">Other Links</h5>
           <ul class="list-unstyled">
             {% if request.user.is_authenticated %}
               {% if request.user.is_agent %}
@@ -45,7 +46,7 @@
           </ul>
         </div>
         <div class="col-6 col-md-4 col-lg-3 mb-3">
-          <h5>Business</h5>
+          <h5 class="text-primary">Business</h5>
           <ul class="list-unstyled">
             <li class="mb-2"><a href="{% url 'agency_register' %}">Become agent</a></li>
             <li class="mb-2"><a href="#addFaq">Ask FOR Help</a></li>
@@ -56,5 +57,5 @@
     </div>
     <hr>
     </div>
-    <p class="text-center text-small">All rights reserved to CARENT</p>
+    <p class="text-center text-small">All rights reserved to <a class="navbar-brand" href="{% url 'home' %}"><img src="{% static 'img/autorent.svg' %}" alt="brand" style="width: 150px;"></a></p>
 </div>
