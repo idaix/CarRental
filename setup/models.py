@@ -26,8 +26,15 @@ class Commune(models.Model):
     ar_name = models.CharField(max_length=200, blank=True)
     latitude = models.CharField(max_length=50, null=True, blank=True)
     longitude = models.CharField(max_length=50, null=True, blank=True)
+
+    # system need
+    views = models.IntegerField(default=0)
+    def update_views(self):
+        self.views += 1
+        return self.views
+    
     class Meta:
-        ordering=['name']
+        ordering=['-views']
     
     def __str__(self) -> str:
         return self.name

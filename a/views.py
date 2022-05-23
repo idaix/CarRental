@@ -4,7 +4,7 @@ from django.contrib.admin.views.decorators import staff_member_required
 from a.models import HelpMessage
 from accounts.models import User
 from django.db.models import Q
-
+from a.forms import ReolyToMessageForm
 from django.urls import reverse_lazy
 from vehicle.models import Make,Model,Option,Type,Energy,Transmission
 from setup.models import Wilaya,Commune
@@ -183,9 +183,19 @@ def v_messages(request):
 
 def v_message_read(request, pk):
     m = HelpMessage.objects.get(pk=pk)
-    print(m)
-    context={'m':m}
+    if request.method == 'POST':
+        form = ReolyToMessageForm(request.POST, instance=m)
+        if form.is_valid():
+            message = form.save(commit=False)
+            message.is_replied = True
+            message.update_date()
+            message.save()
+            return redirect('v_message_read', pk=pk)
+    else:
+        form = ReolyToMessageForm(instance=m)
+    context={'m':m, 'form':form}
     return render(request, 'a/messages/read.html', context)
+
 
 # SETUP PART
 @staff_member_required()

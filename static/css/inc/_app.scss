@@ -68,8 +68,29 @@ main{
 footer{
     margin-top: 5rem;
     padding-top: 1rem;
-    background-color: rgb(42, 42, 59);
+    background: rgb(2,0,36);
+    background: linear-gradient(90deg, rgba(2,2,64,1) 24%, rgba(32,32,103,1) 100%);
     color: white;
+    .footer__form_x{
+        background-color: #ffffff10;
+        backdrop-filter: blur(12px);
+        margin-right: auto;
+        margin-left: auto;
+        input{
+            flex: 1;
+            background-color: transparent;
+            border: none;
+            outline: none;
+            color: white;
+            border-bottom: 1px solid white;
+            &::placeholder{
+                color: white;
+            }
+        }
+        input,button{
+            padding: .6rem;
+        }
+    }
 }
 
 // manage booking
@@ -164,5 +185,96 @@ footer{
     }
     label{
         display: none;
+    }
+}
+
+.section{
+    margin-top: 5rem;
+    &__title{
+        position: relative;
+        width: fit-content;
+        margin-left: auto;
+        margin-right: auto;
+        transition: .3s;
+        text-transform: capitalize;
+        color: #adb5bd!important;
+        &::before{
+            transition: .3s;
+            content: '';
+            background-color: #adb5bd;
+            width: 50%;
+            height: 1px;
+            position: absolute;
+            bottom: -3px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+    }
+    &:hover{
+        .section__title{
+            color: #0d6efd!important;
+            &::before{
+                width: 100%;
+                background-color: #0d6efd;
+            }
+        }
+    }
+}
+
+.howitworks{
+    margin-top: 7rem;
+    margin-bottom: 7rem;
+    .howitworks__image{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 80px;
+        height: 80px;
+        margin-right: auto;
+        margin-left: auto;
+        span{
+            font-size: 40px;
+        }
+    }
+}
+
+.destinations{
+    .destinations__box{
+        position: relative;
+        overflow: hidden;
+        &:hover{
+            .destinations__explore{
+                right: 0;
+                background-color: #fff;
+            }
+        }
+    }
+    .destinations__explore{
+        width: 50%;
+        height: 100%;
+        position: absolute;
+        bottom: 0;
+        right: -100%;
+        transition: .5s;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        padding-right: 1rem;
+        font-size: 20px;
+    }
+    .destinations__mapicon{
+        width: 60px;
+        height: 60px;
+        span{
+            font-size: 45px;
+        }
+    }
+    .destinations__state{font-size: 12px;}
+}
+
+.faq{
+    .accordion-item{
+        overflow: hidden;
+        border: none;
     }
 }

@@ -1,5 +1,6 @@
 {% extends 'a/base.html' %}
 {% block title %}Admin @{{request.user.username}}{% endblock %}
+{% load crispy_forms_tags %}
 {% block content %}
 <section class="mt-3 mb-3">
     <h4>Messages</h4>
@@ -12,9 +13,15 @@
         <hr>
         <p class="text-secondary">{{m.message}}</p>
     </div>
-    <div class="actions d-flex align-items-center mt-2 justify-content-between">
-        <a href="{% url 'v_messages' %}" class="btn btn-outline-success">Reply</a>
-        <a href="{% url 'v_messages' %}" class="btn btn-outline-secondary">Return back</a>
-    </div>
+    <form method="POST">
+        <div class="p-3 shadow-sm bg-white rounded mb-1">
+            {% csrf_token %}
+            {{ form|crispy }}
+        </div>
+        <div class="actions d-flex align-items-center mt-2 justify-content-between">
+            <button class="btn btn-outline-success" name="submit" type="submit">Reply</button>
+            <a href="{% url 'v_messages' %}" class="btn btn-outline-secondary">Return back</a>
+        </div>
+    </form>
 </section>
 {% endblock %}

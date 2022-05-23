@@ -1,7 +1,9 @@
+from pyexpat import model
 from django.forms import ModelForm
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm
 from agency.models import Agency
+from .models import HelpMessage
 
 
 class UserForm(UserCreationForm):
@@ -23,3 +25,9 @@ class AgencyFormCreate(ModelForm):
     class Meta:
         model=Agency
         fields = ['name', 'contact_phone', 'contact_email', 'contact_website']
+
+
+class ReolyToMessageForm(ModelForm):
+    class Meta:
+        model = HelpMessage
+        fields = ['reply']

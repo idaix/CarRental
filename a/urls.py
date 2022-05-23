@@ -16,6 +16,7 @@ urlpatterns = [
     # messages
     path('messages/', views.v_messages, name='v_messages'),
     path('messages/<int:pk>', views.v_message_read, name='v_message_read'),
+    # path('messages/<int:pk>/reply', views.v_message_reply, name='v_message_reply'),
     # setup
     path('setup', views.setup, name='setup'),
     path('make/new/', MakeCreateView.as_view(), name='make-create'),

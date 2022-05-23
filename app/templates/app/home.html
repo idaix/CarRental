@@ -14,7 +14,7 @@
       </div>
     </div>
     
-    <div class="search-box p-3 shadow mt-5 bg-body">
+    <div class="search-box p-3 shadow mt-5 mb-5 bg-body">
       <form method="get" action="{% url 'search' %}">
         <div class="form">
           <!-- SELECT -->
@@ -41,19 +41,112 @@
         </div>
       </form>
     </div>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
+    <!-- how it works section -->
+    <section class="section p-3 howitworks">
+      <h3 class="section__title pt-3 text-center">How it works</h3>
+      <div class="row mt-5">
+        <div class="col-md-3">
+          <div class="bg-light p-3 rounded">
+            <div class="howitworks__num"></div>
+            <div class="howitworks__image mb-3 rounded border border-1 border-white text-primary text-center bg-body bg-gradient"><span class="opacity-75 material-icons-round">place</span></div>
+            <div class="howitworks__info text-center">
+              <h5 class="text-primary opacity-75">Choose a location</h5>
+
+          </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="bg-light p-3 rounded">
+            <div class="howitworks__image mb-3 rounded border border-1 border-white text-primary text-center bg-body bg-gradient"><span class="opacity-75 material-icons-round">event_available</span></div>
+            <div class="howitworks__info text-center">
+              <h5 class="text-primary opacity-75">Pick-up/Pick-off Date</h5>
+            </div>
+
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="bg-light p-3 rounded">
+            <div class="howitworks__image mb-3 rounded border border-1 border-white text-primary text-center bg-body bg-gradient"><span class="opacity-75 material-icons-round">car_rental</span></div>
+            <div class="howitworks__info text-center">
+              <h5 class="text-primary opacity-75">Choose agency</h5>
+            </div>
+
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="bg-light p-3 rounded">
+            <div class="howitworks__image mb-3 rounded border border-1 border-white text-primary text-center bg-body bg-gradient"><span class="opacity-75 material-icons-round">assignment_turned_in</span></div>
+            <div class="howitworks__info text-center">
+              <h5 class="text-primary opacity-75">Book your car</h5>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Our most popular destinations -->
+    {% if popular_detinations%}
+        <section class="section p-3 destinations bg-light rounded">
+        <h3 class="section__title pt-3 text-center">Our most popular destinations</h3>
+        <div class="row mt-5">
+          {% for d in popular_detinations %}
+            <div class="col-md-4 mb-3">
+                <div class="destinations__box d-flex bg-white rounded bg-white p-3">
+                  <div class="destinations__mapicon text-primary"><span class="opacity-75 material-icons-round">place</span></div>
+                  <div>
+                    <h5 class="destinations__city mb-0 text-dark">{{ d.name }}</h5>
+                    <p class="destinations__state text-black-50 p-0 mb-0">{{d.wilaya_id.name}}</p>
+                  </div>
+                  <a href="{% url 'search' %}?wilaya={{d.wilaya_id.id}}&commune={{d.id}}&date-start=0000-00-00&date-end=0000-00-00" class="destinations__explore text-primary opacity-75 d-flex align-items-center">Explore<span class="material-icons-round">near_me</span></a>
+                </div>
+            </div>
+          {% endfor %}
+          
+        </div>
+      </section>
+    {% endif %}
+    <!-- FAQ -->
+    <section class="section p-3 faq bg-light rounded">
+      <h3 class="section__title pt-3 mb-5 text-center">FAQ</h3>
+      <div class="accordion bm-3" id="accordionFlushExample">
+          {% if faq %}
+            {% for q in faq %}
+              <div class="accordion-item mb-2 rounded">
+                <h2 class="accordion-header" id="flush-heading{{q.id}}">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse{{q.id}}" aria-expanded="false" aria-controls="flush-collapse{{q.id}}">
+                    {{ q.message }}
+                  </button>
+                </h2>
+                <div id="flush-collapse{{q.id}}" class="accordion-collapse collapse" aria-labelledby="flush-heading{{q.id}}" data-bs-parent="#accordionFlushExample">
+                  <div class="accordion-body text-secondary">{{ q.reply }}</div>
+                </div>
+              </div>
+            {% endfor %}
+          {% else %}
+              <p class="text-center text-black-50">No quations yet!</p>
+          {% endif %}
+      </div>
+      <p class="text-secondary text-end mt-1 mb-1">
+        Any questions? <a href="#addFaq" class="text-primary">Add quation</a>
+      </p>
+    </section>
+    <section class="section rounded card shadow-sm bg-body p-3" id="addFaq">
+      <h4 class="section__title mb-4">Ask For Help?</h4>
+      <div class="col-md-10 me-auto rounded ms-auto p-3">
+            <form action="{% url 'send_message_to_admin' %}" method="post">
+              {% csrf_token %}
+              <div class="form-floating mb-3">
+                <input name="email" type="email" class="form-control" placeholder="Email address" id="floatingInput">
+                <label for="floatingInput">Your Email</label>
+              </div>
+              <div class="form-floating mb-2">
+                <textarea name="message" class="form-control" placeholder="Leave a message here" id="floatingTextarea2" style="height: 100px"></textarea>
+                <label for="floatingTextarea2">Your Message</label>
+              </div>
+              <button class="btn btn-primary p-2" >Send Message</button>
+            </form>
+      </div>
+    </section>
 </div>
 <script>
   console.log('red')

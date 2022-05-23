@@ -13,13 +13,17 @@ class Agency(models.Model):
     contact_phone = models.CharField(max_length=12, blank=True)
     contact_email = models.CharField(max_length=150, blank=True)
     contact_website = models.CharField(max_length=150, null=True, blank=True)
-
+    # --- no need ---
     state = models.CharField(max_length=100, blank=True)
     city = models.CharField(max_length=100, blank=True)
+    # --- --- ---
     address = models.CharField(max_length=250, blank=True)
-
     wilaya = models.ForeignKey(Wilaya, on_delete=models.SET_NULL, null=True)
     commune = models.ForeignKey(Commune, on_delete=models.SET_NULL, null=True)
+    # --- show on map ---
+    latitude = models.CharField(max_length=50, null=True, blank=True)
+    longitude = models.CharField(max_length=50, null=True, blank=True)
+
     available_cars_count = models.IntegerField(default=0)
     
     # system
@@ -37,3 +41,8 @@ class Agency(models.Model):
 
     def get_full_address(self):
         return f'{self.wilaya.name}, {self.commune.name} - {self.address}'
+    
+
+
+    def get_geo(self):
+        return [float(self.latitude), float(self.longitude)]

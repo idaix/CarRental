@@ -1,7 +1,9 @@
 from distutils.log import error
+import json
 from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
 from django.urls import reverse
+from django.core import serializers
 from a.models import HelpMessage
 from app.forms import ClientForm
 from feedbacks.forms import FeedbackForm
@@ -18,8 +20,12 @@ from django.contrib.auth.decorators import login_required
 
 def home(request):
     wilayas = Wilaya.objects.all()
+    popular_detinations = Commune.objects.all()[:6]
+    faq = HelpMessage.objects.filter(is_replied=True)[:4]
     context = {
         'wilayas': wilayas,
+        'popular_detinations': popular_detinations,
+        'faq': faq,
     }
     return render(request, 'app/home.html', context)
 
@@ -27,6 +33,7 @@ def home(request):
 # SEARCH FORM
 def search(request):
 
+    print(request.GET)
     # Quique check if city selected
     if request.GET.get('commune'):
         state = Wilaya.objects.get(id=request.GET.get('wilaya'))
@@ -35,6 +42,11 @@ def search(request):
         date_end = request.GET.get('date-end', '')
     else:
         return redirect('home')
+    
+    if city:
+        city.update_views()
+        city.save()
+
     # GET RESULT------------------
     result=[]
     agencies = Agency.objects.filter(commune=city)
@@ -45,11 +57,16 @@ def search(request):
     # for sidebar...
     # MAP---
     geocode = city.longitude, city.latitude
-    print(geocode)
     types = Type.objects.all()
     energy = Energy.objects.all()
     transmission = Transmission.objects.all()
     wilayas = Wilaya.objects.all()
+
+
+    # this data used to show agencies in map 
+    # data = {}
+    # data = serializers.serialize('json', result)
+    # data = json.dumps(agencies)
     context = {
         'geocode':geocode,
         'wilayas':wilayas,

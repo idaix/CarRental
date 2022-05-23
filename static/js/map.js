@@ -12,4 +12,17 @@ if (lt && lg){
     }
 
     window.initMap = initMap;
+
+    for (let i = 0; i < data.length; i++) {
+        console.log(data[i]);   
+    }
+    //markers
+    // data.map((position) => {
+        // console.log(position);
+        // const marker = new google.maps.Marker({
+        //     position,
+        //     map:map
+        // })
+        
+    // })
 }

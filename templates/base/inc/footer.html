@@ -1,32 +1,60 @@
-<div class="container">
-    <div class="row pt-5">
-        <div class="col-md-3">
-            <a class="navbar-brand" href="/">CARENT</a>
-        </div>
-        <div class="col-md-3">
-            <ul>
-              <li>Home</li>
-              <li>About</li>
-              <li>Contact</li>
-              <li>Report</li>
-            </ul>
-        </div>
-        <div class="col-md-3">
-          <ul>
-            <li>Home</li>
-            <li>About</li>
-            <li>Contact</li>
-            <li>Report</li>
+<div class="container pt-5 pb-5">
+  <section class="footer__form_x p-3 rounded col-md-8">
+    <form method="post">
+      <p class="text-center">Stay in touch</p>
+      <div class="d-flex align-items-center">
+          <input type="text" placeholder="Email">
+          <button class="btn btn-outline-light">Subscribe</button>
+      </div>
+    </form>
+  </section>
+  <div class="row pt-5 pb-5">
+    <div class="col-md-6">
+      <a class="navbar-brand" href="/">CARENT</a>
+      <p class="text-white-50">
+        The first, only and the best car rental in algeria.
+        <br>This website was made by 3 students from Al Borg University as a final undergraduate project
+      </p>
+    </div>
+    <div class="col-md-6">
+      <div class="row">
+        <div class="col-6 col-md-4 col-lg-3 offset-lg-1 mb-3">
+          <h5>Links</h5>
+          <ul class="list-unstyled">
+            <li class="mb-2"><a href="/">Home</a></li>
+            <li class="mb-2"><a href="/">Search</a></li>
+            <li class="mb-2"><a href="/">About</a></li>
+            <li class="mb-2"><a href="/">Contact</a></li>
+            <li class="mb-2"><a href="#addFaq">Help</a></li>
           </ul>
         </div>
-        <div class="col-md-3 pb-5">
-          <div class="input-group mb-3">
-            <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="button-addon2">
-            <button class="btn btn-outline-secondary" type="button" id="button-addon2">Send</button>
-          </div>
+        <div class="col-6 col-md-4 col-lg-3 mb-3">
+          <h5>Other Links</h5>
+          <ul class="list-unstyled">
+            {% if request.user.is_authenticated %}
+              {% if request.user.is_agent %}
+              <li class="mb-2"><a href="{% url 'dashboard' %}">Dashboard</a></li>
+            {% endif %}
+              <li class="mb-2"><a href="{% url 'profile' %}">Profile</a></li>
+              <li class="mb-2"><a href="{% url 'logout' %}">Logout</a></li>
+            {% else %}
+              <li class="mb-2"><a href="{% url 'login' %}">Login</a></li>
+              <li class="mb-2"><a href="{% url 'register' %}">Register</a></li>
+              <li class="mb-2"><a href="{% url 'password_reset' %}">Reset Password</a></li>
+            {% endif %}
+          </ul>
         </div>
-        <h6 class="text-center text-small">All rights reserved to <a class="navbar-brand" href="/">CARENT</a></h6>
+        <div class="col-6 col-md-4 col-lg-3 mb-3">
+          <h5>Business</h5>
+          <ul class="list-unstyled">
+            <li class="mb-2"><a href="{% url 'agency_register' %}">Become agent</a></li>
+            <li class="mb-2"><a href="#addFaq">Ask FOR Help</a></li>
+            <li class="mb-2"><a href="">Become agent</a></li>
+          </ul>
+        </div>
+      </div>
     </div>
-      
-
+    <hr>
+    </div>
+    <p class="text-center text-small">All rights reserved to CARENT</p>
 </div>
