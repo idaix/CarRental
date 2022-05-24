@@ -24,6 +24,42 @@
             </ul>
             <ul class="navbar-nav mb-2 mb-lg-0">
               {% if request.user.is_authenticated %}
+              <li class="nav-item dropdown notification-section">
+                <a href="#" class="notification dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+                  aria-expanded="true">
+                  <span><i class='fa fa-bell'></i></span>
+                  {% if orders %}
+                    <span class="badge" id="notification-badge">*</span>
+                  {% endif %}
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown" id="notifications-dropdown"
+                  data-popper-placement="bottom-end"
+                  style="position: absolute; inset: 0px auto auto 0px; margin: 0px; transform: translate3d(-70px, 42px, 0px);">
+                {% if orders %}
+                    {% for order in orders %}
+                    <li>
+                    <tr>
+                      <!-- <td><b>Order: </b>{{ order.vehicle.get_title }}</td> -->
+                      <td><B>New Order: </B><a href="{% url 'agency_vehicle_details' order.vehicle.id %}">{{ order.vehicle.get_title }}</a></td>
+                      <td>
+                        {% if order.is_available %}
+                          {% if order.vehicle.is_available %}
+                            <a class="btn btn-success" href="{% url 'accept_order' order.id %}?return_to=dashboard">Accept</a>
+                          {% else %}
+                            <span class="text-danger">Car Not available</span>
+                          {% endif %}
+                        {% endif %}
+                      </td>
+                      <td><a class="btn btn-outline-primary" href="{% url 'order_detail' order.id %}">More details</a></td>
+                    </tr>
+                  </li>
+                  <hr>
+                  {% endfor %}
+                {% else %}
+                  <li>No Orders</li>
+                {% endif %}
+                </ul>
+              </li>
                 {% if request.user.agency %}
                   <li class="nav-item">
                     <a class="nav-link btn" href="{% url 'dashboard' %}">Dashboard</a>
