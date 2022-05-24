@@ -199,9 +199,12 @@ main {
   color: #777;
 }
 
+.home .search-box .form .btn {
+  margin-top: 20px;
+}
+
 @media screen and (max-width: 750px) {
   .home .search-box .form .btn {
-    margin-top: 20px;
     width: 60%;
     margin-left: auto;
     margin-right: auto;
@@ -511,3 +514,67 @@ footer .footer__form_x input, footer .footer__form_x button {
   border: none;
 }
 /*# sourceMappingURL=main.css.map */
+
+.notification {
+  color: #0d6efd;
+  text-decoration: none;
+  padding: 5px 10px;
+  position: relative;
+  display: inline-block;
+  font-size: 20px;
+  margin-right: 20px;
+}
+
+/* .notification:hover {
+  background: #0b5ed7;
+  color: #fff;
+} */
+
+.notification .badge {
+  position: absolute;
+  top: -2px;
+  right: -10px;
+  color: red;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.notification-section .dropdown-toggle::after {
+  content: none;
+}
+
+.dropdown-toggle::after {
+  color: #fff;
+}
+
+#notifications-dropdown li {
+  max-width: 500px;
+  word-wrap: break-word;
+  display: inline-block;
+  white-space: normal;
+}
+
+#notifications-dropdown.dropdown-menu {
+  width: 25rem;
+}
+
+#notifications-dropdown.dropdown-menu li {
+  padding-left: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.deals {
+  height: 100vh;
+}
+
+.col .card {
+  height: 350px;
+  padding: 15px;
+  border: 1px solid;
+  border-radius: 0;
+}
+
+.col .card img {
+  height: 100px;
+}
