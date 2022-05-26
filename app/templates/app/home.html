@@ -2,19 +2,19 @@
 {% load static %}
 {% block title%}Autorent{% endblock %}
 {% block content%}
-<div class="home pt-5">
+<div class="home pt-2">
     <div class="row banner align-items-center">
-      <div class="col-md-6 pt-5">
+      <div class="col-md-6 pt-2">
         <h2 class="text-primary">Car Hire - Search, Compare & Save.<br>Hawes Ga3 <span class="badge bg-primary">DZAYER</span> .</h2>
         <p class="description text-black-50">Compare all agencies inside Algeria.</p>
       </div>
-      <div class="col-md-6">
-        <img src="{% static 'img/worldmap.svg' %}" alt="banner">
+      <div class="col-md-6 world-banner">
+        <img src="{% static 'img/worldmap.svg' %}" class="world-banner-image" alt="banner">
         <!-- <img src="{% static 'img/AlgeriaVector.svg' %}" alt="banner"> -->
       </div>
     </div>
     
-    <div class="search-box p-3 shadow mt-3 mb-5 bg-body">
+    <div class="search-box p-3 shadow mt-2 mb-5 bg-body">
       <form method="get" action="{% url 'search' %}">
         <div class="form">
           <!-- SELECT -->
@@ -132,7 +132,7 @@
     </section>
     <section class="section rounded card shadow-sm bg-body p-3" id="addFaq">
       <h4 class="section__title mb-4">Ask For Help?</h4>
-      <div class="col-md-10 me-auto rounded ms-auto p-3">
+      <div class="col-12 col-md-10 me-auto rounded ms-auto p-3">
             <form action="{% url 'send_message_to_admin' %}" method="post">
               {% csrf_token %}
               <div class="form-floating mb-3">

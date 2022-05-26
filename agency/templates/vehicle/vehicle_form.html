@@ -1,0 +1,31 @@
+{% extends 'agency/base.html' %}
+{% load crispy_forms_tags %}
+<!-- TITLE -->
+{% block title %}Add Vehicle{% endblock %}
+<!-- TITLE -->
+
+<!-- CONTENT -->
+{% block content %}
+<div class="container mt-3 mb-3">
+    <form method="POST" enctype="multipart/form-data" action="{% url 'add_vehicle'%}">
+        {% csrf_token %}
+        
+        <!-- <label>Make *</label>
+        <select name="make" hx-get="{% url 'model_field'%}" hx-target="#model-select" class="form-select" aria-label="Default select example">
+            <option selected>Select Make</option>
+            {% for make in makes %}
+                <option value="{{make.id}}">{{ make.name }}</option>
+            {% endfor %}.
+        </select>
+        <br>
+        {% include 'vehicle/partials/model_field.html'%} -->
+        {{ form|crispy }}
+        <input type="file" name="images" multiple>
+        <div class="mt-3 d-flex align-items-center justify-content-between">
+            <input type="submit" class="btn btn-primary" value="Save" name="submit">
+            <a class="btn btn-outline-secondary" href="{% url 'dashboard' %}">Cancel</a>
+        </div>
+    </form>
+</div>
+{% endblock %}
+<!-- CONTENT -->

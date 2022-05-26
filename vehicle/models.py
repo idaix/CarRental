@@ -100,7 +100,10 @@ class Vehicle(models.Model):
 
     # Methods
     def get_title(self):
-        return f'{self.model.get_vehicle_name()} {self.year}'
+        if self.model:
+            return f'{self.model.get_vehicle_name()} {self.year}'
+        else:
+            return 'Unknown'
     def get_price(self):
         return f'{self.price} DZD'
     def update_views(self):

@@ -1,3 +1,4 @@
+from pyexpat import model
 from django.shortcuts import render, redirect
 from django.contrib.auth import login
 from django.views.generic.edit import UpdateView
@@ -10,6 +11,8 @@ from setup.models import Wilaya, Commune
 from django.contrib.auth.decorators import login_required
 from django.views.generic.edit import DeleteView
 from django.urls import reverse_lazy
+from django.views.generic import CreateView
+
 
 
 # Agency Registration ...
@@ -31,7 +34,7 @@ def register(request):
             agency.save()
             # login user
             login(request, user)
-            return redirect('agency_profile')
+            return redirect('profile')
     else:
         user_form = RegisterUserForm()
         agency_form = RegisterAgencyForm()
@@ -156,14 +159,16 @@ def add_vehicle(request):
                         belong_to = vehicle,
                         image = image
                     )
-                    if new_image.save():
-                        print('Done')
-            # update thumbnail
+                    new_image.save()
+                # update thumbnail
                 random_image = Images.objects.filter(belong_to=vehicle)[0]
                 vehicle.thumbnail = random_image
                 vehicle.save()
+            else:pass
             return redirect('dashboard')
-        
+        else:
+            return redirect('dashboard')
+
     else:
         form = VehicleForm()
 
@@ -184,6 +189,7 @@ def model_field(request):
 def update_vehicle(request, pk):
     vehicle = Vehicle.objects.get(pk=pk)
     if request.method == 'POST':
+        print(request.POST)
         form = VehicleForm(request.POST, instance=vehicle)
         if form.is_valid():
             form.save()

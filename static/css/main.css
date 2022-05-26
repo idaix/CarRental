@@ -199,9 +199,12 @@ main {
   color: #777;
 }
 
+.home .search-box .form .btn {
+  margin-top: 22px;
+}
+
 @media screen and (max-width: 750px) {
   .home .search-box .form .btn {
-    margin-top: 20px;
     width: 60%;
     margin-left: auto;
     margin-right: auto;
@@ -509,5 +512,13 @@ footer .footer__form_x input, footer .footer__form_x button {
 .faq .accordion-item {
   overflow: hidden;
   border: none;
+}
+
+@media (max-width: 766px) {
+  .world-banner {
+    width: 400px;
+    margin-right: auto;
+    margin-left: auto;
+  }
 }
 /*# sourceMappingURL=main.css.map */
