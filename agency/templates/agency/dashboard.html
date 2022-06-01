@@ -40,6 +40,11 @@
   </div>
 </section>
 <!-- <canvas class="my-4 w-100" id="myChart" width="900" height="10"></canvas> -->
+<!-- MESSAGES -->
+{% for m in messages %}
+  <div class="alert alert-success rounded">{{m}}</div>  
+
+{% endfor %}
 
 <section class="p-3 mb-3 bg-white shadow-sm rounded" id="garage">
   <header class="d-flex align-items-center justify-content-between mb-2">

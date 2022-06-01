@@ -12,6 +12,7 @@ from django.contrib.auth.decorators import login_required
 from django.views.generic.edit import DeleteView
 from django.urls import reverse_lazy
 from django.views.generic import CreateView
+from django.contrib import messages
 
 
 
@@ -34,6 +35,8 @@ def register(request):
             agency.save()
             # login user
             login(request, user)
+            msg = f'Account created, Please confirm your email'
+            messages.success(request, msg)
             return redirect('profile')
     else:
         user_form = RegisterUserForm()
@@ -78,7 +81,10 @@ def agency_profile_edit(request):
             agency.state = agency.wilaya.name
             agency.city = agency.commune.name
             agency.save()
-            return redirect('agency_profile')
+
+            msg = f"Changes saved."
+            messages.success(request, msg)
+            return redirect('profile')
     else:
         u_form = UserUpdateForm(instance=request.user)
         p_form = ProfileForm(instance=profile)
@@ -95,9 +101,9 @@ def agency_profile_edit(request):
 
 
 # Agency Edit ... (i used UpdateView)
-class AgencyUpdateView(UpdateView):
-    model = Agency
-    fields = ['name', 'image', 'contact_phone', 'contact_website', 'location']
+# class AgencyUpdateView(UpdateView):
+#     model = Agency
+#     fields = ['name', 'image', 'contact_phone', 'contact_website', 'location']
 
 # DASHBOARD PAGE
 @login_required
@@ -165,6 +171,8 @@ def add_vehicle(request):
                 vehicle.thumbnail = random_image
                 vehicle.save()
             else:pass
+            msg = f'{vehicle.get_title()} successfully added'
+            messages.success(request, msg)
             return redirect('dashboard')
         else:
             return redirect('dashboard')
@@ -188,6 +196,7 @@ def model_field(request):
 @login_required
 def update_vehicle(request, pk):
     vehicle = Vehicle.objects.get(pk=pk)
+    images = Images.objects.filter(belong_to=vehicle)
     if request.method == 'POST':
         print(request.POST)
         form = VehicleForm(request.POST, instance=vehicle)
@@ -201,12 +210,16 @@ def update_vehicle(request, pk):
                 )
                 if new_image.save():
                     print('Done')
+            msg = f'{vehicle.get_title()} successfully updated.'
+            messages.success(request, msg)
             return redirect('dashboard')
     else:
         form = VehicleForm(instance=vehicle)
     
     context = {
-        'form':form
+        'form':form,
+        'images':images,
+        'car':vehicle,
     }
     return render(request, 'vehicle/update_vehicle.html', context=context)
 
@@ -215,6 +228,10 @@ class VehicleDelete(DeleteView):
     model = Vehicle
     success_url = reverse_lazy('dashboard')
 
+def update_vehicle_image(request, pk, pk_img):
+    img = Images.objects.get(pk=pk_img)
+    img.delete()
+    return redirect('vehicle_update', pk=pk)
 # change status
 @login_required
 def change_status_vehicle(request, pk):
@@ -223,9 +240,13 @@ def change_status_vehicle(request, pk):
     if car.is_available:
         car.is_available = False
         car.save()
+        msg = f'{car.get_title()} disabled.'
     else:
         car.is_available = True
         car.save()
+        msg = f'{car.get_title()} enabled.'
+        
+    messages.success(request, msg)
     return redirect('dashboard')
 
 
@@ -243,6 +264,8 @@ def accept_order(request, pk):
             vehicle.save()
             order.save()
     if return_to == 'dashboard':
+        msg = f"You have accepted {order.client.get_full_name()}."
+        messages.success(request, msg)
         return redirect(return_to)
     else:
         return redirect(return_to, pk=pk)

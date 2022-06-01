@@ -1,7 +1,7 @@
 {% extends 'agency/base.html' %}
 {% load crispy_forms_tags %}
 <!-- TITLE -->
-{% block title %}Update Vehicle{% endblock %}
+{% block title %}Update {{car.get_title}}{% endblock %}
 <!-- TITLE -->
 
 <!-- CONTENT -->
@@ -11,6 +11,20 @@
     <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form|crispy }}
+        <!-- images -->
+        {% if images %}
+            <h3>Images</h3>
+            <div class="row">
+                {% for image in images %}
+                    <div class="col-md-3">
+                        <div class="card mb-1 update_car_image">
+                            <a href="{% url 'vehicle_update_image' car.id image.id %}" class="update_car_image_delete" title="delete this image"><span class="material-icons-round">clear</span></a>
+                            <img style="width: 100%;" src="{{ image.image.url }}" alt="{{ image.vehicle.model.getModel }}">
+                        </div>
+                    </div>
+                {%endfor%}
+            </div>    
+        {%endif%}
         <input type="file" name="images" multiple>
         <div class="mt-3 d-flex align-items-center justify-content-between">
             <input type="submit" class="btn btn-primary" value="Save" name="submit">

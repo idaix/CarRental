@@ -288,3 +288,13 @@ footer{
         margin-left: auto;
     }
 }
+
+.update_car_image{
+    position: relative;
+    .update_car_image_delete{
+        position: absolute;
+        top: 0;
+        right: 0;
+        cursor: pointer;
+    }
+}

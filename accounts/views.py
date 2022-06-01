@@ -5,6 +5,7 @@ from agency.forms import ProfileForm, UserUpdateForm
 from agency.models import Agency
 from setup.models import Commune, Wilaya
 from .forms import RegisterForm
+from django.contrib import messages
 
 def register(request):
     if request.method =="POST":
@@ -57,6 +58,8 @@ def profile_edit(request):
                 agency.state = agency.wilaya.name
                 agency.city = agency.commune.name
                 agency.save()
+                msg = f"Changes saved."
+                messages.success(request, msg)
                 return redirect('profile')
         else:
             u_form = UserUpdateForm(instance=request.user)
