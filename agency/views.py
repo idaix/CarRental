@@ -224,9 +224,18 @@ def update_vehicle(request, pk):
     return render(request, 'vehicle/update_vehicle.html', context=context)
 
 
+def delete_vehicle(request, pk):
+    car = Vehicle.objects.get(pk=pk)
+    car_name = car.get_title()
+    if car.delete():
+        msg = f'{car_name } was deleted successfully.'
+        messages.success(request, msg)
+    return redirect('dashboard')
+
 class VehicleDelete(DeleteView):
     model = Vehicle
     success_url = reverse_lazy('dashboard')
+    success_message = "Car was deleted successfully."
 
 def update_vehicle_image(request, pk, pk_img):
     img = Images.objects.get(pk=pk_img)

@@ -15,13 +15,17 @@ from order.models import Order
 from django.db.models import Q
 from datetime import datetime
 from django.contrib.auth.decorators import login_required
+import random
 
 # Create your views here.
 
 def home(request):
     wilayas = Wilaya.objects.all()
     popular_detinations = Commune.objects.all()[:6]
-    faq = HelpMessage.objects.filter(is_replied=True)[:4]
+    faq = list(HelpMessage.objects.filter(is_replied=True))
+    if len(faq)>4:
+        faq = random.sample(faq, 4)
+    
     context = {
         'wilayas': wilayas,
         'popular_detinations': popular_detinations,
