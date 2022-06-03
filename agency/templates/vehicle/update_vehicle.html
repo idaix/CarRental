@@ -1,7 +1,7 @@
 {% extends 'agency/base.html' %}
 {% load crispy_forms_tags %}
 <!-- TITLE -->
-{% block title %}Update {{car.get_title}}{% endblock %}
+{% block title %}Update {{vehicle.get_title}}{% endblock %}
 <!-- TITLE -->
 
 <!-- CONTENT -->
@@ -10,6 +10,17 @@
     
     <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
+        <label>Make</label>
+        <select name="make" class="form-select" hx-get="{% url 'update_model_field' vehicle.id %}" hx-target="#model-select" hx-trigger="changed,load"> 
+            {% for make in makes %}
+            
+            {% if make == vehicle.make %}
+            <option selected value="{{make.id}}">{{make.name}}</option>
+            {%else%}
+            <option value="{{make.id}}">{{make.name}}</option>
+            {%endif%}
+            {%endfor%}
+        </select> {% include 'vehicle/partials/update_model_field.html'%} 
         {{ form|crispy }}
         <!-- images -->
         {% if images %}
@@ -18,7 +29,7 @@
                 {% for image in images %}
                     <div class="col-md-3">
                         <div class="card mb-1 update_car_image">
-                            <a href="{% url 'vehicle_update_image' car.id image.id %}" class="update_car_image_delete" title="delete this image"><span class="material-icons-round">clear</span></a>
+                            <a href="{% url 'vehicle_update_image' vehicle.id image.id %}" class="update_car_image_delete" title="delete this image"><span class="material-icons-round">clear</span></a>
                             <img style="width: 100%;" src="{{ image.image.url }}" alt="{{ image.vehicle.model.getModel }}">
                         </div>
                     </div>

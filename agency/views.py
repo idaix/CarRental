@@ -197,11 +197,15 @@ def model_field(request):
 def update_vehicle(request, pk):
     vehicle = Vehicle.objects.get(pk=pk)
     images = Images.objects.filter(belong_to=vehicle)
+    makes = Make.objects.all()
     if request.method == 'POST':
         print(request.POST)
         form = VehicleForm(request.POST, instance=vehicle)
         if form.is_valid():
-            form.save()
+            vehicle = form.save(commit=False)
+            vehicle.owned_by = request.user
+            vehicle.make=Make.objects.get(id=request.POST.get('make'))
+            vehicle.model=Model.objects.get(id=request.POST.get('model'))
             images = request.FILES.getlist('images')
             for image in images:
                 new_image = Images(
@@ -219,18 +223,29 @@ def update_vehicle(request, pk):
     context = {
         'form':form,
         'images':images,
-        'car':vehicle,
+        'vehicle':vehicle,
+        'makes':makes,
     }
     return render(request, 'vehicle/update_vehicle.html', context=context)
 
+def update_model_field(request,pk):
+    vehicle=Vehicle.objects.get(pk=pk)
+    models=Model.objects.filter(make_id=vehicle.make)
+    
+    if request.method == 'GET':
+        models=Model.objects.filter(make_id = request.GET.get('make'))
+    context={'models':models,'vehicle':vehicle}
+    return render(request, 'vehicle/partials/update_model_field.html', context=context)
 
-def delete_vehicle(request, pk):
-    car = Vehicle.objects.get(pk=pk)
-    car_name = car.get_title()
-    if car.delete():
-        msg = f'{car_name } was deleted successfully.'
-        messages.success(request, msg)
-    return redirect('dashboard')
+# delete vehicle
+
+# def delete_vehicle(request, pk):
+#     car = Vehicle.objects.get(pk=pk)
+#     car_name = car.get_title()
+#     if car.delete():
+#         msg = f'{car_name } was deleted successfully.'
+#         messages.success(request, msg)
+#     return redirect('dashboard')
 
 class VehicleDelete(DeleteView):
     model = Vehicle

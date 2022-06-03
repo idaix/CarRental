@@ -23,10 +23,13 @@
                     {{ u_form|crispy }}
                     {{ p_form|crispy }}
                     <label>State *</label>
-                    <select name="wilaya" hx-get="{% url 'commune_field'%}" hx-target="#commune-select" class="form-select" aria-label="Default select example">
-                        <option value="{{ profile.wilaya.id }}" selected>{{profile.wilaya.name}}</option>
+                    <select name="wilaya" hx-get="{% url 'commune_field'%}" hx-target="#commune-select" hx-trigger="load,change" class="form-select" aria-label="Default select example">
                         {% for w in wilayas %}
-                            <option value="{{w.id}}">{{ w.name }}</option>
+                            {% if w.id == profile.wilaya.id %}
+                                <option value="{{w.id}}" selected>{{ w.name }}</option>
+                            {% else %}
+                                <option value="{{w.id}}">{{ w.name }}</option>
+                            {% endif %}
                         {% endfor %}.
                     </select>
                     {% include 'location/partials/commune_field.html'%}

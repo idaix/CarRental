@@ -1,0 +1,12 @@
+<div id="model-select">
+    <label>model</label>
+    <select name="model" class="form-select">
+        {% for model in models %}
+        {% if model.id == vehicle.model.id %}
+        <option selected value="{{model.id}}" >{{model.name}}</option>
+        {%else%}
+        <option value="{{model.id}}">{{model.name}}</option>
+        {%endif%}
+        {%endfor%}
+    </select>
+</div>
