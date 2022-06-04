@@ -11,7 +11,8 @@ from setup.models import Wilaya,Commune
 from django.views.generic import (
     CreateView,
     UpdateView,
-    DeleteView
+    DeleteView,
+    ListView,
 )
 
 
@@ -221,12 +222,20 @@ class MakeUpdateView(UpdateView):
         return True
 
 
-def MakeChange(request):
-    makes = Make.objects.all()
-    context = {
-        'makes':makes,
-    }
-    return render(request, 'vehicle/make_change.html', context)
+# def MakeChange(request):
+#     makes = Make.objects.all()
+#     context = {
+#         'makes':makes,
+#     }
+#     return render(request, 'vehicle/make_change.html', context)
+
+class MakeListView(ListView):
+    model = Make
+    template_name = 'vehicle/make_change.html'  # <app>/<model>_<viewtype>.html
+    context_object_name = 'makes'
+    paginate_by = 8
+
+
 
 #######################
 
@@ -246,12 +255,18 @@ class ModelUpdateView(UpdateView):
         model = self.get_object()
         return True
 
-def ModelChange(request):
-    models = Model.objects.all()
-    context = {
-        'models':models,
-    }
-    return render(request, 'vehicle/model_change.html', context)
+# def ModelChange(request):
+#     models = Model.objects.all()
+#     context = {
+#         'models':models,
+#     }
+#     return render(request, 'vehicle/model_change.html', context)
+
+class ModelListView(ListView):
+    model = Make
+    template_name = 'vehicle/model_change.html'  # <app>/<model>_<viewtype>.html
+    context_object_name = 'models'
+    paginate_by = 8
 
 
 
@@ -273,12 +288,18 @@ class OptionUpdateView(UpdateView):
         return True
 
 
-def OptionChange(request):
-    Options = Option.objects.all()
-    context = {
-        'options':Options,
-    }
-    return render(request, 'vehicle/option_change.html', context)
+# def OptionChange(request):
+#     Options = Option.objects.all()
+#     context = {
+#         'options':Options,
+#     }
+#     return render(request, 'vehicle/option_change.html', context)
+
+class OptionListView(ListView):
+    model = Option
+    template_name = 'vehicle/option_change.html'  # <app>/<model>_<viewtype>.html
+    context_object_name = 'options'
+    paginate_by = 8
 
 
 ###########################
@@ -299,12 +320,19 @@ class TypeUpdateView(UpdateView):
         return True
 
 
-def TypeChange(request):
-    types = Type.objects.all()
-    context = {
-        'types':types,
-    }
-    return render(request, 'vehicle/type_change.html', context)
+# def TypeChange(request):
+#     types = Type.objects.all()
+#     context = {
+#         'types':types,
+#     }
+#     return render(request, 'vehicle/type_change.html', context)
+
+class TypeListView(ListView):
+    model = Type
+    template_name = 'vehicle/type_change.html'  # <app>/<model>_<viewtype>.html
+    context_object_name = 'types'
+    paginate_by = 8
+
 
 ###########################
 class EnergyCreateView(CreateView):
@@ -324,12 +352,19 @@ class EnergyUpdateView(UpdateView):
         return True
 
 
-def EnergyChange(request):
-    Energys = Energy.objects.all()
-    context = {
-        'energys':Energys,
-    }
-    return render(request, 'vehicle/energy_change.html', context)
+# def EnergyChange(request):
+#     Energys = Energy.objects.all()
+#     context = {
+#         'energys':Energys,
+#     }
+#     return render(request, 'vehicle/energy_change.html', context)
+
+class EnergyListView(ListView):
+    model = Energy
+    template_name = 'vehicle/energy_change.html'  # <app>/<model>_<viewtype>.html
+    context_object_name = 'energys'
+    paginate_by = 8
+
 
 #######################
 class TransmissionCreateView(CreateView):
@@ -349,12 +384,18 @@ class TransmissionUpdateView(UpdateView):
         return True
 
 
-def TransmissionChange(request):
-    Transmissions = Transmission.objects.all()
-    context = {
-        'transmissions':Transmissions,
-    }
-    return render(request, 'vehicle/transmission_change.html', context)
+# def TransmissionChange(request):
+#     Transmissions = Transmission.objects.all()
+#     context = {
+#         'transmissions':Transmissions,
+#     }
+#     return render(request, 'vehicle/transmission_change.html', context)
+
+class TransmissionListView(ListView):
+    model = Transmission
+    template_name = 'vehicle/transmission_change.html'  # <app>/<model>_<viewtype>.html
+    context_object_name = 'transmissions'
+    paginate_by = 8
 
 #######################
 class WilayaCreateView(CreateView):
@@ -374,12 +415,18 @@ class WilayaUpdateView(UpdateView):
         return True
 
 
-def WilayaChange(request):
-    Wilayas = Wilaya.objects.all()
-    context = {
-        'wilayas':Wilayas,
-    }
-    return render(request, 'setup/wilaya_change.html', context)
+# def WilayaChange(request):
+#     Wilayas = Wilaya.objects.all()
+#     context = {
+#         'wilayas':Wilayas,
+#     }
+#     return render(request, 'setup/wilaya_change.html', context)
+
+class WilayaListView(ListView):
+    model = Wilaya
+    template_name = 'setup/wilaya_change.html'  # <app>/<model>_<viewtype>.html
+    context_object_name = 'wilayas'
+    paginate_by = 8
 
 #######################
 class CommuneCreateView(CreateView):
@@ -399,11 +446,17 @@ class CommuneUpdateView(UpdateView):
         return True
 
 
-def CommuneChange(request):
-    Communes = Commune.objects.all()
-    context = {
-        'communes':Communes,
-    }
-    return render(request, 'setup/commune_change.html', context)
+# def CommuneChange(request):
+#     Communes = Commune.objects.all()
+#     context = {
+#         'communes':Communes,
+#     }
+#     return render(request, 'setup/commune_change.html', context)
+
+class CommuneListView(ListView):
+    model = Commune
+    template_name = 'setup/commune_change.html'  # <app>/<model>_<viewtype>.html
+    context_object_name = 'communes'
+    paginate_by = 8
 
 #######################
