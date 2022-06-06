@@ -89,7 +89,7 @@ class Vehicle(models.Model):
     mileage = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
     description = models.TextField(max_length=1000, help_text='Small description (1000)', null=True, blank=True)
     # Options
-    options = models.ManyToManyField(Option, related_name='vehicle', blank=True)
+    options = models.ManyToManyField(Option, blank=True)
     # System -----------------------------------------
     created_at = models.DateTimeField(auto_now_add=True)
     views = models.IntegerField(default=0)

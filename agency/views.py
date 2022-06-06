@@ -149,6 +149,7 @@ def vehicle_details(request, pk):
 def add_vehicle(request):
     if request.method == 'POST':
         form = VehicleForm(request.POST)
+        print(request.POST)
         if form.is_valid():
             # create the vehicle
             vehicle = form.save(commit=False)
@@ -156,6 +157,7 @@ def add_vehicle(request):
             vehicle.make=Make.objects.get(id=request.POST.get('make'))
             vehicle.model=Model.objects.get(id=request.POST.get('model'))
             vehicle.save()
+            form.save_m2m()
             # Add images that belong to this vehicle
             # collect multiple images
             images = request.FILES.getlist('images')
@@ -203,9 +205,10 @@ def update_vehicle(request, pk):
         form = VehicleForm(request.POST, instance=vehicle)
         if form.is_valid():
             vehicle = form.save(commit=False)
-            vehicle.owned_by = request.user
             vehicle.make=Make.objects.get(id=request.POST.get('make'))
             vehicle.model=Model.objects.get(id=request.POST.get('model'))
+            vehicle.save()
+            form.save_m2m()
             images = request.FILES.getlist('images')
             for image in images:
                 new_image = Images(
