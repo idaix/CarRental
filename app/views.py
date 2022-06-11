@@ -218,7 +218,8 @@ def manage_booking(request):
             return redirect('home')
         else:
             # get unique order
-            order = Order.objects.get(pk=int(number))
+            try: order = Order.objects.get(pk=int(number))
+            except: return redirect('home')
             client = order.client
             vehicle = order.vehicle
             # check if this order awned by this email
