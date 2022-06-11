@@ -24,8 +24,8 @@
           <ul class="list-unstyled">
             <li class="mb-2"><a href="/">Home</a></li>
             <li class="mb-2"><a href="/">Search</a></li>
-            <li class="mb-2"><a href="/">About</a></li>
-            <li class="mb-2"><a href="/">Contact</a></li>
+            <li class="mb-2"><a href="{% url 'about_page' %}">About</a></li>
+            <li class="mb-2"><a href="{% url 'contact_page' %}">Contact</a></li>
             <li class="mb-2"><a href="#addFaq">Help</a></li>
           </ul>
         </div>
@@ -50,7 +50,6 @@
           <ul class="list-unstyled">
             <li class="mb-2"><a href="{% url 'agency_register' %}">Become agent</a></li>
             <li class="mb-2"><a href="#addFaq">Ask FOR Help</a></li>
-            <li class="mb-2"><a href="">Become agent</a></li>
           </ul>
         </div>
       </div>

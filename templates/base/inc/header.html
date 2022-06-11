@@ -13,10 +13,10 @@
                 <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Home</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#about">About</a>
+                <a class="nav-link" href="{% url 'about_page' %}">About</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#addFaq">Contact</a>
+                <a class="nav-link" href="{% url 'contact_page' %}">Contact</a>
               </li>
               
             </ul>
@@ -29,7 +29,7 @@
                 {% endif %}
                 {% if request.user.is_superuser %}
                   <li class="nav-item">
-                    <a class="nav-link btn" href="{% url 'admin-dashboard' %}">Admin</a>
+                    <a class="nav-link btn" href="{% url 'manage_users' %}">Adminstration</a>
                   </li>
                 {% endif %}
                 <!-- Example single danger button -->

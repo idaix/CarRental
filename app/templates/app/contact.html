@@ -1,0 +1,54 @@
+{% extends 'base/base.html' %}
+{% block title %}Contact AUTORENT{% endblock %}
+{% block content %}
+<div class="container mt-3 mb-3">
+    <div class="container mt-3 mb-3">
+        <div class="rounded shadow-sm bg-light p-3 mt-4">
+            
+            <h1 class="text-center text-dark pb-4">Contact us</h1>
+            <div class="col-md-9 me-auto ms-auto">
+                <div class="row">
+                    <div class="col-md-8">
+                        <p class="">The first, only and the best car rental in algeria.
+                            This website was made by 3 students from Mohamed El Bachir El Ibrahimi University of Bordj Bou Arréridj El-Anasser as a final undergraduate project.</p>
+                    </div>
+                    <div class="col-md-4">
+                        <a href="{% url 'about_page' %}" class="btn btn-primary">Learn more about us</a>
+                    </div>
+                </div>
+                <div class="col-md-12 mt-3 text-secondary">
+                    <div class="d-flex align-items-center mb-2 ">
+                        <span style="width: 40px;" class="material-icons-round">place</span>
+                        Mohamed El Bachir El Ibrahimi University, El-Anasser, Bordj Bou Arréridj
+                    </div>
+                    <div class="d-flex align-items-center mb-2">
+                        <span style="width: 40px;" class="material-icons-round">phone</span>
+                        213 55 55 55 55
+                    </div>
+                    <div class="d-flex align-items-center mb-2">
+                        <span style="width: 40px;" class="material-icons-round">email</span>
+                        carrentalalgeria@gmail.com
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="rounded shadow bg-body p-3 mt-4">
+        <h4 class="text-center text-secondary pb-4">Leave a message</h4>
+        <div class="col-md-10 me-auto text-center rounded ms-auto p-3">
+              <form action="{% url 'send_message_to_admin' %}" method="post">
+                {% csrf_token %}
+                <div class="form-floating mb-3">
+                  <input name="email" type="email" class="form-control" placeholder="Email address" id="floatingInput">
+                  <label for="floatingInput">Your Email</label>
+                </div>
+                <div class="form-floating mb-2">
+                  <textarea name="message" class="form-control" placeholder="Leave a message here" id="floatingTextarea2" style="height: 100px"></textarea>
+                  <label for="floatingTextarea2">Your Message</label>
+                </div>
+                <button class="btn btn-primary p-2" >Send Message</button>
+              </form>
+        </div>
+      </div>
+</div>
+{% endblock %}

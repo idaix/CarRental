@@ -1,0 +1,58 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block title %}About AUTORENT{% endblock %}
+{% block content %}
+<div class="container mt-3 mb-3">
+    <div class="rounded shadow-sm bg-light p-3 mt-4">
+        <h4 class="text-center text-secondary pb-4">Who We Are?</h4>
+        
+    </div>
+    <div class="rounded shadow-sm bg-light p-3 mt-4">
+        <h4 class="text-center text-secondary pb-4">Why us?</h4>
+        <div class="col-md-12 rounded me-auto bg-body  ms-auto mb-2">
+          <div class="row align-items-center p-3">
+            <div class="col-md-8 text-center text-md-start">
+              <h3 class="text-primary">Easy Managment</h3>
+              <p class='text-black-50'>AUTORENT provides you full functionality dashboard, to manage easly your rental business.</p>
+            </div>
+            <div class="col-md-3 text-center text-md-end">
+              <img style="width: 100px;" src="{% static 'img/dashboard.png' %}" alt="banner dashboard">
+            </div>
+          </div>
+        </div>
+        <div class="col-md-12 rounded me-auto bg-body  ms-auto mb-2">
+          <div class="row align-items-center p-3">
+            <div class="col-md-8 text-center text-md-start">
+              <h3 class="text-primary">We Are Unique</h3>
+              <p class='text-black-50'>First car rental platform in algeria.</p>
+            </div>
+            <div class="col-md-3 text-center text-md-end">
+              <img style="width: 100px;" src="{% static 'img/exclusive.png' %}" alt="banner dashboard">
+            </div>
+          </div>
+        </div>
+        <div class="col-md-12 rounded me-auto bg-body  ms-auto mb-2">
+          <div class="row align-items-center p-3">
+            <div class="col-md-8 text-center text-md-start">
+              <h3 class="text-primary">Free Account</h3>
+              <p class='text-black-50'>Get all feuters for free.</p>
+            </div>
+            <div class="col-md-3 text-center text-md-end">
+              <img style="width: 100px;" src="{% static 'img/free.png' %}" alt="banner dashboard">
+            </div>
+          </div>
+        </div>
+        <div class="col-md-12 rounded me-auto bg-body  ms-auto mb-2">
+          <div class="row align-items-center p-3">
+            <div class="col-md-8 text-center text-md-start">
+              <h3 class="text-primary">Hard Competition</h3>
+              <p class='text-black-50'>Be the best in your region.</p>
+            </div>
+            <div class="col-md-3 text-center text-md-end">
+              <img style="width: 100px;" src="{% static 'img/podium.png' %}" alt="banner dashboard">
+            </div>
+          </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

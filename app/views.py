@@ -34,6 +34,13 @@ def home(request):
     return render(request, 'app/home.html', context)
 
 
+# contact page
+def contact_page(request):
+    return render(request, 'app/contact.html')
+# home page
+def about_page(request):
+    return render(request, 'app/about.html')
+
 # SEARCH FORM
 def search(request):
 
@@ -138,9 +145,15 @@ def vehicle_details(request, pk):
     vehicle.save()
     # get vehicle images 
     images = Images.objects.filter(belong_to=vehicle)
+    city = request.GET.get('city', '')
+    date_start = request.GET.get('date-start', '')
+    date_end = request.GET.get('date-end', '') 
     context = {
         'vehicle': vehicle,
         'images': images,
+        'city':city,
+        'date_start':date_start,
+        'date_end':date_end,
     }
     return render(request, 'app/vehicle.html', context=context)
 
