@@ -16,6 +16,7 @@ from django.db.models import Q
 from datetime import datetime
 from django.contrib.auth.decorators import login_required
 import random
+from django.contrib import messages
 
 # Create your views here.
 
@@ -228,11 +229,16 @@ def manage_booking(request):
         number = request.POST.get('number')
         # check if empty
         if not email or not number:
+            msg = f'Empty field! Please fill the fields'
+            messages.success(request, msg)
             return redirect('home')
         else:
             # get unique order
             try: order = Order.objects.get(pk=int(number))
-            except: return redirect('home')
+            except:
+                msg = f'Invalid reservation number!'
+                messages.success(request, msg)
+                return redirect('home')
             client = order.client
             vehicle = order.vehicle
             # check if this order awned by this email
@@ -244,6 +250,8 @@ def manage_booking(request):
                 }
                 return render(request, 'app/booking/order_detail.html', context=context)
             else:
+                msg = f'Email or reservation number not correct!'
+                messages.success(request, msg)
                 return redirect('home')
 
     else:

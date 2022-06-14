@@ -1,11 +1,11 @@
 {% load static %}
 <div class="container pt-5 pb-5">
   <section class="footer__form_x p-3 rounded col-md-8">
-    <form method="post">
+    <form>
       <p class="text-center">Stay in touch</p>
       <div class="d-flex align-items-center">
-          <input type="text" placeholder="Email">
-          <button class="btn btn-outline-light">Subscribe</button>
+          <input type="text" class="newsEmailFild" placeholder="Email">
+          <button class="btn btn-outline-light newsOnClick" onclick="doSomthing()">Subscribe</button>
       </div>
     </form>
   </section>
@@ -13,7 +13,7 @@
     <div class="col-md-6">
       <a class="navbar-brand" href="{% url 'home' %}"><img src="{% static 'img/autorent.png' %}" alt="brand" style="width: 150px;"></a>
       <p class="text-white-50">
-        The first, only and the best car rental in algeria.
+        The first, only and the best car rental platform in algeria.
         <br>This website was made by 3 students from Mohamed El Bachir El Ibrahimi University of Bordj Bou Arréridj El-Anasser as a final undergraduate project.
       </p>
     </div>
@@ -58,3 +58,15 @@
     </div>
     <p class="text-center text-small">All rights reserved to <a class="navbar-brand" href="{% url 'home' %}"><img src="{% static 'img/autorent.png' %}" alt="brand" style="width: 150px;"></a></p>
 </div>
+
+<script>
+  let newsEmailFild = document.querySelector('.newsEmailFild')
+  console.log(newsEmailFild)
+  function doSomthing(){
+    if (newsEmailFild.value) {
+      alert('Thank you <3')
+    }else{
+      alert('Empty Field! Please insert your email.')
+    }
+  }
+</script>

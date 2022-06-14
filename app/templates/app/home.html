@@ -3,6 +3,9 @@
 {% block title%}Autorent{% endblock %}
 {% block content%}
 <div class="home pt-2">
+  {% for m in messages %}
+    <div class="fixed-bottom alert alert-dark rounded" style="width: fit-content; left: 1rem;">{{m}}</div>  
+  {% endfor %}
     <div class="row banner align-items-center">
       <div class="col-md-6 pt-2">
         <h2 class="text-primary">Car Hire - Search, Compare & Save.<br>Hawes Ga3 <span class="badge bg-primary">DZAYER</span> .</h2>
@@ -97,7 +100,7 @@
                     <h5 class="destinations__city mb-0 text-dark">{{ d.name }}</h5>
                     <p class="destinations__state text-black-50 p-0 mb-0">{{d.wilaya_id.name}}</p>
                   </div>
-                  <a href="{% url 'search' %}?wilaya={{d.wilaya_id.id}}&commune={{d.id}}&date-start=0000-00-00&date-end=0000-00-00" class="destinations__explore text-primary opacity-75 d-flex align-items-center">Explore<span class="material-icons-round">near_me</span></a>
+                  <a href="{% url 'search' %}?wilaya={{d.wilaya_id.id}}&commune={{d.id}}" class="destinations__explore text-primary opacity-75 d-flex align-items-center">Explore<span class="material-icons-round">near_me</span></a>
                 </div>
             </div>
           {% endfor %}
