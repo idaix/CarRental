@@ -53,3 +53,9 @@ Migrate
     py .\manage.py loaddata type.json
     py .\manage.py loaddata type.json
     py .\manage.py loaddata options.json
+
+
+Run on local host
+
+    py .\manage.py runserver
+    
