@@ -1,0 +1,50 @@
+{% extends 'agency/base.html' %}
+<!-- TITLE -->
+{% block title %}My plan{% endblock %}
+<!-- TITLE -->
+
+<!-- CONTENT -->
+{% block content %}
+    <section class="p-3 mb-3 mt-3 bg-white shadow-sm rounded">
+        <h1>My plan</h1>
+
+        {% if is_active %}
+            <!-- Show information for plan -->
+            <h4>Plan status: <span class="badge bg-light text-primary">Pro</span></h4>
+            <form method="post">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-primary">Unsubscribe</button>
+            </form>
+        {% else %}
+            <h5>Plan status: <span class="badge bg-light text-danger">Free</span></h5>
+            <div class="card bg-white shadow-sm rounded p-3" style="width: 300px;">
+                <div class="text-center">
+                    <h3 class="text-secondary">Pro</h3>
+                    <strong class="text-success">1999 DZD</strong>
+                </div>
+                <hr>
+                <ul class="text-secondary">
+                    <li>&#10004; Unlimited garage vehicles.</li>
+                </ul>
+                <hr>
+                <form method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-primary w-100">Subscribe</button>
+                </form>
+            </div>
+        {% endif %}
+
+        <!-- Messages Block -->
+        {% for m in messages %}
+            {% if m.tags == 'warning' %}
+                <div class="alert alert-danger rounded mt-3">{{m}}</div>
+            {% else %}
+                <div class="alert alert-success rounded mt-3">{{m}}</div>  
+            {% endif %}
+        {% endfor %}
+        <!-- Messages Block -->
+    </section>
+
+
+    {% endblock %}
+<!-- CONTENT -->

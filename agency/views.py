@@ -1,4 +1,3 @@
-from pyexpat import model
 from django.shortcuts import render, redirect
 from django.contrib.auth import login
 from django.views.generic.edit import UpdateView
@@ -13,6 +12,8 @@ from django.views.generic.edit import DeleteView
 from django.urls import reverse_lazy
 from django.views.generic import CreateView
 from django.contrib import messages
+
+from .models import Subscription 
 
 
 
@@ -32,6 +33,11 @@ def register(request):
             agency.commune=Commune.objects.get(id=request.POST.get('commune'))
             agency.state = agency.wilaya.name
             agency.city = agency.commune.name
+            # agency.save()
+            # Subscription
+            new_subscription = Subscription(price=4000.00)
+            new_subscription.save()
+            agency.subscription = new_subscription
             agency.save()
             # login user
             login(request, user)
@@ -147,52 +153,83 @@ def vehicle_details(request, pk):
 # ADD VEHICLE
 @login_required
 def add_vehicle(request):
-    if request.method == 'POST':
-        form = VehicleForm(request.POST)
-        print(request.POST)
-        if form.is_valid():
-            # create the vehicle
-            vehicle = form.save(commit=False)
-            vehicle.owned_by = request.user.agency
-            vehicle.make=Make.objects.get(id=request.POST.get('make'))
-            vehicle.model=Model.objects.get(id=request.POST.get('model'))
-            vehicle.save()
-            form.save_m2m()
-            # Add images that belong to this vehicle
-            # collect multiple images
-            images = request.FILES.getlist('images')
-            if images:
-                for image in images:
-                    new_image = Images(
-                        belong_to = vehicle,
-                        image = image
-                    )
-                    new_image.save()
-                # update thumbnail
-                random_image = Images.objects.filter(belong_to=vehicle)[0]
-                vehicle.thumbnail = random_image
+    v_count = Vehicle.objects.filter(owned_by=request.user.agency).count()
+    if request.user.agency.subscription.is_active or v_count < 2:
+        if request.method == 'POST':
+            form = VehicleForm(request.POST)
+            print(request.POST)
+            if form.is_valid():
+                # create the vehicle
+                vehicle = form.save(commit=False)
+                vehicle.owned_by = request.user.agency
+                vehicle.make=Make.objects.get(id=request.POST.get('make'))
+                vehicle.model=Model.objects.get(id=request.POST.get('model'))
                 vehicle.save()
-            else:pass
-            msg = f'{vehicle.get_title()} successfully added'
-            messages.success(request, msg)
-            return redirect('dashboard')
+                form.save_m2m()
+                # Add images that belong to this vehicle
+                # collect multiple images
+                images = request.FILES.getlist('images')
+                if images:
+                    for image in images:
+                        new_image = Images(
+                            belong_to = vehicle,
+                            image = image
+                        )
+                        new_image.save()
+                    # update thumbnail
+                    random_image = Images.objects.filter(belong_to=vehicle)[0]
+                    vehicle.thumbnail = random_image
+                    vehicle.save()
+                else:pass
+                msg = f'{vehicle.get_title()} successfully added'
+                messages.success(request, msg)
+                return redirect('dashboard')
+            else:
+                return redirect('dashboard')
+
         else:
-            return redirect('dashboard')
+            form = VehicleForm()
 
+        makes=Make.objects.all()
+        context = {
+            'form':form,
+            'makes':makes,
+            'v_count':v_count,
+        }
+        return render(request, 'vehicle/add_vehicle.html', context=context)
     else:
-        form = VehicleForm()
-
-    makes=Make.objects.all()
-    context = {
-        'form':form,
-        'makes':makes
-    }
-    return render(request, 'vehicle/add_vehicle.html', context=context)
+        msg = f'You\'re on free-plan! Upgrade your plan.'
+        # messages.success(request, msg)
+        messages.warning(request, msg)
+        return redirect('dashboard')
 def model_field(request):
     if request.method == 'GET':
             models=Model.objects.filter(make_id = request.GET.get('make'))
             context={'models':models}
             return render(request, 'vehicle/partials/model_field.html', context=context)
+
+# MY PLANE
+@login_required
+def my_plan(request):
+    is_active = request.user.agency.subscription.is_active
+    if request.method == 'POST':
+        if is_active:
+            request.user.agency.subscription.deactivate()
+            msg = 'Deactivated!'
+            messages.warning(request, msg)
+        else:
+            request.user.agency.subscription.activate()
+            msg = 'Activated'
+            messages.success(request, msg)
+
+        return redirect('myplan')
+    else:
+        context = {
+            'is_active': is_active,
+        }
+    
+    return render(request, 'agency/myplan.html', context=context)
+
 
 # UPDATE VEHICLE
 @login_required

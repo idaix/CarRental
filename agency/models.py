@@ -4,9 +4,28 @@ from setup.models import Wilaya, Commune
 
 from PIL import Image
 
+
+# Subscription
+class Subscription(models.Model):
+    date_start = models.DateTimeField(auto_now_add=True)
+    # date_end = models
+    price = models.DecimalField(max_digits=8, decimal_places=2)
+    is_active = models.BooleanField(default=False)
+
+    def __str__(self) -> str:
+        return f'plan {self.id}'
+
+    def activate(self):
+        self.is_active = True
+        self.save()
+    def deactivate(self):
+        self.is_active = False
+        self.save()
+
 # create [Profile] model
 class Agency(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='agency')
+    subscription = models.OneToOneField(Subscription, on_delete=models.CASCADE, related_name='agency', null=True)
     name = models.CharField(max_length=150)
     bio = models.TextField(max_length=500, blank=True, help_text='(500)')
     # image = models.ImageField(default="default/default_profile_image.svg", upload_to='profile_images/%y/%m/%d', blank=True)

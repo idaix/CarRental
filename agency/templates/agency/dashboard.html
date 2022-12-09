@@ -11,27 +11,30 @@
   <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
     <h1 class="h2">Dashboard</h1>
   </div>
+  <!-- {% if not request.user.agency.subscription.is_active %}
+    <div class="alert alert-warning rounded">You're on free plan! Up your plan</div>  
+  {% endif %} -->
   <div class="row mb-3">
     <div class="col-md-3">
-      <div class="card card-styled bg-light-blue mb-3 shadow-sm rounded">
+      <div class="card card-styled bg-light-blue mb-3  rounded">
         <span class="material-icons-two-tone icon">visibility</span>
         <div class="text">{{ views_count }} views</div>
       </div>
     </div>
     <div class="col-sm-3">
-      <div class="card card-styled bg-light-green mb-3 shadow-sm rounded">
+      <div class="card card-styled bg-light-green mb-3  rounded">
         <span class="material-icons-two-tone icon">directions_car</span>
         <div class="text">{{ vehicles_count }} vehicles</div>
       </div>
     </div>
     <div class="col-sm-3">
-      <div class="card card-styled bg-light-pink mb-3 shadow-sm rounded">
+      <div class="card card-styled bg-light-pink mb-3  rounded">
         <span class="material-icons-two-tone icon">content_paste</span>
         <div class="text">{{ orders_count }} Orders</div>
       </div>
     </div>
     <div class="col-sm-3">
-      <div class="card card-styled bg-light-yellow shadow-sm rounded">
+      <div class="card card-styled bg-light-yellow  rounded">
         <span class="material-icons-two-tone icon">people</span>
         <div class="text">{{ clients_count }} Clients</div>
       </div>
@@ -42,7 +45,11 @@
 <!-- <canvas class="my-4 w-100" id="myChart" width="900" height="10"></canvas> -->
 <!-- MESSAGES -->
 {% for m in messages %}
-  <div class="alert alert-success rounded">{{m}}</div>  
+  {% if m.tags == 'warning' %}
+    <div class="alert alert-warning rounded">{{m}}</div>
+  {% else %}
+    <div class="alert alert-success rounded">{{m}}</div>  
+  {% endif %}
 {% endfor %}
 
 <section class="p-3 mb-3 bg-white shadow-sm rounded" id="garage">

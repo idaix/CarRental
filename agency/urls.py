@@ -10,6 +10,7 @@ urlpatterns = [
     # path('profile/edit', views.agency_profile_edit, name='agency_profile_edit'),
     # path('profile/edit/<int:pk>', views.AgencyUpdateView.as_view(), name='agency_profile_edit'),
     path('dashboard/', views.dashboard, name='dashboard'),
+    path('dashboard/plan', views.my_plan, name='myplan'),
     # AGENCY VEHICLE URLS
     path('vehicle/<int:pk>', views.vehicle_details, name='agency_vehicle_details'),
     path('vehicle/add_vehicle/', views.add_vehicle, name='add_vehicle'),
