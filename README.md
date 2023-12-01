@@ -29,18 +29,15 @@ Autorent was made by 3 students from Mohamed El Bachir El Ibrahimi University of
 ### Run `AUTORENT`  in your local machine
  Setup envirnement
  
-	py venv -envname-
-Install django
-
-	pip install django
-Install dependencies
-
-	pip install Pillow
-	pip install django-crispy-forms
+	py -m venv -envname-
 Clone repository
 
     git clone git@github.com:daishek/CarRental.git
     cd CarRental
+
+Install requirements
+
+	pip install -r requirements.txt
 Migrate
 
     py .\manage.py migrate
