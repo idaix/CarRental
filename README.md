@@ -32,7 +32,7 @@ Autorent was made by 3 students from Mohamed El Bachir El Ibrahimi University of
 	py -m venv -envname-
 Clone repository
 
-    git clone git@github.com:daishek/CarRental.git
+    git clone https://github.com/daishek/CarRental.git
     cd CarRental
 
 Install requirements
